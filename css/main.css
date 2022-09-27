@@ -1,5 +1,5 @@
 html {
-    background-color: #04D4F0;
+    background-color: #49D292;
     height: 100%;
     font-family: Arial, Helvetica, monospace;
 
@@ -12,7 +12,42 @@ body {
 
 }
 
-h1 {}
+a {
+    background: #49D292;
+    color:#111111;
+    border-radius: 4px;
+    padding: 0 2px 0 2px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 1px 0 1px;
+    cursor: pointer;
+}
+
+a:link {
+    color:#111111;
+}
+
+/* visited link */
+a:visited {
+    color:#111111;
+}
+
+/* mouse over link */
+a:hover {
+    background-color: #123524;
+    color: #49D292;
+}
+
+/* selected link */
+a:active {
+    color:#111111;
+}
+
+
+p {
+    white-space: pre-wrap;
+}
 
 .main {
     margin: 0;
@@ -23,57 +58,51 @@ h1 {}
 
 
 .block {
-    height: 100%;
+    min-height: 100%;
     padding-left: 2em;
-    padding-right:1em;
-    padding-top: 30px;
-    margin-bottom:30px;
+    padding-right: 2em;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
 
-    background-color: #010100;
-    color: #04D4F0;
-    
+    background-color: #111111;
+    color: #49D292;
+}
+
+.block img {
+    padding: 1em;
+    width: 90%;
+}
+
+.block h1 {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+}
+
+.block h1 a {
+    all: unset;
+    background-color: #111111;
+    color: #49D292;
+    cursor: pointer;
 
 }
 
-.main .block:nth-child(2n) {
+
+/* mouse over link */
+.block h1 a:hover {
+    background-color: #123524;
+    color: #49D292;
+}
+
+/* .main .block:nth-child(2n) {
     color: #FD7F20;
-
-
-}
-
-.main .block:nth-child(3n) {
-    color: #F8D210;
-}
-
-.main .block:nth-child(4n) {
-    color: #FA26A0;
-}
-
-.main .block:nth-child(5n) {
-    color: #F51720;
-}
-
-
-
+} */
 
 
 .sticky {
     position: fixed;
-    top: 30px;
     margin-left: 630px;
-    color:#010100;
-    width:300px;
-    font-size: 1em;
-    overflow : auto;
-}
-.sticky.big {
-    font-size: 1.01em;
-
-}
-.sticky.bigger {
-    font-size: 1.02em;
-    margin-top: -2px;
-
+    width: 300px;
+    height: 100%
 }
 
 
@@ -81,9 +110,12 @@ h1 {}
     position: fixed;
     bottom: 10px;
     margin-left: 0.1em;
-    color:#04D4F0;
+    color: #49D292;
     font-size: 3em;
-    font-family:'Times New Roman', Times, serif;
+    text-shadow: 1px 3px #111111;
+
+    font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
 }
 
 
@@ -97,4 +129,19 @@ h1 {}
         max-width: 700px;
 
     }
+}
+
+.youtube {
+    position: relative;
+    width: 100%;
+    height: 0;
+    margin-top: 1em;
+    padding-bottom: 56.25%;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

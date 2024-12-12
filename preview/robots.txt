@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: file:////home/nihil/Documents/Publii/sites/supernihil/preview/sitemap.xml

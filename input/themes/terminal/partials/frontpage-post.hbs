@@ -1,0 +1,77 @@
+<main>
+   {{#getPost @config.custom.frontPost}}
+{{#if @customHTML.afterPost}}
+         <div class="banner banner--before-post">
+            {{{@customHTML.afterPost}}}
+         </div>
+      {{/if}}
+      <article class="post">      
+         <header>
+            <h1 class="post__title">{{title}}</h1>
+            {{#checkIfAny postViewConfig.displayDate postViewConfig.displayAuthor}}
+               <div class="post__meta">
+                  {{#if postViewConfig.displayDate}}
+                     <time datetime="{{date createdAt 'YYYY-MM-DDTHH:mm'}}" class="post__date">
+                        {{#checkIf @config.custom.formatDate '!=' 'custom'}}
+                           {{date createdAt @config.custom.formatDate}}
+                        {{else}}
+                           {{date createdAt @config.custom.formatDateCustom}}
+                        {{/checkIf}}
+                     </time>
+                  {{/if}}
+               
+                  {{#if postViewConfig.displayAuthor}}
+                     <span class="post__author">
+                        {{#author}}
+                           <a href="{{url}}" class="feed__author">{{name}}</a>
+                        {{/author}}
+                     </span>
+                  {{/if}}
+               </div>
+            {{/checkIfAny}}   
+
+            {{#if postViewConfig.displayTags}}
+               {{#if tags}}
+                  <div class="post__tags">
+                        {{#each tags}}
+                           <a href="{{url}}" class="invert">{{name}}</a>
+                        {{/each}} 
+                  </div>
+               {{/if}}
+            {{/if}}
+         </header>
+
+         <div class="post__entry">           
+            {{{text}}}            
+         </div>
+
+         {{#if postViewConfig.displayLastUpdatedDate}}
+            <footer class="wrapper post__footer">
+                  {{#if modifiedAt}}
+                     <p class="post__last-updated">
+                        {{ translate 'post.lastUpdatedDate' }}
+                        {{#checkIf @config.custom.formatDate '!=' 'custom'}}
+                           {{date modifiedAt @config.custom.formatDate}}
+                        {{else}}
+                           {{date modifiedAt @config.custom.formatDateCustom}}
+                        {{/checkIf}}
+                     </p>
+                  {{/if}}
+            </footer>
+         {{/if}}
+      </article>
+      
+      {{#if postViewConfig.displayComments}}
+         <div class="post__comments">
+            {{{@commentsCustomCode}}}
+         </div>
+      {{/if}}
+
+      {{#if @customHTML.afterPost}}
+         <div class="banner banner--after-post">
+            {{{@customHTML.afterPost}}}
+         </div>
+      {{/if}}
+    
+   {{/getPost}}
+</main>

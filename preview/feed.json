@@ -1,0 +1,170 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "supernihil",
+    "description": "",
+    "home_page_url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview",
+    "feed_url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/feed.json",
+    "user_comment": "",
+    "author": {
+        "name": "supernihil"
+    },
+    "items": [
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/left-you-behind.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/left-you-behind.html",
+            "title": "left you behind",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/isKDiC5HGUo?si=5qkY3MTtjiKmHDvR\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/13/Screenshot-from-2024-12-12-10-45-48.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video"
+            ],
+            "date_published": "2024-06-05T10:45:00+02:00",
+            "date_modified": "2024-12-12T10:45:59+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/rotteraes.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/rotteraes.html",
+            "title": "Rotteræs",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/he0rzqIOsc8?si=zFSK27dEI9B6YQSd\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/15/Screenshot-from-2024-12-12-10-48-08.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video"
+            ],
+            "date_published": "2024-05-27T10:48:00+02:00",
+            "date_modified": "2024-12-12T10:48:36+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/you-make-me-smile.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/you-make-me-smile.html",
+            "title": "you make me smile",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/Q4Vs-DHTJQM?si=R9Pkberu4o9mV4iE\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/14/Screenshot-from-2024-12-12-10-46-46.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video"
+            ],
+            "date_published": "2023-12-01T10:47:00+01:00",
+            "date_modified": "2024-12-12T10:47:14+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/video.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/video.html",
+            "title": "otpei (feat hllw) - Ro",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/fwYM107GNf0?si=3-1xYzv9N-7al33J\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/1/Screenshot-from-2024-12-12-09-52-30.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video",
+                   "programatic"
+            ],
+            "date_published": "2023-10-25T09:54:00+02:00",
+            "date_modified": "2024-12-12T10:09:48+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/untitled-garbage.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/untitled-garbage.html",
+            "title": "untitled garbage",
+            "summary": "https://gist.github.com/sloev/15b4b62c7b3d69295becd75844775760",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/flFXUq3kOzU?si=8xi1UunMQWzYMsYn\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>\n<p>https://gist.github.com/sloev/15b4b62c7b3d69295becd75844775760</p>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/4/Screenshot-from-2024-12-12-10-25-08.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video",
+                   "software"
+            ],
+            "date_published": "2022-11-17T10:25:00+01:00",
+            "date_modified": "2024-12-12T10:26:22+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/the-plant-x-izumisan-ensemble-or-twisdead-instrument-official-video.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/the-plant-x-izumisan-ensemble-or-twisdead-instrument-official-video.html",
+            "title": "THE PLANT x IZUMISAN ENSEMBLE | TWISDEAD INSTRUMENT [OFFICIAL VIDEO]",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/XN1YufBbwD0?si=EvjTXBqs-jOn32V3\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/2/Screenshot-from-2024-12-12-10-10-58.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video",
+                   "programatic"
+            ],
+            "date_published": "2021-05-09T10:11:00+02:00",
+            "date_modified": "2024-12-12T10:12:19+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/gutenhaiku.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/gutenhaiku.html",
+            "title": "gutenhaiku",
+            "summary": "https://github.com/sloev/gutenhaiku",
+            "content_html": "<p>https://github.com/sloev/gutenhaiku</p>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/3/Screenshot-from-2024-12-12-10-21-16.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "software"
+            ],
+            "date_published": "2020-09-02T10:21:00+02:00",
+            "date_modified": "2024-12-12T10:22:58+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/radio-nabovarme.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/radio-nabovarme.html",
+            "title": "radio nabovarme",
+            "summary": "http://nabovarme.meterlogger.net:9999/",
+            "content_html": "<p>http://nabovarme.meterlogger.net:9999/</p>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/16/thumb.jpg",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "performance"
+            ],
+            "date_published": "2019-11-18T10:50:00+01:00",
+            "date_modified": "2024-12-12T10:53:37+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/photobooth.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/photobooth.html",
+            "title": "photobooth",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/4fXzuDtlc6Q?si=XMlU2i9wTCjjU3za\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/17/Screenshot-from-2024-12-12-10-51-47.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "performance",
+                   "engineering"
+            ],
+            "date_published": "2019-01-19T10:52:00+01:00",
+            "date_modified": "2024-12-12T10:52:47+01:00"
+        },
+        {
+            "id": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/paul-auster.html",
+            "url": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/paul-auster.html",
+            "title": "paul auster ",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/cjQir99ix00?si=Xz30Eq0VmUx9BjoR\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "file:////home/nihil/Documents/Publii/sites/supernihil/preview/media/posts/7/Screenshot-from-2024-12-12-10-31-22.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "software"
+            ],
+            "date_published": "2019-01-12T10:32:00+01:00",
+            "date_modified": "2024-12-12T10:32:24+01:00"
+        }
+    ]
+}

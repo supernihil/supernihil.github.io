@@ -1,0 +1,37 @@
+{{> head}}
+{{> navbar}}
+{{#checkIf @config.custom.frontSource '==' "post" }}
+   {{> frontpage-post}}
+{{else}}
+   <main class="content">
+     
+      <div class="posts">
+         {{#each posts}}
+            <article class="post">
+                                                               <a href="{{url}}">
+
+               {{#featuredImage}}
+
+
+                           <img
+                              src="{{url}}"
+                              {{#if @config.site.responsiveImages}}
+                                 {{responsiveImageAttributes 'featuredImage' srcset sizes}}
+                              {{/if}}
+                              {{ lazyload "lazy" }}
+                              width="{{width}}"
+                              height="{{height}}"
+                              alt="{{alt}}">
+                          
+                        {{/featuredImage}}
+                                                      </a>
+
+                        <span>{{date createdAt 'YYYY-MM-DD'}}                                  
+                           {{#each tags}} | {{name}}{{/each}}
+</span>
+            </article>
+         {{/each}}
+      </div>
+   </main>
+{{/checkIf}}
+{{> footer}}

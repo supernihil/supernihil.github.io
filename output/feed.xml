@@ -3,12 +3,62 @@
     <title>supernihil</title>
     <link href="https://supernihil.buro.earth/feed.xml" rel="self" />
     <link href="https://supernihil.buro.earth" />
-    <updated>2024-12-12T10:53:37+01:00</updated>
+    <updated>2025-01-07T16:31:17+01:00</updated>
     <author>
         <name>supernihil</name>
     </author>
     <id>https://supernihil.buro.earth</id>
 
+    <entry>
+        <title>cgi investigated</title>
+        <author>
+            <name>supernihil</name>
+        </author>
+        <link href="https://supernihil.buro.earth/cgi-investigated.html"/>
+        <id>https://supernihil.buro.earth/cgi-investigated.html</id>
+        <media:content url="https://supernihil.buro.earth/media/posts/24/Screenshot-from-2025-01-07-16-27-01.png" medium="image" />
+            <category term="video"/>
+
+        <updated>2024-12-21T16:27:00+01:00</updated>
+            <summary></summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://supernihil.buro.earth/media/posts/24/Screenshot-from-2025-01-07-16-27-01.png" class="type:primaryImage" alt="" /></p>
+                <figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/npWAhQB-MPc?t=1458s&amp;ab_channel=JohannesValbj" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>simkojn</title>
+        <author>
+            <name>supernihil</name>
+        </author>
+        <link href="https://supernihil.buro.earth/simkojn.html"/>
+        <id>https://supernihil.buro.earth/simkojn.html</id>
+        <media:content url="https://supernihil.buro.earth/media/posts/19/Screenshot-from-2025-01-07-16-09-11.png" medium="image" />
+            <category term="performance"/>
+
+        <updated>2024-07-20T16:10:00+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://supernihil.buro.earth/media/posts/19/Screenshot-from-2025-01-07-16-09-11.png" alt="" />
+                    When thinking about offline currency and simcards we identified the following: read more here: https://sloev.github.io/simkojn/
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://supernihil.buro.earth/media/posts/19/Screenshot-from-2025-01-07-16-09-11.png" class="type:primaryImage" alt="" /></p>
+                <p>When thinking about offline currency and simcards we identified the following:</p>
+<ul>
+<li><strong>verifiable</strong> centrally issued identifier printed on card and can be verified by inserting into any phone</li>
+<li><strong>coin-like</strong> small physical tokens</li>
+<li><strong>offline</strong> verification processes could be as simple as a distributed poster with whitelisted id's</li>
+<li><strong>distributed and decentralized</strong> bootstrapping based on trust in accepted id's</li>
+</ul>
+<p>read more here: <a href="When thinking about offline currency and simcards we identified the following: verifiable centrally issued identifier printed on card and can be verified by inserting into any phone coin-like small physical tokens offline verification processes could be as simple as a distributed poster with whitelisted id's distributed and decentralized bootstrapping based on trust in accepted id's">https://sloev.github.io/simkojn/</a></p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>left you behind</title>
         <author>
@@ -87,6 +137,33 @@
         </content>
     </entry>
     <entry>
+        <title>live coding visuals</title>
+        <author>
+            <name>supernihil</name>
+        </author>
+        <link href="https://supernihil.buro.earth/live-coding-visuals.html"/>
+        <id>https://supernihil.buro.earth/live-coding-visuals.html</id>
+        <media:content url="https://supernihil.buro.earth/media/posts/25/Screenshot-from-2025-01-07-16-31-09.png" medium="image" />
+            <category term="video"/>
+            <category term="performance"/>
+
+        <updated>2022-11-29T16:29:00+01:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://supernihil.buro.earth/media/posts/25/Screenshot-from-2025-01-07-16-31-09.png" alt="" />
+                    using loaf code: https://github.com/sloev/loaf_sketches
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://supernihil.buro.earth/media/posts/25/Screenshot-from-2025-01-07-16-31-09.png" class="type:primaryImage" alt="" /></p>
+                <p>using loaf</p>
+<p>code:<a href="https://github.com/sloev/loaf_sketches"> https://github.com/sloev/loaf_sketches</a></p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/tdI-lV870Mo?ab_channel=JohannesValbj" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+            ]]>
+        </content>
+    </entry>
+    <entry>
         <title>untitled garbage</title>
         <author>
             <name>supernihil</name>
@@ -113,6 +190,37 @@
         </content>
     </entry>
     <entry>
+        <title>sodamixer &amp; beatape</title>
+        <author>
+            <name>supernihil</name>
+        </author>
+        <link href="https://supernihil.buro.earth/sodamixer-and-beatape.html"/>
+        <id>https://supernihil.buro.earth/sodamixer-and-beatape.html</id>
+        <media:content url="https://supernihil.buro.earth/media/posts/20/6y31qmy31inj791bu0jh.png" medium="image" />
+            <category term="video"/>
+            <category term="software"/>
+
+        <updated>2022-10-17T16:14:00+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://supernihil.buro.earth/media/posts/20/6y31qmy31inj791bu0jh.png" alt="" />
+                    Article on vj-union: https://vjun.io/vdmo/sodamixer-beatape-5a63 Beatape: https://github.com/sloev/beatape Listens to audio input Computes bpm and onsets continously (think waveclock, but better) Drives a clock Drives a stepsequencer Sends&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://supernihil.buro.earth/media/posts/20/6y31qmy31inj791bu0jh.png" class="type:primaryImage" alt="" /></p>
+                <p>Article on vj-union: <a href="https://vjun.io/vdmo/sodamixer-beatape-5a63">https://vjun.io/vdmo/sodamixer-beatape-5a63</a></p>
+<p>Beatape: <a href="https://github.com/sloev/beatape">https://github.com/sloev/beatape</a></p>
+<p>Listens to audio input Computes bpm and onsets continously (think waveclock, but better) Drives a clock Drives a stepsequencer Sends out osc values</p>
+<p>Sodamixer: <a href="https://github.com/sloev/sodamixer">https://github.com/sloev/sodamixer</a></p>
+<p>3 channel video mixer Video speed is adjusted to received values from beatape If given a video, will guarantee that all second positions in video (00:01 00:02 00:03 etc) will fall on a beat in the listened music.</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/ffq7l5KE5VU" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
         <title>THE PLANT x IZUMISAN ENSEMBLE | TWISDEAD INSTRUMENT [OFFICIAL VIDEO]</title>
         <author>
             <name>supernihil</name>
@@ -129,93 +237,6 @@
             <![CDATA[
                     <p><img src="https://supernihil.buro.earth/media/posts/2/Screenshot-from-2024-12-12-10-10-58.png" class="type:primaryImage" alt="" /></p>
                 <figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/XN1YufBbwD0?si=EvjTXBqs-jOn32V3" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>gutenhaiku</title>
-        <author>
-            <name>supernihil</name>
-        </author>
-        <link href="https://supernihil.buro.earth/gutenhaiku.html"/>
-        <id>https://supernihil.buro.earth/gutenhaiku.html</id>
-        <media:content url="https://supernihil.buro.earth/media/posts/3/Screenshot-from-2024-12-12-10-21-16.png" medium="image" />
-            <category term="software"/>
-
-        <updated>2020-09-02T10:21:00+02:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://supernihil.buro.earth/media/posts/3/Screenshot-from-2024-12-12-10-21-16.png" alt="" />
-                    https://github.com/sloev/gutenhaiku
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://supernihil.buro.earth/media/posts/3/Screenshot-from-2024-12-12-10-21-16.png" class="type:primaryImage" alt="" /></p>
-                <p>https://github.com/sloev/gutenhaiku</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>radio nabovarme</title>
-        <author>
-            <name>supernihil</name>
-        </author>
-        <link href="https://supernihil.buro.earth/radio-nabovarme.html"/>
-        <id>https://supernihil.buro.earth/radio-nabovarme.html</id>
-        <media:content url="https://supernihil.buro.earth/media/posts/16/thumb.jpg" medium="image" />
-            <category term="performance"/>
-
-        <updated>2019-11-18T10:50:00+01:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://supernihil.buro.earth/media/posts/16/thumb.jpg" alt="" />
-                    http://nabovarme.meterlogger.net:9999/
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://supernihil.buro.earth/media/posts/16/thumb.jpg" class="type:primaryImage" alt="" /></p>
-                <p>http://nabovarme.meterlogger.net:9999/</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>photobooth</title>
-        <author>
-            <name>supernihil</name>
-        </author>
-        <link href="https://supernihil.buro.earth/photobooth.html"/>
-        <id>https://supernihil.buro.earth/photobooth.html</id>
-        <media:content url="https://supernihil.buro.earth/media/posts/17/Screenshot-from-2024-12-12-10-51-47.png" medium="image" />
-            <category term="performance"/>
-            <category term="engineering"/>
-
-        <updated>2019-01-19T10:52:00+01:00</updated>
-            <summary></summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://supernihil.buro.earth/media/posts/17/Screenshot-from-2024-12-12-10-51-47.png" class="type:primaryImage" alt="" /></p>
-                <figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/4fXzuDtlc6Q?si=XMlU2i9wTCjjU3za" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>paul auster </title>
-        <author>
-            <name>supernihil</name>
-        </author>
-        <link href="https://supernihil.buro.earth/paul-auster.html"/>
-        <id>https://supernihil.buro.earth/paul-auster.html</id>
-        <media:content url="https://supernihil.buro.earth/media/posts/7/Screenshot-from-2024-12-12-10-31-22.png" medium="image" />
-            <category term="software"/>
-
-        <updated>2019-01-12T10:32:00+01:00</updated>
-            <summary></summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://supernihil.buro.earth/media/posts/7/Screenshot-from-2024-12-12-10-31-22.png" class="type:primaryImage" alt="" /></p>
-                <figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube.com/embed/cjQir99ix00?si=Xz30Eq0VmUx9BjoR" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
             ]]>
         </content>
     </entry>

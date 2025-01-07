@@ -10,6 +10,37 @@
     },
     "items": [
         {
+            "id": "https://supernihil.buro.earth/cgi-investigated.html",
+            "url": "https://supernihil.buro.earth/cgi-investigated.html",
+            "title": "cgi investigated",
+            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/npWAhQB-MPc?t=1458s&amp;ab_channel=JohannesValbj\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "https://supernihil.buro.earth/media/posts/24/Screenshot-from-2025-01-07-16-27-01.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video"
+            ],
+            "date_published": "2024-12-21T16:27:00+01:00",
+            "date_modified": "2025-01-07T16:27:59+01:00"
+        },
+        {
+            "id": "https://supernihil.buro.earth/simkojn.html",
+            "url": "https://supernihil.buro.earth/simkojn.html",
+            "title": "simkojn",
+            "summary": "When thinking about offline currency and simcards we identified the following: read more here: https://sloev.github.io/simkojn/",
+            "content_html": "<p>When thinking about offline currency and simcards we identified the following:</p>\n<ul>\n<li><strong>verifiable</strong> centrally issued identifier printed on card and can be verified by inserting into any phone</li>\n<li><strong>coin-like</strong> small physical tokens</li>\n<li><strong>offline</strong> verification processes could be as simple as a distributed poster with whitelisted id's</li>\n<li><strong>distributed and decentralized</strong> bootstrapping based on trust in accepted id's</li>\n</ul>\n<p>read more here: <a href=\"When thinking about offline currency and simcards we identified the following: verifiable centrally issued identifier printed on card and can be verified by inserting into any phone coin-like small physical tokens offline verification processes could be as simple as a distributed poster with whitelisted id's distributed and decentralized bootstrapping based on trust in accepted id's\">https://sloev.github.io/simkojn/</a></p>",
+            "image": "https://supernihil.buro.earth/media/posts/19/Screenshot-from-2025-01-07-16-09-11.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "performance"
+            ],
+            "date_published": "2024-07-20T16:10:00+02:00",
+            "date_modified": "2025-01-07T16:11:15+01:00"
+        },
+        {
             "id": "https://supernihil.buro.earth/left-you-behind.html",
             "url": "https://supernihil.buro.earth/left-you-behind.html",
             "title": "left you behind",
@@ -71,6 +102,23 @@
             "date_modified": "2024-12-12T10:09:48+01:00"
         },
         {
+            "id": "https://supernihil.buro.earth/live-coding-visuals.html",
+            "url": "https://supernihil.buro.earth/live-coding-visuals.html",
+            "title": "live coding visuals",
+            "summary": "using loaf code: https://github.com/sloev/loaf_sketches",
+            "content_html": "<p>using loaf</p>\n<p>code:<a href=\"https://github.com/sloev/loaf_sketches\"> https://github.com/sloev/loaf_sketches</a></p>\n<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/tdI-lV870Mo?ab_channel=JohannesValbj\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
+            "image": "https://supernihil.buro.earth/media/posts/25/Screenshot-from-2025-01-07-16-31-09.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video",
+                   "performance"
+            ],
+            "date_published": "2022-11-29T16:29:00+01:00",
+            "date_modified": "2025-01-07T16:31:17+01:00"
+        },
+        {
             "id": "https://supernihil.buro.earth/untitled-garbage.html",
             "url": "https://supernihil.buro.earth/untitled-garbage.html",
             "title": "untitled garbage",
@@ -88,6 +136,23 @@
             "date_modified": "2024-12-12T10:26:22+01:00"
         },
         {
+            "id": "https://supernihil.buro.earth/sodamixer-and-beatape.html",
+            "url": "https://supernihil.buro.earth/sodamixer-and-beatape.html",
+            "title": "sodamixer &amp; beatape",
+            "summary": "Article on vj-union: https://vjun.io/vdmo/sodamixer-beatape-5a63 Beatape: https://github.com/sloev/beatape Listens to audio input Computes bpm and onsets continously (think waveclock, but better) Drives a clock Drives a stepsequencer Sends&hellip;",
+            "content_html": "<p>Article on vj-union: <a href=\"https://vjun.io/vdmo/sodamixer-beatape-5a63\">https://vjun.io/vdmo/sodamixer-beatape-5a63</a></p>\n<p>Beatape: <a href=\"https://github.com/sloev/beatape\">https://github.com/sloev/beatape</a></p>\n<p>Listens to audio input Computes bpm and onsets continously (think waveclock, but better) Drives a clock Drives a stepsequencer Sends out osc values</p>\n<p>Sodamixer: <a href=\"https://github.com/sloev/sodamixer\">https://github.com/sloev/sodamixer</a></p>\n<p>3 channel video mixer Video speed is adjusted to received values from beatape If given a video, will guarantee that all second positions in video (00:01 00:02 00:03 etc) will fall on a beat in the listened music.</p>\n<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/ffq7l5KE5VU\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>\n<p> </p>",
+            "image": "https://supernihil.buro.earth/media/posts/20/6y31qmy31inj791bu0jh.png",
+            "author": {
+                "name": "supernihil"
+            },
+            "tags": [
+                   "video",
+                   "software"
+            ],
+            "date_published": "2022-10-17T16:14:00+02:00",
+            "date_modified": "2025-01-07T16:14:17+01:00"
+        },
+        {
             "id": "https://supernihil.buro.earth/the-plant-x-izumisan-ensemble-or-twisdead-instrument-official-video.html",
             "url": "https://supernihil.buro.earth/the-plant-x-izumisan-ensemble-or-twisdead-instrument-official-video.html",
             "title": "THE PLANT x IZUMISAN ENSEMBLE | TWISDEAD INSTRUMENT [OFFICIAL VIDEO]",
@@ -102,69 +167,6 @@
             ],
             "date_published": "2021-05-09T10:11:00+02:00",
             "date_modified": "2024-12-12T10:12:19+01:00"
-        },
-        {
-            "id": "https://supernihil.buro.earth/gutenhaiku.html",
-            "url": "https://supernihil.buro.earth/gutenhaiku.html",
-            "title": "gutenhaiku",
-            "summary": "https://github.com/sloev/gutenhaiku",
-            "content_html": "<p>https://github.com/sloev/gutenhaiku</p>",
-            "image": "https://supernihil.buro.earth/media/posts/3/Screenshot-from-2024-12-12-10-21-16.png",
-            "author": {
-                "name": "supernihil"
-            },
-            "tags": [
-                   "software"
-            ],
-            "date_published": "2020-09-02T10:21:00+02:00",
-            "date_modified": "2024-12-12T10:22:58+01:00"
-        },
-        {
-            "id": "https://supernihil.buro.earth/radio-nabovarme.html",
-            "url": "https://supernihil.buro.earth/radio-nabovarme.html",
-            "title": "radio nabovarme",
-            "summary": "http://nabovarme.meterlogger.net:9999/",
-            "content_html": "<p>http://nabovarme.meterlogger.net:9999/</p>",
-            "image": "https://supernihil.buro.earth/media/posts/16/thumb.jpg",
-            "author": {
-                "name": "supernihil"
-            },
-            "tags": [
-                   "performance"
-            ],
-            "date_published": "2019-11-18T10:50:00+01:00",
-            "date_modified": "2024-12-12T10:53:37+01:00"
-        },
-        {
-            "id": "https://supernihil.buro.earth/photobooth.html",
-            "url": "https://supernihil.buro.earth/photobooth.html",
-            "title": "photobooth",
-            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/4fXzuDtlc6Q?si=XMlU2i9wTCjjU3za\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
-            "image": "https://supernihil.buro.earth/media/posts/17/Screenshot-from-2024-12-12-10-51-47.png",
-            "author": {
-                "name": "supernihil"
-            },
-            "tags": [
-                   "performance",
-                   "engineering"
-            ],
-            "date_published": "2019-01-19T10:52:00+01:00",
-            "date_modified": "2024-12-12T10:52:47+01:00"
-        },
-        {
-            "id": "https://supernihil.buro.earth/paul-auster.html",
-            "url": "https://supernihil.buro.earth/paul-auster.html",
-            "title": "paul auster ",
-            "content_html": "<figure class=\"post__video\"><iframe loading=\"lazy\" width=\"560\" height=\"314\" src=\"https://www.youtube.com/embed/cjQir99ix00?si=Xz30Eq0VmUx9BjoR\" allowfullscreen=\"allowfullscreen\" data-mce-fragment=\"1\"></iframe></figure>",
-            "image": "https://supernihil.buro.earth/media/posts/7/Screenshot-from-2024-12-12-10-31-22.png",
-            "author": {
-                "name": "supernihil"
-            },
-            "tags": [
-                   "software"
-            ],
-            "date_published": "2019-01-12T10:32:00+01:00",
-            "date_modified": "2024-12-12T10:32:24+01:00"
         }
     ]
 }

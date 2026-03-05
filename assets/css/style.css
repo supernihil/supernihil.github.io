@@ -171,39 +171,8 @@ main {
   margin-top: -20vh;
   /* Consistent overlap */
 
-  /* Double-sided fade for seamless blending */
-  mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 20%,
-      rgba(0, 0, 0, 1) 80%,
-      rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 20%,
-      rgba(0, 0, 0, 1) 80%,
-      rgba(0, 0, 0, 0) 100%);
 }
 
-.gallery-item:first-child {
-  margin-top: 0;
-  /* First post only fades out at the bottom */
-  mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 1) 80%,
-      rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 1) 80%,
-      rgba(0, 0, 0, 0) 100%);
-}
-
-.gallery-item:last-child {
-  /* Last post only fades in at the top */
-  mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 20%);
-  -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 20%);
-}
 
 .gallery-item img {
   width: 100%;

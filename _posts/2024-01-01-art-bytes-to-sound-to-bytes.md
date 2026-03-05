@@ -3,8 +3,8 @@ layout: post
 title: BYTES TO SOUND TO BYTES
 title_en: BYTES TO SOUND TO BYTES
 date: 2019-01-12
-category: web
-category_en: web
+category: video
+category_en: video
 type: static
 cover: /assets/screenshots/bytes.gif
 links:

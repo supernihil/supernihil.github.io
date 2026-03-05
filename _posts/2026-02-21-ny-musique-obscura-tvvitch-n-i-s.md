@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Tvvitch @ n.i.s
-title_en: Tvvitch @ n.i.s
+title: Tvvitch
+title_en: Tvvitch
 date: 2026-02-21
 category: performance
 category_en: performance

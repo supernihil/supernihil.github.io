@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      <span class="lang-da">{{ page.title | escape }}</span>
+      <span class="lang-en">{{ page.title_en | default: page.title | escape }}</span>
+    </h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% if page.category %}
+        • <span class="lang-da">{% assign cat_key = page.category %}{{ site.data.translations.da[cat_key] | default: page.category }}</span>
+        <span class="lang-en">{% assign cat_key = page.category %}{{ site.data.translations.en[cat_key] | default: page.category_en | default: page.category }}</span>
+      {% endif %}
+      • <a href="{{ "/admin/#/collections/blog/entries/" | relative_url }}{{ page.relative_path | replace: "_posts/", "" | replace: ".md", "" }}" class="edit-link">Edit Post</a>
+    </p>
+  </header>
+
+  <div class="post-content">
+    {% if page.cover %}
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}" loading="lazy">
+    {% endif %}
+
+    <div class="lang-da">
+      {{ content | split: "<!--more-->" | last }}
+    </div>
+    <div class="lang-en">
+      {{ page.body_en | markdownify | default: content | split: "<!--more-->" | last }}
+    </div>
+  </div>
+
+  {% if page.links %}
+    <div class="post-links">
+      <h3>Links</h3>
+      <ul>
+        {% for link in page.links %}
+          <li><a href="{{ link.url }}" target="_blank">{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</article>

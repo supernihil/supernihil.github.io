@@ -1,0 +1,31 @@
+---
+layout: default
+title: Levende Værker
+permalink: /levende-vaerker/
+---
+<div class="works-grid">
+  {% assign live_works = site.posts | where: "type", "live" | sort: "date" | reverse %}
+  {% if live_works.size > 0 %}
+    {% for post in live_works %}
+      <div class="work-item">
+        <a href="{{ post.url | relative_url }}">
+          {% if post.cover %}
+            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          {% endif %}
+          <div class="work-info">
+            <span class="work-title">
+              <span class="lang-da">{{ post.title }}</span>
+              <span class="lang-en">{{ post.title_en | default: post.title }}</span>
+            </span>
+            <span class="work-date">{{ post.date | date: "%Y" }}</span>
+          </div>
+          <div class="work-excerpt">
+            {{ post.excerpt }}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Ingen levende værker endnu.</p>
+  {% endif %}
+</div>

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Post Schema",
+  "description": "A JSON schema describing the structure of a post in this blog, including front matter and content split.",
+  "type": "object",
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "const": "post"
+        },
+        "title": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "category": {
+          "type": "string"
+        },
+        "cover": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": ["label", "url"]
+          }
+        }
+      },
+      "required": ["layout", "title", "date", "category", "cover"]
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "excerpt": {
+          "type": "string",
+          "description": "The first paragraph of the content, used for the front page."
+        },
+        "body": {
+          "type": "string",
+          "description": "The remaining paragraphs of the content, used for the post page."
+        }
+      },
+      "required": ["excerpt", "body"]
+    }
+  },
+  "required": ["frontmatter", "content"]
+}

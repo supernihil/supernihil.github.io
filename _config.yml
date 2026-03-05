@@ -1,0 +1,25 @@
+title: "Supernihil"
+title_en: "Supernihil"
+email: "fremmedartet@gmail.com"
+description: >-
+  supernihil portfolio
+baseurl: ""
+url: "https://supernihil.github.io"
+github_username: sloev
+excerpt_separator: "<!--more-->"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - post-schema.json
+  - schema.md
+  - todo.md

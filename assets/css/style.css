@@ -1,0 +1,426 @@
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header & Navigation */
+header {
+  padding: 1.5rem 2rem;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+
+.site-title {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 900;
+  background: red;
+  color: black;
+  display: inline-block;
+  padding: 0 1.5rem;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li a {
+  font-size: 1.1rem;
+  text-transform: lowercase;
+}
+
+.lang-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+[data-lang="da"] .lang-en {
+  display: none !important;
+}
+
+[data-lang="en"] .lang-da {
+  display: none !important;
+}
+
+.cms-link {
+  opacity: 0.5;
+}
+
+.cms-link:hover {
+  opacity: 1;
+}
+
+/* Main Content Wrapper */
+main {
+  padding: 0 2rem 2rem 2rem;
+  /* Removed top padding to touch navbar */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  margin-top: 0;
+}
+
+/* Works Grid (Masonry Style) */
+.works-grid {
+  column-width: 300px;
+  column-gap: 3rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.work-item {
+  display: inline-block;
+  /* Required for column-count to stack items vertically */
+  width: 100%;
+  margin-bottom: 3rem;
+  break-inside: avoid;
+  /* Prevent items from breaking across columns */
+}
+
+.work-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+  border: 1px solid #000;
+}
+
+.work-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.work-title {
+  font-weight: bold;
+}
+
+.work-excerpt {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Home Gallery (Massive Scrolling Full-Width) */
+.home-gallery {
+  display: block;
+  /* Use block for predictable margin stacking */
+  margin: 0 -2rem;
+  /* Negate main padding for edge-to-edge images */
+  background: #000;
+}
+
+.gallery-item {
+  width: 100%;
+  height: calc(100vh - 4.5rem);
+  /* Adjusted for larger header */
+  position: relative;
+  overflow: hidden;
+  margin-top: -20vh;
+  /* Consistent overlap */
+
+  /* Double-sided fade for seamless blending */
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 20%,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 20%,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+.gallery-item:first-child {
+  margin-top: 0;
+  /* First post only fades out at the bottom */
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+.gallery-item:last-child {
+  /* Last post only fades in at the top */
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 20%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 20%);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Crop to fill the container */
+  display: block;
+  border-bottom: none;
+  /* Blend together vertically */
+  filter: url('#gritty-red');
+  -webkit-filter: url('#gritty-red');
+}
+
+.gallery-info {
+  position: absolute;
+  bottom: 10%;
+  /* Move metadata out of the bottom 10% blend zone */
+  left: 0;
+  padding: 2rem;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 1);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* CRITICAL: This puts everything on the left */
+  justify-content: flex-end;
+  gap: 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  pointer-events: none;
+  text-align: left;
+}
+
+.gallery-info span {
+  display: inline-block;
+  width: fit-content;
+  /* margin-right: auto;
+  /* Force to the left */
+  text-align: left; */
+}
+
+.gallery-title {
+  font-weight: bold;
+  font-size: 2rem !important;
+  /* Reduced from 3rem */
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.gallery-type,
+.gallery-category,
+.gallery-date {
+  font-size: 0.9rem !important;
+  /* Reduced from 1.2rem */
+  opacity: 0.9;
+}
+
+.gallery-excerpt {
+  font-size: 0.8rem;
+  max-width: 600px;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  text-transform: none;
+  /* Keep excerpts readable */
+  letter-spacing: normal;
+}
+
+.gallery-item a:hover {
+  text-decoration: none;
+}
+
+.gallery-item a:hover .gallery-title {
+  text-decoration: underline;
+}
+
+/* Post Layout */
+.post {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #000;
+  padding: 0 0 1rem 0;
+}
+
+.post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.post-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.post-content img {
+  height: calc(100vh - 10rem); /* Ensure it stays within viewport height, leaving room for title/nav */
+  object-fit: contain; /* Scales to fit without cropping */
+  margin: 0;
+  display: block;
+  border: 1px solid #000;
+  background: transparent;
+}
+
+.post-content .lang-da,
+.post-content .lang-en {
+  max-width: 500px;
+  text-align: left;
+  margin: 0 0 2rem 0;
+  line-height: 1.4;
+}
+
+.post-links {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid #000;
+}
+
+.post-links h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.post-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.post-links li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  padding: 2rem;
+  border-top: 1px solid #000;
+  margin-top: 6rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-content {
+  width: 100%;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Info Page */
+.info-content {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.info-content h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-section {
+  margin-top: 3rem;
+  line-height: 1.8;
+  max-width: 800px;
+  /* Keep text readable */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .site-title {
+    font-size: 1rem;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  nav ul li a {
+    font-size: 0.9rem;
+  }
+
+  .home-gallery {
+    margin: 0 -1rem;
+  }
+
+  .gallery-info {
+    padding: 1rem;
+    bottom: 5%;
+  }
+
+  .gallery-title {
+    font-size: 1.8rem !important;
+  }
+
+  .gallery-type,
+  .gallery-category,
+  .gallery-date {
+    font-size: 0.9rem !important;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+  }
+
+  main,
+  footer {
+    padding: 1rem;
+  }
+}

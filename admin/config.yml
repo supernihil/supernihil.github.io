@@ -1,0 +1,41 @@
+backend:
+  name: github
+  repo: supernihil/supernihil.github.io
+  branch: main # Branch to update (optional; defaults to master)
+
+# This line should *not* be present in production.
+# But for development, it allows editing locally.
+local_backend: true
+
+publish_mode: editorial_workflow
+
+media_folder: "assets/screenshots"
+public_folder: "/assets/screenshots"
+
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "_posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Title (English)", name: "title_en", widget: "string", required: false}
+      - {label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Category", name: "category", widget: "string"}
+      - {label: "Category (English)", name: "category_en", widget: "string", required: false}
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["static", "live"]
+        default: "static"
+      - {label: "Cover Image", name: "cover", widget: "image"}
+      - label: "Links"
+        name: "links"
+        widget: "list"
+        fields:
+          - {label: "Label", name: "label", widget: "string"}
+          - {label: "URL", name: "url", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Body (English)", name: "body_en", widget: "markdown", required: false}

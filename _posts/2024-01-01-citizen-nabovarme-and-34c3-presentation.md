@@ -2,9 +2,9 @@
 layout: post
 title: NABOVARME @ 34C3
 title_en: NABOVARME @ 34C3
-date: 2024-01-01T00:00:00.000Z
-category: web
-category_en: web
+date: 2017-12-27
+category: video
+category_en: video
 type: static
 cover: /assets/screenshots/34c3.gif
 links:

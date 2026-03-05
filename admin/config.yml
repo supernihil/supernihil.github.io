@@ -1,7 +1,6 @@
 backend:
   name: github
   repo: supernihil/supernihil.github.io
-  branch: main # Branch to update (optional; defaults to master)
 
 # This line should *not* be present in production.
 # But for development, it allows editing locally.

@@ -6,7 +6,7 @@ date: 2025-03-25
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/2025-12-16-hedo-hydr8-muskila.gif
+cover: /assets/screenshots/hedo.png
 links:
   - label: event
     url: https://sekvens.buro.earth/hedohydrate

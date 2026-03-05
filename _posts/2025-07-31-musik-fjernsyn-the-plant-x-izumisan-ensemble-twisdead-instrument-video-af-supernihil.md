@@ -1,19 +1,17 @@
 ---
+layout: post
+title: TWISDEAD INSTRUMENT
+title_en: TWISDEAD INSTRUMENT
+date: 2025-07-31T00:00:00.000Z
 category: video
 category_en: video
-cover: https://hls.buro.earth/shows/16/28.hls/thumb.gif
-date: '2025-07-31T00:00:00.000Z'
-layout: post
-links:
-- label: Original Source
-  url: https://hls.buro.earth/shows/16/28.hls/stream.m3u8
-title: THE PLANT X IZUMISAN ENSEMBLE - TWISDEAD INSTRUMENT
-title_en: THE PLANT X IZUMISAN ENSEMBLE - TWISDEAD INSTRUMENT
 type: static
-body_en: |
-  When The Plant meets Izumisan Ensemble, something very special happens. 'TWISDEAD INSTRUMENT' is an exploration of the physical nature of sound, where the participants play with the balance between control and dissolution. The music is both challenging and incredibly beautiful, with a wealth of detail that testifies to a high technical level of all involved. Supernihil's video uses more muted and focused images this time, allowing the instrument handling and the sound itself to be at the center. A work that demonstrates Music Television's ability to convey complex musical collaborations in a way that is both accessible and artistically uncompromising.
+cover: https://hls.buro.earth/shows/16/28.hls/thumb.gif
+links:
+  - label: Original Source
+    url: https://hls.buro.earth/shows/16/28.hls/stream.m3u8
+body_en: When The Plant meets Izumisan Ensemble, something very special happens. 'TWISDEAD INSTRUMENT' is an exploration of the physical nature of sound, where the participants play with the balance between control and dissolution. The music is both challenging and incredibly beautiful, with a wealth of detail that testifies to a high technical level of all involved. Supernihil's video uses more muted and focused images this time, allowing the instrument handling and the sound itself to be at the center. A work that demonstrates Music Television's ability to convey complex musical collaborations in a way that is both accessible and artistically uncompromising.
 ---
-
 
 <div class="lang-da">Et unikt samarbejde mellem The Plant og Izumisan Ensemble i værket 'TWISDEAD INSTRUMENT'. En sonisk undersøgelse af instrumentets grænser og muligheder, smukt indfanget på video af Supernihil.</div>
 <div class="lang-en">A unique collaboration between The Plant and Izumisan Ensemble in the work 'TWISDEAD INSTRUMENT'. A sonic investigation of the instrument's limits and possibilities, beautifully captured on video by Supernihil.</div>

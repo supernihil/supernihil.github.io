@@ -1,19 +1,17 @@
 ---
-category: web
-category_en: web
-cover: /assets/screenshots/thumb.jpg
-date: 2024-01-01 00:00:00+00:00
 layout: post
-links:
-- label: Original Source
-  url: https://sloev.github.io/projects/kfa_sloev.html
 title: KFA/SLOEV
 title_en: KFA/SLOEV
-type: static
-body_en: |
-  The performance by kfa/sloev is an investigation of real-time interaction. Here, different artistic disciplines meet in a space where sound becomes movement and movement becomes sound. The documentation captures key moments in the process and reflects on the challenges and opportunities that arise when allowing mechanical processes to be part of a human performance. It is a work that dares to exist in the unpredictable and uses the performative space to test new ideas about presence and technology.
+date: 2013-08-21
+category: performance
+category_en: performance
+type: live
+cover: /assets/screenshots/thumb.jpg
+links:
+  - label: video
+    url: https://youtu.be/GHVtgXkMdq4
+body_en: The performance by kfa/sloev is an investigation of real-time interaction. Here, different artistic disciplines meet in a space where sound becomes movement and movement becomes sound. The documentation captures key moments in the process and reflects on the challenges and opportunities that arise when allowing mechanical processes to be part of a human performance. It is a work that dares to exist in the unpredictable and uses the performative space to test new ideas about presence and technology.
 ---
-
 
 <div class="lang-da">Et samarbejde mellem KFA og sloev i en unik live-performance. Projektet udforsker spændingsfeltet mellem krop, maskine og lyd, præsenteret som en dokumentation af en grænsesøgende begivenhed.</div>
 <div class="lang-en">A collaboration between KFA and sloev in a unique live performance. The project explores the tension between body, machine, and sound, presented as documentation of a boundary-pushing event.</div>

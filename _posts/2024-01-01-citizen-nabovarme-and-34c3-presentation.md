@@ -3,9 +3,9 @@ layout: post
 title: NABOVARME @ 34C3
 title_en: NABOVARME @ 34C3
 date: 2017-12-27
-category: video
-category_en: video
-type: static
+category: talk
+category_en: talk
+type: live
 cover: /assets/screenshots/34c3.gif
 links:
   - label: video

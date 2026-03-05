@@ -45,6 +45,7 @@ header {
   text-transform: uppercase;
   font-style: normal;
   text-decoration: none;
+  box-shadow: 5px 5px 5px black;
 }
 
 nav ul {
@@ -119,6 +120,9 @@ main {
   width: 100%;
   margin-bottom: 3rem;
   break-inside: avoid;
+  padding: 4px 4px 2px 4px;
+    background: lightgrey;
+    box-shadow: 5px 5px 5px grey;
   /* Prevent items from breaking across columns */
 }
 
@@ -127,7 +131,6 @@ main {
   height: auto;
   display: block;
   margin-bottom: 0.5rem;
-  border: 1px solid #000;
 }
 
 .work-info {
@@ -216,13 +219,12 @@ main {
 
 .gallery-info {
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   /* Move metadata out of the bottom 10% blend zone */
   left: 0;
   padding: 2rem;
   color: #fff;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 1);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -396,7 +398,7 @@ footer {
   }
 
   .site-title {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   nav ul {

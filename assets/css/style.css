@@ -73,6 +73,18 @@ nav ul li a {
   display: none !important;
 }
 
+/* Hide CMS links by default */
+.cms-link-wrapper,
+.edit-link-wrapper {
+  display: none;
+}
+
+/* Show CMS links when logged in */
+body.cms-logged-in .cms-link-wrapper,
+body.cms-logged-in .edit-link-wrapper {
+  display: inline-block;
+}
+
 .cms-link {
   opacity: 0.5;
 }

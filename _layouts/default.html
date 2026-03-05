@@ -39,7 +39,7 @@
               <span class="lang-en">{{ site.data.translations.en.info }}</span>
             </a>
           </li>
-          <li><a href="{{ "/admin/#/collections/blog/new" | relative_url }}" class="cms-link">
+          <li class="cms-link-wrapper"><a href="{{ "/admin/#/collections/blog/new" | relative_url }}" class="cms-link">
             <span class="lang-da">{{ site.data.translations.da.new_post }}</span>
             <span class="lang-en">{{ site.data.translations.en.new_post }}</span>
           </a></li>
@@ -56,6 +56,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Check for CMS login (Sveltia or Decap/Netlify)
+      const isCmsLoggedIn = localStorage.getItem('sveltia-cms.user') || localStorage.getItem('netlify-cms-user') || localStorage.getItem('decap-cms-user');
+      if (isCmsLoggedIn) {
+        document.body.classList.add('cms-logged-in');
+      }
+
       const toggleDa = document.getElementById('lang-toggle-da');
       const toggleEn = document.getElementById('lang-toggle-en');
       

@@ -13,7 +13,7 @@ layout: default
         • <span class="lang-da">{% assign cat_key = page.category %}{{ site.data.translations.da[cat_key] | default: page.category }}</span>
         <span class="lang-en">{% assign cat_key = page.category %}{{ site.data.translations.en[cat_key] | default: page.category_en | default: page.category }}</span>
       {% endif %}
-      • <a href="{{ "/admin/#/collections/blog/entries/" | relative_url }}{{ page.relative_path | replace: "_posts/", "" | replace: ".md", "" }}" class="edit-link">Edit Post</a>
+      <span class="edit-link-wrapper">• <a href="{{ "/admin/#/collections/blog/entries/" | relative_url }}{{ page.relative_path | replace: "_posts/", "" | replace: ".md", "" }}" class="edit-link">Edit Post</a></span>
     </p>
   </header>
 

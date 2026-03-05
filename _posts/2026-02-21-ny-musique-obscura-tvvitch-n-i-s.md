@@ -6,7 +6,7 @@ date: 2026-02-21
 category: performance
 category_en: performance
 type: live
-cover: https://hls.buro.earth/shows/3/95.hls/thumb.gif
+cover: /assets/screenshots/thumb (1).gif
 links:
   - label: Original Source
     url: https://hls.buro.earth/shows/3/95.hls/stream.m3u8

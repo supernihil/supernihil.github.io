@@ -3,9 +3,9 @@ layout: post
 title: CEEPHAX ACID CREW - MEDITERANEAN ACID
 title_en: CEEPHAX ACID CREW - MEDITERANEAN ACID
 date: 2012-07-17
-category: video
-category_en: video
-type: static
+category: performance
+category_en: performance
+type: live
 cover: /assets/screenshots/thumb.gif
 links:
   - label: video

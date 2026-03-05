@@ -3,8 +3,8 @@ layout: post
 title: JEDI TRANCE
 title_en: JEDI TRANCE
 date: 2012-02-10
-category: web
-category_en: web
+category: performance
+category_en: performance
 type: live
 cover: /assets/screenshots/jedi.gif
 links:

@@ -6,7 +6,7 @@ date: 2013-08-21
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/thumb.jpg
+cover: /assets/screenshots/kfa.gif
 links:
   - label: video
     url: https://youtu.be/GHVtgXkMdq4

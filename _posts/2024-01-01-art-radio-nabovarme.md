@@ -1,19 +1,17 @@
 ---
-category: web
-category_en: web
-cover: /assets/screenshots/2024-01-01-art-radio-nabovarme.gif
-date: '2024-01-01T00:00:00.000Z'
 layout: post
-links:
-- label: Original Source
-  url: https://sloev.github.io/projects/radio_nabovarme.html
 title: RADIO NABOVARME
 title_en: RADIO NABOVARME
+date: 2024-01-01T00:00:00.000Z
+category: web
+category_en: web
 type: static
-body_en: |
-  With Radio Nabovarme, sloev takes the local as a starting point. The installation functions as a platform for local communication and sonic exploration, where the boundary between sender and receiver becomes fluid. The project documents the different phases of building the radio and presents the results of many experiments with format and content. It is a session that reminds us of the radio's original potential as a tool for democratization and local anchoring, here unfolded in a modern and playful context.
+cover: /assets/screenshots/thumb (1).jpg
+links:
+  - label: repo
+    url: https://github.com/sloev/radio_nabovarme
+body_en: With Radio Nabovarme, sloev takes the local as a starting point. The installation functions as a platform for local communication and sonic exploration, where the boundary between sender and receiver becomes fluid. The project documents the different phases of building the radio and presents the results of many experiments with format and content. It is a session that reminds us of the radio's original potential as a tool for democratization and local anchoring, here unfolded in a modern and playful context.
 ---
-
 
 <div class="lang-da">Radio Nabovarme: En lokal radio-installation der forbinder teknologi og fællesskab. Projektet undersøger radioen som et rumligt og socialt medie gennem en række eksperimentelle udsendelser.</div>
 <div class="lang-en">Radio Nabovarme: A local radio installation connecting technology and community. The project explores the radio as a spatial and social medium through a series of experimental broadcasts.</div>

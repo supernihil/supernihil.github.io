@@ -2,7 +2,7 @@
 layout: post
 title: JEDI TRANCE
 title_en: JEDI TRANCE
-date: 2024-01-01T00:00:00.000Z
+date: 2012-02-10
 category: web
 category_en: web
 type: live

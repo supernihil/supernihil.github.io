@@ -1,16 +1,16 @@
 ---
-category: performance
-category_en: performance
-cover: /assets/screenshots/2025-12-16-hedo-hydr8-muskila.gif
-date: 2025-12-16
 layout: post
-links:
-- label: Original Source
-  url: https://sekvens.buro.earth/hedohydrate
 title: Hedo Hydr8 + Muskila
 title_en: Hedo Hydr8 + Muskila
-type: static
-body_en: "When Sekvens was invited to Copenhagen, they brought their entire unique atmosphere with them. Christianshavns Beboerhus became the setting for a meeting between two scenes, where Hedo Hydr8 and Muskila brought their special b2b energy to the lineup. The program was a journey through global genres, where heavy LPs with habibi funk met the latest electronic currents. Supernihil's visuals connected the different musical expressions and ensured that Sekvens' signature was clear throughout the night. A successful export of the South Funen spirit to the capital."
+date: 2025-03-25
+category: performance
+category_en: performance
+type: live
+cover: /assets/screenshots/2025-12-16-hedo-hydr8-muskila.gif
+links:
+  - label: event
+    url: https://sekvens.buro.earth/hedohydrate
+body_en: When Sekvens was invited to Copenhagen, they brought their entire unique atmosphere with them. Christianshavns Beboerhus became the setting for a meeting between two scenes, where Hedo Hydr8 and Muskila brought their special b2b energy to the lineup. The program was a journey through global genres, where heavy LPs with habibi funk met the latest electronic currents. Supernihil's visuals connected the different musical expressions and ensured that Sekvens' signature was clear throughout the night. A successful export of the South Funen spirit to the capital.
 ---
 
 <div class="lang-da">

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: CEEPHAX ACID CREW - MEDITERANEAN ACID
-title_en: CEEPHAX ACID CREW - MEDITERANEAN ACID
+title: CEEPHAX ACID CREW
+title_en: CEEPHAX ACID CREW
 date: 2012-07-17
 category: performance
 category_en: performance

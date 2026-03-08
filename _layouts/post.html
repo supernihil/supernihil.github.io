@@ -17,27 +17,50 @@ layout: default
     </p>
   </header>
 
-  <div class="post-content">
-    {% if page.cover %}
-      <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}" loading="lazy">
-    {% endif %}
-
-    <div class="lang-da">
-      {{ content | split: "<!--more-->" | last }}
+  <div class="post-layout">
+    <div class="post-media">
+      {% if page.video_url %}
+        <div class="video-container">
+          {% if page.video_url contains 'youtube.com' or page.video_url contains 'youtu.be' %}
+            {% assign video_id = page.video_url | split: 'v=' | last | split: '&' | first | split: '/' | last %}
+            <iframe src="https://www.youtube.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+          {% elsif page.video_url contains 'vimeo.com' %}
+            {% assign video_id = page.video_url | split: '/' | last %}
+            <iframe src="https://player.vimeo.com/video/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+          {% else %}
+            <video src="{{ page.video_url }}" controls></video>
+          {% endif %}
+        </div>
+      {% elsif page.cover %}
+        <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}" loading="lazy">
+      {% endif %}
     </div>
-    <div class="lang-en">
-      {{ page.body_en | markdownify | default: content | split: "<!--more-->" | last }}
+
+    <div class="post-info-column">
+      <div class="post-content">
+        <div class="lang-da">
+          {{ content | split: "<!--more-->" | last }}
+        </div>
+        <div class="lang-en">
+          {{ page.body_en | markdownify | default: content | split: "<!--more-->" | last }}
+        </div>
+      </div>
+
+      {% if page.links %}
+        <div class="post-links">
+          <ul class="prominent-links">
+            {% for link in page.links %}
+              <li>
+                <a href="{{ link.url }}" target="_blank" class="prominent-link">
+                  <span class="lang-da">{{ site.data.translations.da[link.label] | default: link.label }}</span>
+                  <span class="lang-en">{{ site.data.translations.en[link.label] | default: link.label }}</span>
+                  →
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
     </div>
   </div>
-
-  {% if page.links %}
-    <div class="post-links">
-      <h3>Links</h3>
-      <ul>
-        {% for link in page.links %}
-          <li><a href="{{ link.url }}" target="_blank">{{ link.label }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
 </article>

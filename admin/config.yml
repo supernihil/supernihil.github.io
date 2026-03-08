@@ -29,12 +29,21 @@ collections:
         widget: "select"
         options: ["static", "live"]
         default: "static"
-      - {label: "Cover Image", name: "cover", widget: "image"}
+      - {label: "Cover Image", name: "cover", widget: "image", required: false}
+      - {label: "Video URL", name: "video_url", widget: "string", required: false, hint: "YouTube, Vimeo or direct video link"}
       - label: "Links"
         name: "links"
         widget: "list"
         fields:
-          - {label: "Label", name: "label", widget: "string"}
+          - label: "Type"
+            name: "label"
+            widget: "select"
+            options: 
+              - { label: "Website", value: "website" }
+              - { label: "Video", value: "video" }
+              - { label: "Repository (GitHub/Code)", value: "repo" }
+              - { label: "Event", value: "event" }
+              - { label: "Article", value: "article" }
           - {label: "URL", name: "url", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Body (English)", name: "body_en", widget: "markdown", required: false}

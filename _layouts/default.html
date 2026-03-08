@@ -30,6 +30,12 @@
         <ul>
           <li><a href="#" id="lang-toggle-da" class="lang-link active">da</a> / <a href="#" id="lang-toggle-en" class="lang-link">en</a></li>
           <li>
+            <a href="{{ "/timeline/" | relative_url }}">
+              <span class="lang-da">{{ site.data.translations.da.timeline }}</span>
+              <span class="lang-en">{{ site.data.translations.en.timeline }}</span>
+            </a>
+          </li>
+          <li>
             <a href="{{ "/statiske-vaerker/" | relative_url }}">
               <span class="lang-da">{{ site.data.translations.da.statiske_vaerker }}</span>
               <span class="lang-en">{{ site.data.translations.en.statiske_vaerker }}</span>
@@ -65,6 +71,18 @@
       {{ content }}
     </div>
   </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>
+        <span class="lang-da">{{ site.data.translations.da.footer_text }}</span>
+        <span class="lang-en">{{ site.data.translations.en.footer_text }}</span>
+      </p>
+      <div class="visitor-counter" style="margin-top: 1rem; opacity: 0.6;">
+        <img src="https://supernihil.goatcounter.com/count?p=/total&c=1" alt="Visitors" style="height: 1.5rem; filter: grayscale(1) invert(1);">
+      </div>
+    </div>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {

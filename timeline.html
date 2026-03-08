@@ -1,0 +1,36 @@
+---
+title: Timeline
+permalink: /timeline/
+layout: default
+---
+<div class="home-gallery">
+  {% assign sorted_posts = site.posts | sort: "date" | reverse %}
+  {% for post in sorted_posts %}
+    {% if post.cover %}
+      <div class="gallery-item">
+        <a href="{{ post.url | relative_url }}">
+          <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          <span class="gallery-info">
+            <span class="gallery-title">
+              <span class="lang-da">{{ post.title }}</span>
+              <span class="lang-en">{{ post.title_en | default: post.title }}</span>
+            </span>
+            <span class="gallery-type">
+              <span class="lang-da">{{ site.data.translations.da[post.type] | default: post.type }}</span>
+              <span class="lang-en">{{ site.data.translations.en[post.type] | default: post.type }}</span>
+            </span>
+            <span class="gallery-category">
+              <span class="lang-da">
+                {% assign cat_key = post.category %}{{ site.data.translations.da[cat_key] | default: post.category }}
+              </span>
+              <span class="lang-en">
+                {% assign cat_key = post.category %}{{ site.data.translations.en[cat_key] | default: post.category_en | default: post.category }}
+              </span>
+            </span>
+            <span class="gallery-date">{{ post.date | date: "%Y" }}</span>
+          </span>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

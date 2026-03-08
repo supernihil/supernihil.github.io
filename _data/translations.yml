@@ -1,6 +1,7 @@
 da:
   statiske_vaerker: "statiske værker"
   levende_vaerker: "levende værker"
+  timeline: "tidslinje"
   info: "info"
   new_post: "ny post"
   stats: "statistik"
@@ -17,6 +18,7 @@ da:
 en:
   statiske_vaerker: "static works"
   levende_vaerker: "live works"
+  timeline: "timeline"
   info: "info"
   new_post: "new post"
   stats: "stats"

@@ -31,19 +31,19 @@ def update_frontmatter(content, slug, done_filename, thumb_filename):
     new_cover = f"/assets/screenshots/{done_filename}"
     new_thumb = f"/assets/thumbnails/{thumb_filename}"
     
-    # Update or add cover
+    # 1. Update/Add Cover (The Source)
     if "cover:" in content:
         content = re.sub(r'^cover:.*$', f'cover: {new_cover}', content, flags=re.MULTILINE)
     else:
         content = content.replace("---\n", f"---\ncover: {new_cover}\n", 1)
         
-    # Update or add thumbnail
+    # 2. Update/Add Thumbnail (For Grid)
     if "thumbnail:" in content:
         content = re.sub(r'^thumbnail:.*$', f'thumbnail: {new_thumb}', content, flags=re.MULTILINE)
     else:
         content = content.replace("---\n", f"---\nthumbnail: {new_thumb}\n", 1)
         
-    # Update or add image (SEO)
+    # 3. Update/Add Image (Direct SEO support for jekyll-seo-tag)
     if "image:" in content:
         content = re.sub(r'^image:.*$', f'image: {new_cover}', content, flags=re.MULTILINE)
     else:
@@ -84,10 +84,8 @@ def run_pipeline():
         current_filename = os.path.basename(current_cover_rel)
         source_path = os.path.join(screenshots_dir, current_filename)
         
-        # Determine target extension and filenames
+        # Determine target extension
         ext = os.path.splitext(current_filename)[1].lower()
-        # If it was already processed but has a messy extension (like .png inside filename), 
-        # let's normalize it to .gif or .jpg
         is_gif = ext == '.gif' or ('.done.gif' in current_filename)
         target_ext = ".gif" if is_gif else ".jpg"
         
@@ -97,27 +95,24 @@ def run_pipeline():
         final_screenshot_path = os.path.join(screenshots_dir, done_filename)
         final_thumbnail_path = os.path.join(thumbnails_dir, thumb_filename)
 
-        # Case 1: Already processed
+        # Skip already processed
         if ".done." in current_filename:
             in_use_screenshots.add(current_filename)
             in_use_thumbnails.add(thumb_filename)
-            
-            # Ensure thumbnail exists
             if not os.path.exists(final_thumbnail_path) and os.path.exists(source_path):
                 process_image(source_path, final_thumbnail_path, 300, is_gif)
             
-            # Ensure frontmatter is explicit (has 'thumbnail' field)
-            if "thumbnail:" not in content:
+            # Ensure redundant image/thumbnail fields are present but managed
+            if "thumbnail:" not in content or "image:" not in content:
                 new_content = update_frontmatter(content, slug, current_filename, thumb_filename)
                 with open(post_path, 'w', encoding='utf-8') as f:
                     f.write(new_content)
             continue
 
-        # Case 2: Unprocessed file
         if not os.path.exists(source_path):
             continue
 
-        print(f"Processing: {current_filename} -> {done_filename}")
+        print(f"Optimizing Assets: {slug}")
         process_image(source_path, final_screenshot_path, 900, is_gif)
         process_image(source_path, final_thumbnail_path, 300, is_gif)
 
@@ -131,20 +126,13 @@ def run_pipeline():
         if source_path != final_screenshot_path:
             os.remove(source_path)
 
-    # Cleanup
+    # Global Cleanup
     for filename in os.listdir(screenshots_dir):
         if filename not in in_use_screenshots and filename not in protected_files:
-            file_path = os.path.join(screenshots_dir, filename)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-                print(f"Deleted unused screenshot: {filename}")
-
+            os.remove(os.path.join(screenshots_dir, filename))
     for filename in os.listdir(thumbnails_dir):
         if filename not in in_use_thumbnails:
-            file_path = os.path.join(thumbnails_dir, filename)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-                print(f"Deleted unused thumbnail: {filename}")
+            os.remove(os.path.join(thumbnails_dir, filename))
 
 if __name__ == "__main__":
     run_pipeline()

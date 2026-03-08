@@ -66,6 +66,7 @@ nav ul li a {
   text-decoration: underline;
 }
 
+body:not([data-lang]) .lang-en,
 [data-lang="da"] .lang-en {
   display: none !important;
 }
@@ -266,31 +267,33 @@ main {
 }
 
 .post-media {
-  flex: 1;
-  min-width: 0; /* Prevents overflow */
+  flex: 0 1 auto; /* Grow to content but don't force width */
+  min-width: 0;
+  max-width: 100%;
 }
 
 .post-media img {
-  width: 100%;
+  max-width: 100%;
+  width: auto; /* Shrink to fit content */
   height: auto;
   max-height: 80vh;
   object-fit: contain;
   border: 1px solid #000;
+  display: block;
 }
 
 .video-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  height: 0;
+  width: 100%;
+  max-width: 1200px; /* Maximum width for video */
+  aspect-ratio: 16 / 9;
+  max-height: 80vh;
   overflow: hidden;
   border: 1px solid #000;
+  background: #000;
 }
 
 .video-container iframe,
 .video-container video {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
 }

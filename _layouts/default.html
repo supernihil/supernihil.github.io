@@ -80,51 +80,41 @@
         <span class="lang-da">{{ site.data.translations.da.footer_text }}</span>
         <span class="lang-en">{{ site.data.translations.en.footer_text }}</span>
       </p>
-      <div id="stats-counter" class="visitor-counter"></div>
     </div>
   </footer>
-<script data-goatcounter="https://supernihil.goatcounter.com/count"
-      async src="//gc.zgo.at/count.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Check for CMS login
-    const isCmsLoggedIn = localStorage.getItem('sveltia-cms.user') || localStorage.getItem('netlify-cms-user') || localStorage.getItem('decap-cms-user');
-    if (isCmsLoggedIn) {
-      document.body.classList.add('cms-logged-in');
-    }
 
-    // Language Toggle Logic
-    const toggleDa = document.getElementById('lang-toggle-da');
-    const toggleEn = document.getElementById('lang-toggle-en');
-
-    function setLanguage(lang) {
-      localStorage.setItem('preferred-lang', lang);
-      document.body.setAttribute('data-lang', lang);
-
-      if (lang === 'da') {
-        toggleDa.classList.add('active');
-        toggleEn.classList.remove('active');
-      } else {
-        toggleDa.classList.remove('active');
-        toggleEn.classList.add('active');
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for CMS login
+      const isCmsLoggedIn = localStorage.getItem('sveltia-cms.user') || localStorage.getItem('netlify-cms-user') || localStorage.getItem('decap-cms-user');
+      if (isCmsLoggedIn) {
+        document.body.classList.add('cms-logged-in');
       }
-    }
 
-    toggleDa.addEventListener('click', (e) => { e.preventDefault(); setLanguage('da'); });
-    toggleEn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
-
-    const savedLang = localStorage.getItem('preferred-lang') || 'da';
-    setLanguage(savedLang);
-
-    // GoatCounter Visit Count
-    var checkGoat = setInterval(function() {
-      if (window.goatcounter && window.goatcounter.visit_count) {
-        window.goatcounter.visit_count({append: '#stats-counter'});
-        clearInterval(checkGoat);
+      // Language Toggle Logic
+      const toggleDa = document.getElementById('lang-toggle-da');
+      const toggleEn = document.getElementById('lang-toggle-en');
+      
+      function setLanguage(lang) {
+        localStorage.setItem('preferred-lang', lang);
+        document.body.setAttribute('data-lang', lang);
+        
+        if (lang === 'da') {
+          toggleDa.classList.add('active');
+          toggleEn.classList.remove('active');
+        } else {
+          toggleDa.classList.remove('active');
+          toggleEn.classList.add('active');
+        }
       }
-    }, 100);
-  });
-</script>
+
+      toggleDa.addEventListener('click', (e) => { e.preventDefault(); setLanguage('da'); });
+      toggleEn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
+
+      const savedLang = localStorage.getItem('preferred-lang') || 'da';
+      setLanguage(savedLang);
+    });
+  </script>
 
   <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
     <filter id="gritty-red">

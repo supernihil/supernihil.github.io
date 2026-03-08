@@ -353,29 +353,19 @@ main {
   box-shadow: 2px 2px 0px red;
 }
 
-/* Footer & Visitor Counter */
+/* Footer */
 footer {
   padding: 4rem 2rem;
   margin-top: 8rem;
   width: 100%;
   box-sizing: border-box;
-  color: #000; /* Back to black text */
+  color: #000;
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
-  opacity: 0.6; /* Subtle appearance */
-}
-
-.visitor-counter {
-  margin-top: 1rem;
-  display: inline-block;
-}
-
-.visitor-counter a {
-  text-decoration: none;
-  font-family: monospace;
+  opacity: 0.6;
 }
 
 /* Responsive adjustments */

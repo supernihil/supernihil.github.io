@@ -100,6 +100,7 @@ main {
   /* Removed top padding to touch navbar */
   width: 100%;
   box-sizing: border-box;
+  min-height: 40vh;
 }
 
 .content-wrapper {
@@ -257,6 +258,50 @@ main {
   padding: 0;
 }
 
+.post-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.post-media {
+  flex: 1;
+  min-width: 0; /* Prevents overflow */
+}
+
+.post-media img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 1px solid #000;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border: 1px solid #000;
+}
+
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.post-info-column {
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .post-header {
   margin-bottom: 2rem;
   border-bottom: 1px solid #000;
@@ -277,59 +322,80 @@ main {
   letter-spacing: 1px;
 }
 
-.post-content img {
-  height: calc(100vh - 10rem); /* Ensure it stays within viewport height, leaving room for title/nav */
-  object-fit: contain; /* Scales to fit without cropping */
-  margin: 0;
-  display: block;
-  border: 1px solid #000;
-  background: transparent;
+.prominent-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
 }
 
-.post-content .lang-da,
-.post-content .lang-en {
-  max-width: 500px;
-  text-align: left;
-  margin: 0 0 2rem 0;
-  line-height: 1.4;
-}
-
-.post-links {
-  margin-top: 4rem;
-  padding-top: 1rem;
-  border-top: 1px solid #000;
-}
-
-.post-links h3 {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.prominent-links li {
   margin-bottom: 1rem;
 }
 
-.post-links ul {
-  list-style: none;
-  padding: 0;
+.prominent-link {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  background: black;
+  color: red !important;
+  padding: 0.5rem 1rem;
+  box-shadow: 4px 4px 0px red;
+  transition: transform 0.1s;
 }
 
-.post-links li {
-  margin-bottom: 0.5rem;
+.prominent-link:hover {
+  text-decoration: none;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px red;
 }
 
-/* Footer */
+/* Footer & Visitor Counter */
 footer {
-  padding: 2rem;
-  border-top: 1px solid #000;
-  margin-top: 6rem;
+  padding: 4rem 2rem;
+  border-top: 2px solid red;
+  margin-top: 8rem;
   width: 100%;
   box-sizing: border-box;
+  background: #000;
+  color: #fff;
 }
 
 .footer-content {
-  width: 100%;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.visitor-counter {
+  margin-top: 2rem;
+  padding: 10px;
+  border: 1px solid red;
+  display: inline-block;
+  background: #111;
+}
+
+.visitor-counter img {
+  display: block;
+  height: 30px;
+  /* If the counter is black text, we might need to invert it to see it on black */
+  filter: invert(1) hue-rotate(180deg) brightness(1.5); 
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .post-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .post-info-column {
+    flex: none;
+    width: 100%;
+  }
+
+  .post-media img {
+    max-height: none;
+  }
 }
 
 /* Info Page */

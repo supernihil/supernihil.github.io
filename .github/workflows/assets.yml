@@ -1,4 +1,4 @@
-name: Generate Thumbnails
+name: Process Assets
 
 on:
   push:
@@ -7,23 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  thumbnails:
+  process-assets:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y gifsicle
           pip install Pillow
-      - name: Generate thumbnails
-        run: python scripts/generate_thumbnails.py
+
+      - name: Process Assets
+        run: python scripts/process_assets.py
+
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add assets/thumbnails/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-generate thumbnails" && git push)
+          git add assets/screenshots/ assets/thumbnails/ _posts/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-process assets: rename, resize, and optimize" && git push)

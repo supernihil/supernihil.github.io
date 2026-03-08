@@ -1,0 +1,28 @@
+name: Generate Thumbnails
+
+on:
+  push:
+    paths:
+      - 'assets/screenshots/**'
+      - 'scripts/generate_thumbnails.py'
+  workflow_dispatch:
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install Pillow
+      - name: Generate thumbnails
+        run: python scripts/generate_thumbnails.py
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add assets/thumbnails/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-generate thumbnails" && git push)

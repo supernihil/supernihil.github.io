@@ -1,4 +1,7 @@
 ---
+image: /assets/screenshots/first-vj-gig.done.jpg
+aspect_ratio: 1.25
+thumbnail: /assets/thumbnails/first-vj-gig.thumb.done.jpg
 layout: post
 title: First vj gig
 title_en: First vj gig
@@ -6,7 +9,7 @@ date: 2009-08-28
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/1000005077.jpg
+cover: /assets/screenshots/first-vj-gig.done.jpg
 video_url: ''
 links:
   - label: event

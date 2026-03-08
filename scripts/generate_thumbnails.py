@@ -12,6 +12,10 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
             base_name, _ = os.path.splitext(filename)
             target_path = os.path.join(target_dir, f"{base_name}.gif")
 
+            # Skip if thumbnail already exists and is newer than source
+            if os.path.exists(target_path) and os.path.getmtime(target_path) >= os.path.getmtime(source_path):
+                continue
+
             try:
                 with Image.open(source_path) as img:
                     # Calculate new height to maintain aspect ratio

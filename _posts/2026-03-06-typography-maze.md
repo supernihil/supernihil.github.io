@@ -7,6 +7,7 @@ category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/the_trial-ezgif.com-optipng.png
+image: /assets/screenshots/the_trial-ezgif.com-optipng.png
 links:
   - label: repo
     url: https://github.com/sloev/typography_maze

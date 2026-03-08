@@ -7,6 +7,7 @@ category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/header.jpg
+image: /assets/screenshots/header.jpg
 links:
   - label: repo
     url: https://github.com/sloev/spacy-syllables

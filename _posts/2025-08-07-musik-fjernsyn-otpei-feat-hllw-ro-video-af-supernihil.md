@@ -2,6 +2,7 @@
 category: video
 category_en: video
 cover: https://hls.buro.earth/shows/16/26.hls/thumb.gif
+image: https://hls.buro.earth/shows/16/26.hls/thumb.gif
 date: '2025-08-07T00:00:00.000Z'
 layout: post
 links:

@@ -7,6 +7,7 @@ category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/gutenhaiku.gif
+image: /assets/screenshots/gutenhaiku.gif
 links:
   - label: repo
     url: https://github.com/sloev/gutenhaiku

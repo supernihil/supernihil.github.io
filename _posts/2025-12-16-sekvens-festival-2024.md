@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/sekvens_festival_2024.jpeg
+image: /assets/screenshots/sekvens_festival_2024.jpeg
 links:
   - label: event
     url: https://sekvens.buro.earth/sekvens-festival

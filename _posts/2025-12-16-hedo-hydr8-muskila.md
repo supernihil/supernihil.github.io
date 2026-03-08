@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/hedo.png
+image: /assets/screenshots/hedo.png
 links:
   - label: event
     url: https://sekvens.buro.earth/hedohydrate

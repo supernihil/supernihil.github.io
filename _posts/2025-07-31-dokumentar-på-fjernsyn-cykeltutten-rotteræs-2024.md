@@ -7,6 +7,7 @@ category: video
 category_en: video
 type: static
 cover: https://hls.buro.earth/shows/17/24.hls/thumb.gif
+image: https://hls.buro.earth/shows/17/24.hls/thumb.gif
 links:
   - label: website
     url: https://hls.buro.earth/shows/17/24.hls/stream.m3u8

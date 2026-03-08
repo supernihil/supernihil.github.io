@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/thumb.gif
+image: /assets/screenshots/thumb.gif
 video_url: "https://buro.earth/#episode_25"
 links:
   - label: video

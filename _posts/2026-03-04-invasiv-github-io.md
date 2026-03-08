@@ -7,6 +7,7 @@ category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/invasiv.gif
+image: /assets/screenshots/invasiv.gif
 links:
   - label: website
     url: https://invasiv.github.io/

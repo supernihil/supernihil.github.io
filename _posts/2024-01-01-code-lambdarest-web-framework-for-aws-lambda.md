@@ -7,6 +7,7 @@ category: web
 category_en: web
 type: static
 cover: /assets/screenshots/lambdarest_mug.jpg
+image: /assets/screenshots/lambdarest_mug.jpg
 links:
   - label: website
     url: https://sloev.github.io/

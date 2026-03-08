@@ -2,10 +2,15 @@ title: "Supernihil"
 title_en: "Supernihil"
 email: "fremmedartet@gmail.com"
 description: >-
-  supernihil portfolio
-baseurl: ""
-url: "https://supernihil.github.io"
+  Supernihil is an archive of experimental audiovisual works, interactive installations, and digital artifacts by Johannes Valbjørn. Based in Svendborg, Denmark.
+lang: da
+url: "https://supernihil.buro.earth"
 github_username: sloev
+twitter:
+  username: supernihil
+  card: summary_large_image
+logo: /assets/screenshots/sekvens.gif
+image: /assets/screenshots/sekvens.gif
 excerpt_separator: "<!--more-->"
 
 plugins:

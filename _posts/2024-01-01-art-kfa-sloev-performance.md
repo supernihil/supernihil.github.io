@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/kfa.gif
+image: /assets/screenshots/kfa.gif
 video_url: "https://youtu.be/GHVtgXkMdq4"
 links:
   - label: video

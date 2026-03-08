@@ -2,6 +2,7 @@
 category: video
 category_en: video
 cover: /assets/screenshots/2024-12-18-mall-of-mosh.gif
+image: /assets/screenshots/2024-12-18-mall-of-mosh.gif
 date: 2024-12-18
 layout: post
 links:

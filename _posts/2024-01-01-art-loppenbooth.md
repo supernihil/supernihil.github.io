@@ -7,6 +7,7 @@ category: installation
 category_en: installation
 type: live
 cover: /assets/screenshots/photo.gif
+image: /assets/screenshots/photo.gif
 video_url: "https://www.youtube.com/watch?v=4fXzuDtlc6Q"
 links:
   - label: video

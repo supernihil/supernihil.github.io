@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/loaf.gif
+image: /assets/screenshots/loaf.gif
 links:
   - label: repo
     url: https://github.com/sloev/loaf_sketches

@@ -7,6 +7,7 @@ category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/video2sound.gif
+image: /assets/screenshots/video2sound.gif
 video_url: "http://www.youtube.com/watch?v=VZOOO4I29Sg"
 links:
   - label: repo

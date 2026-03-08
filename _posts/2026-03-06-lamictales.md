@@ -7,6 +7,7 @@ category: tegneserie
 category_en: comic
 type: static
 cover: /assets/screenshots/ezgif.com-optipng.png
+image: /assets/screenshots/ezgif.com-optipng.png
 links:
   - label: repo
     url: https://github.com/sloev/comics

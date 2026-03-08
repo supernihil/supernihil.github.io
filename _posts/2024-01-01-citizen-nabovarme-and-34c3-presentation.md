@@ -7,6 +7,7 @@ category: talk
 category_en: talk
 type: live
 cover: /assets/screenshots/34c3.gif
+image: /assets/screenshots/34c3.gif
 video_url: "https://www.youtube.com/watch?v=vYKmnAxDXVs"
 links:
   - label: video

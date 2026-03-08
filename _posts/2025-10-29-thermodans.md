@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/thermodans-1-ezgif.com-optijpeg.jpg
+image: /assets/screenshots/thermodans-1-ezgif.com-optijpeg.jpg
 links:
   - label: event
     url: https://sekvens.buro.earth/2025-10-29-thermodans

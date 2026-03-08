@@ -7,6 +7,7 @@ category: video
 category_en: video
 type: static
 cover: /assets/screenshots/bytes.gif
+image: /assets/screenshots/bytes.gif
 video_url: "https://www.youtube.com/watch?v=cjQir99ix00"
 links:
   - label: repo

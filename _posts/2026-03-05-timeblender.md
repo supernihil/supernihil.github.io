@@ -7,6 +7,7 @@ category: video
 category_en: video
 type: static
 cover: /assets/screenshots/1000005060.png
+image: /assets/screenshots/1000005060.png
 video_url: "https://youtu.be/ykN2OgjwC0A"
 links:
   - label: video

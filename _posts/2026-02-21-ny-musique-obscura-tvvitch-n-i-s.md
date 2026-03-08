@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/thumb (1).gif
+image: /assets/screenshots/thumb (1).gif
 links:
   - label: website
     url: https://hls.buro.earth/shows/3/95.hls/stream.m3u8

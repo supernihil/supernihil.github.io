@@ -7,6 +7,7 @@ category: web
 category_en: web
 type: static
 cover: /assets/screenshots/thumb (1).jpg
+image: /assets/screenshots/thumb (1).jpg
 links:
   - label: repo
     url: https://github.com/sloev/radio_nabovarme

@@ -7,6 +7,7 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/jedi.gif
+image: /assets/screenshots/jedi.gif
 video_url: "https://www.youtube.com/watch?v=tCcX3JcitKE"
 links:
   - label: video

@@ -2,6 +2,7 @@
 category: video
 category_en: video
 cover: /assets/screenshots/2026-03-02-spiralvision-through-speakers-and-mic-on-a-broken-laptop.gif
+image: /assets/screenshots/2026-03-02-spiralvision-through-speakers-and-mic-on-a-broken-laptop.gif
 date: '2026-03-02T00:00:00.000Z'
 layout: post
 links:

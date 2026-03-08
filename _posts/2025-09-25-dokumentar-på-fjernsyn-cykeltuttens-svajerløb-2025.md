@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 0.688
+thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-cykeltuttens-svajerløb-2025.thumb.done.jpg
 layout: post
 title: CYKELTUTTENS SVAJERLØB 2025
 title_en: CYKELTUTTEN'S SVAJERLØB 2025
@@ -6,9 +8,9 @@ date: 2025-09-01
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/1000005070.jpg
+cover: /assets/screenshots/dokumentar-på-fjernsyn-cykeltuttens-svajerløb-2025.done.jpg
 video_url: https://hls.buro.earth/shows/17/61.hls/stream.m3u8
-image: https://hls.buro.earth/shows/17/61.hls/thumb.gif
+image: /assets/screenshots/dokumentar-på-fjernsyn-cykeltuttens-svajerløb-2025.done.jpg
 links:
   - label: video
     url: https://hls.buro.earth/shows/17/61.hls/stream.m3u8

@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 0.714
+thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.thumb.done.jpg
 layout: post
 title: CYKELTUTTEN ROTTERÆS 2024
 title_en: CYKELTUTTEN ROTTERÆS 2024
@@ -6,9 +8,9 @@ date: 2024-05-27
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/1000005069.jpg
+cover: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
 video_url: ''
-image: https://hls.buro.earth/shows/17/24.hls/thumb.gif
+image: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
 links:
   - label: website
     url: https://hls.buro.earth/shows/17/24.hls/stream.m3u8

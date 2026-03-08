@@ -10,13 +10,6 @@ cover: /assets/screenshots/gutenhaiku.gif
 links:
   - label: repo
     url: https://github.com/sloev/gutenhaiku
-body_en: |-
-  A Commandline tool to mine haiku poems from text
-
-  - 80's cli interface with **colors**
-  - Works great with gutenberg books thx to a builtin cleaner script from [Peyman Mohseni Kiasari](https://github.com/kiasar/gutenberg_cleaner)
-  - Reconstructs punctuation of haikus using [deepcorrect](https://github.com/bedapudi6788/deepcorrect)
-  - Appends json haiku's to a file
+body_en: "A 1980s-inspired CLI tool designed to mine haiku poems from the Project Gutenberg library. It features a retro terminal interface, multilingual support, and automated punctuation reconstruction."
 ---
-
-80'er terminal til at finde haiku digte i gutenberg samlingen
+Et 80'er-inspireret CLI-værktøj designet til at udvinde haiku-digte fra Project Gutenberg-biblioteket. Det har en retro-terminalgrænseflade, understøttelse af flere sprog og automatiseret tegnsætningsrekonstruktion.

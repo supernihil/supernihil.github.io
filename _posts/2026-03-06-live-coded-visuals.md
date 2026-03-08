@@ -12,5 +12,4 @@ links:
     url: https://github.com/sloev/loaf_sketches
 body_en: live coding visuals in loaf
 ---
-
 live coding visuals in loaf

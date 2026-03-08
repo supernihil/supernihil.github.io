@@ -8,11 +8,10 @@ category_en: code
 type: static
 cover: /assets/screenshots/invasiv.gif
 links:
-  - label: Website
+  - label: website
     url: https://invasiv.github.io/
 body_en: The platform serves as a hub for the Invasiv project's digital tools, including the skewer app and the projector interface. It is a space for real-time manipulation of audiovisual streams.
 ---
-
 <div class="lang-da">
 Invasiv.github.io er en interaktiv platform dedikeret til eksperimentel lyd og visuelle systemer.
 </div>

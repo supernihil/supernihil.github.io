@@ -17,7 +17,6 @@ body_en: |-
   - Supports [a ton of languages](https://github.com/Kozea/Pyphen/tree/master/pyphen/dictionaries)
   - Ease of use thx to the awesome pipeline framework in spacy
 ---
-
 A [spacy 2+ pipeline component](https://spacy.io/universe/category/pipeline) for adding multilingual syllable annotation to tokens.
 
 - Uses well established [pyphen](https://github.com/Kozea/Pyphen) for the syllables.

@@ -12,7 +12,6 @@ links:
     url: https://sekvens.buro.earth/sekvens-festival
 body_en: On August 30, 2024, Aserbo formed the setting for the first Sekvens DJ Festival. It was the culmination of years of work for the collective, now unfolded in an immersive experience between forest and beach. From Matriark to Tec2nisk, the program featured a string of artists who transformed a medieval tower into the city's most unique dance floor. The festival captured the feeling of the last days of summer, where music, nature, and beautiful people met in perfect symbiosis. An ambitious and successful project that underscored Sekvens' ability to create something truly special.
 ---
-
 <div class="lang-da">
 Fødslen af en ny tradition: Sekvens Festival 2024 i Aserbo. Cocktails, strand, skov og et massivt lineup af djs på et middelalderligt tårn-dansegulv. En uforglemmelig afslutning på sommeren med det sydfynske fællesskab.
 </div>

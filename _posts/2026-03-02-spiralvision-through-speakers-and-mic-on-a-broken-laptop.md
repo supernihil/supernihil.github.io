@@ -5,14 +5,13 @@ cover: /assets/screenshots/2026-03-02-spiralvision-through-speakers-and-mic-on-a
 date: '2026-03-02T00:00:00.000Z'
 layout: post
 links:
-- label: Original Source
+- label: website
   url: https://www.youtube.com/watch?v=k_lY_UmP844
 title: SPIRALVISION
 title_en: SPIRALVISION
 type: static
 body_en: "In this YouTube video, sloev takes his Spiralvision project to the extreme. By using a laptop with technical flaws, a natural form of 'circuit bending' and unpredictable feedback is created. The sound from the speakers is captured by the microphone, creating a constant stream of data that the visualizer attempts to interpret. The result is a raw and fascinating documentation of technology's fragility and the unique aesthetic expressions that can arise from flaws and deficiencies. A session that celebrates the imperfect and the improvised."
 ---
-
 <div class="lang-da">
 Et ekstremt teknisk eksperiment: Spiralvision kørt gennem højttalere og mikrofon på en defekt bærbar. En undersøgelse af feedback-loops og hardware-begrænsninger i realtid.
 </div>

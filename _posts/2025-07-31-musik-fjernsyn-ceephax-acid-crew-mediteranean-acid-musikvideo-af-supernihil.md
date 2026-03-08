@@ -7,12 +7,12 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/thumb.gif
+video_url: "https://buro.earth/#episode_25"
 links:
   - label: video
     url: https://buro.earth/#episode_25
 body_en: Ceephax Acid Crew is known for his uncompromising and often humorous approach to acid techno, and 'Mediteranean Acid' is no exception. Supernihil has created a music video that perfectly matches the playful and energetic nature of the music. Through the use of glitch effects, bold colors, and fast cuts, a visual flow is created that draws the listener directly into Ceephax's universe. It is a work that celebrates the joy of creating and dancing, presented in a form that feels both nostalgic and hyper-modern. One of the absolute highlights in the Music Television schedule.
 ---
-
 <div class="lang-da">Et legendarisk møde mellem Ceephax Acid Crews pulserende beats og Supernihils visuelle kaos. 'Mediteranean Acid' er en fest for både ører og øjne, hvor sommerens varme transformeres til analoge syre-loops.</div>
 <div class="lang-en">A legendary meeting between Ceephax Acid Crew's pulsating beats and Supernihil's visual chaos. 'Mediteranean Acid' is a feast for both ears and eyes, where summer heat is transformed into analog acid loops.</div>
 

@@ -8,11 +8,10 @@ category_en: performance
 type: live
 cover: /assets/screenshots/20250320_173414.jpg
 links:
-  - label: Original Source
+  - label: website
     url: https://sekvens.buro.earth/2025-03-16-maskedans
 body_en: The Maskedance at Maskinen in April 2025 was an exercise in the enigmatic. By encouraging guests to wear masks, Sequence created a space where usual social hierarchies vanished in favor of pure physical response to the music. The lineup was sharply curated to support the mysterious atmosphere, from Silius' deep tracks to Bili Bootcut's more eclectic beats. It was an evening where one could disappear in the crowd and be carried away by dark rhythms. A session that toyed with theatrical elements in a club context.
 ---
-
 <div class="lang-da">En nat i forklædning: Maskedans på Maskinen med Silius, Innacity, Salti brothers og Bili Bootcut. En mystisk og intens danseoplevelse hvor identiteter opløses bag masker til lyden af kompromisløs techno.</div>
 <div class="lang-en">A night in disguise: Maskedance at Maskinen with Silius, Innacity, Salti brothers, and Bili Bootcut. A mysterious and intense dance experience where identities dissolve behind masks to the sound of uncompromising techno.</div>
 

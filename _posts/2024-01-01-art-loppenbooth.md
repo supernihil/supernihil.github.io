@@ -7,6 +7,7 @@ category: installation
 category_en: installation
 type: live
 cover: /assets/screenshots/photo.gif
+video_url: "https://www.youtube.com/watch?v=4fXzuDtlc6Q"
 links:
   - label: video
     url: https://www.youtube.com/watch?v=4fXzuDtlc6Q
@@ -14,7 +15,6 @@ links:
     url: https://github.com/sloev/photobooth_web
 body_en: With Loppenbooth, sloev brought a new element to the classic concert experience at Loppen. The installation functioned as a digital memory for the venue and its guests, where images were captured and processed in real time. The project documents the development of the underlying software and presents the visual results of the interaction. It is an example of how technology can create new forms of community and documentation in a vibrant cultural environment. A tribute to Loppen and the people who make the place special.
 ---
-
 <div class="lang-da">Loppenbooth: En interaktiv installation skabt til Loppen i København. Projektet kombinerer fotografi, software og social interaktion i en unik 'booth' oplevelse til koncertgængere.</div>
 <div class="lang-en">Loppenbooth: An interactive installation created for Loppen in Copenhagen. The project combines photography, software, and social interaction in a unique 'booth' experience for concertgoers.</div>
 

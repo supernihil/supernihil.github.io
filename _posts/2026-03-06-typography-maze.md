@@ -10,7 +10,6 @@ cover: /assets/screenshots/the_trial-ezgif.com-optipng.png
 links:
   - label: repo
     url: https://github.com/sloev/typography_maze
-body_en: uses sentiment of words to make turns
+body_en: "A generative software project that constructs mazes based on the sentiment analysis of typography. The emotional weight of the words dictates the turns and complexity of the labyrinth."
 ---
-
-uses sentiment of words to make turns
+Et generativt softwareprojekt, der konstruerer labyrinter baseret på sentiment-analyse af typografi. Ordenes følelmesmæssige vægt dikterer drejningerne og kompleksiteten i labyrinten.

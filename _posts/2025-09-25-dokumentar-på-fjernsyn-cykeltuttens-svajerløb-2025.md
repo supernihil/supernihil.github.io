@@ -7,12 +7,12 @@ category: video
 category_en: video
 type: static
 cover: https://hls.buro.earth/shows/17/61.hls/thumb.gif
+video_url: "https://hls.buro.earth/shows/17/61.hls/stream.m3u8"
 links:
   - label: video
     url: https://hls.buro.earth/shows/17/61.hls/stream.m3u8
 body_en: The Svajerløb is a tradition celebrating historical Copenhagen bicycle messengers, but in Supernihil's 2025 film, the focus shifts to Svendborg and Cykeltutten. The film documents not only the race itself but also the community and the love for the bicycle as a means of transport that drives the event. Through Supernihil's lens, the heavy loads and fast pedal revolutions become a visual feast celebrating everyday heroes on two (or three) wheels. It is documentary filmmaking with its heart in the right place, presented with the right amount of Funen humor and pace.
 ---
-
 <div class="lang-da">En hyldest til den fynske cykelkultur: Svajerløb 2025 på Cykeltutten. Supernihil har indfanget den svedige og entusiastiske atmosfære, hvor tunge ladcykler og hurtige ben mødes i en dyst om æren.</div>
 <div class="lang-en">A tribute to Funen cycling culture: Svajerløb 2025 at Cykeltutten. Supernihil has captured the sweaty and enthusiastic atmosphere where heavy cargo bikes and fast legs meet in a contest for honor.</div>
 

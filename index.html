@@ -6,13 +6,10 @@ layout: default
   {% for post in sorted_posts %}
     <div class="work-item">
       <a href="{{ post.url | relative_url }}">
-        {% if post.cover %}
-          {% if post.cover contains 'assets/screenshots/' %}
-            {% assign thumb_url = post.cover | replace: 'assets/screenshots/', 'assets/thumbnails/' | replace: '.done.', '.thumb.done.' %}
-            <img src="{{ thumb_url | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
-          {% else %}
-            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">
-          {% endif %}
+        {% if post.thumbnail %}
+          <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
+        {% elsif post.cover %}
+          <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
         {% endif %}
         <div class="work-info">
           <span class="work-title">

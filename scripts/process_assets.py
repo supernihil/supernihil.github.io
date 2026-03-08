@@ -5,7 +5,6 @@ import shutil
 from PIL import Image
 
 def get_slug(filename):
-    # Remove date (YYYY-MM-DD-) and extension
     return re.sub(r'^\d{4}-\d{2}-\d{2}-', '', filename).replace('.md', '')
 
 def process_image(source_path, target_path, max_width, is_gif):
@@ -28,6 +27,30 @@ def process_image(source_path, target_path, max_width, is_gif):
                 img = bg
             img.convert("RGB").save(target_path, "JPEG", quality=90, optimize=True)
 
+def update_frontmatter(content, slug, done_filename, thumb_filename):
+    new_cover = f"/assets/screenshots/{done_filename}"
+    new_thumb = f"/assets/thumbnails/{thumb_filename}"
+    
+    # Update or add cover
+    if "cover:" in content:
+        content = re.sub(r'^cover:.*$', f'cover: {new_cover}', content, flags=re.MULTILINE)
+    else:
+        content = content.replace("---\n", f"---\ncover: {new_cover}\n", 1)
+        
+    # Update or add thumbnail
+    if "thumbnail:" in content:
+        content = re.sub(r'^thumbnail:.*$', f'thumbnail: {new_thumb}', content, flags=re.MULTILINE)
+    else:
+        content = content.replace("---\n", f"---\nthumbnail: {new_thumb}\n", 1)
+        
+    # Update or add image (SEO)
+    if "image:" in content:
+        content = re.sub(r'^image:.*$', f'image: {new_cover}', content, flags=re.MULTILINE)
+    else:
+        content = content.replace("---\n", f"---\nimage: {new_cover}\n", 1)
+        
+    return content
+
 def run_pipeline():
     posts_dir = "_posts"
     screenshots_dir = "assets/screenshots"
@@ -36,11 +59,8 @@ def run_pipeline():
     if not os.path.exists(thumbnails_dir):
         os.makedirs(thumbnails_dir)
 
-    # 1. Gather all in-use assets
     in_use_screenshots = set()
     in_use_thumbnails = set()
-    
-    # Files to always keep
     protected_files = {'hedo.png'}
 
     for post_file in os.listdir(posts_dir):
@@ -64,28 +84,11 @@ def run_pipeline():
         current_filename = os.path.basename(current_cover_rel)
         source_path = os.path.join(screenshots_dir, current_filename)
         
-        # Skip if file is already a ".done" version
-        if ".done." in current_filename:
-            in_use_screenshots.add(current_filename)
-            # Mark its corresponding thumbnail as in-use
-            ext = os.path.splitext(current_filename)[1].lower()
-            thumb_name = f"{slug}.thumb.done{ext}"
-            in_use_thumbnails.add(thumb_name)
-            
-            # Ensure thumbnail exists
-            thumb_path = os.path.join(thumbnails_dir, thumb_name)
-            if not os.path.exists(thumb_path) and os.path.exists(source_path):
-                is_gif = ext == '.gif'
-                process_image(source_path, thumb_path, 300, is_gif)
-                print(f"Repaired missing thumbnail for {slug}")
-            continue
-
-        if not os.path.exists(source_path):
-            continue
-
-        # Process new/unprocessed files
+        # Determine target extension and filenames
         ext = os.path.splitext(current_filename)[1].lower()
-        is_gif = ext == '.gif'
+        # If it was already processed but has a messy extension (like .png inside filename), 
+        # let's normalize it to .gif or .jpg
+        is_gif = ext == '.gif' or ('.done.gif' in current_filename)
         target_ext = ".gif" if is_gif else ".jpg"
         
         done_filename = f"{slug}.done{target_ext}"
@@ -94,14 +97,31 @@ def run_pipeline():
         final_screenshot_path = os.path.join(screenshots_dir, done_filename)
         final_thumbnail_path = os.path.join(thumbnails_dir, thumb_filename)
 
+        # Case 1: Already processed
+        if ".done." in current_filename:
+            in_use_screenshots.add(current_filename)
+            in_use_thumbnails.add(thumb_filename)
+            
+            # Ensure thumbnail exists
+            if not os.path.exists(final_thumbnail_path) and os.path.exists(source_path):
+                process_image(source_path, final_thumbnail_path, 300, is_gif)
+            
+            # Ensure frontmatter is explicit (has 'thumbnail' field)
+            if "thumbnail:" not in content:
+                new_content = update_frontmatter(content, slug, current_filename, thumb_filename)
+                with open(post_path, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+            continue
+
+        # Case 2: Unprocessed file
+        if not os.path.exists(source_path):
+            continue
+
         print(f"Processing: {current_filename} -> {done_filename}")
         process_image(source_path, final_screenshot_path, 900, is_gif)
         process_image(source_path, final_thumbnail_path, 300, is_gif)
 
-        new_cover_path = f"/assets/screenshots/{done_filename}"
-        new_content = content.replace(f"cover: {current_cover_rel}", f"cover: {new_cover_path}")
-        new_content = new_content.replace(f"image: {current_cover_rel}", f"image: {new_cover_path}")
-        
+        new_content = update_frontmatter(content, slug, done_filename, thumb_filename)
         with open(post_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
         
@@ -111,7 +131,7 @@ def run_pipeline():
         if source_path != final_screenshot_path:
             os.remove(source_path)
 
-    # 2. Cleanup unused screenshots
+    # Cleanup
     for filename in os.listdir(screenshots_dir):
         if filename not in in_use_screenshots and filename not in protected_files:
             file_path = os.path.join(screenshots_dir, filename)
@@ -119,7 +139,6 @@ def run_pipeline():
                 os.remove(file_path)
                 print(f"Deleted unused screenshot: {filename}")
 
-    # 3. Cleanup unused thumbnails
     for filename in os.listdir(thumbnails_dir):
         if filename not in in_use_thumbnails:
             file_path = os.path.join(thumbnails_dir, filename)

@@ -52,6 +52,8 @@ collections:
         options: ["static", "live"]
         default: "static"
       - {label: "Cover Image", name: "cover", widget: "image", required: false}
+      - {label: "Thumbnail", name: "thumbnail", widget: "hidden", required: false}
+      - {label: "SEO Image", name: "image", widget: "hidden", required: false}
       - {label: "Video URL", name: "video_url", widget: "string", required: false, hint: "YouTube, Vimeo or direct video link"}
       - label: "Links"
         name: "links"

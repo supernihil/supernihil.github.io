@@ -8,8 +8,8 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
     for filename in os.listdir(source_dir):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
             source_path = os.path.join(source_dir, filename)
-            # Force .gif extension for all thumbnails
-            base_name = os.path.splitext(filename)[0]
+            # Find the last dot to correctly replace the extension
+            base_name, _ = os.path.splitext(filename)
             target_path = os.path.join(target_dir, f"{base_name}.gif")
 
             try:
@@ -32,7 +32,8 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
                             append_images=frames[1:],
                             optimize=False, # Higher quality
                             loop=0,
-                            format="GIF"
+                            format="GIF",
+                            disposal=2 # Help with transparency
                         )
                     else:
                         # Convert static images to GIF

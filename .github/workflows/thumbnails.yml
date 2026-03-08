@@ -2,9 +2,8 @@ name: Generate Thumbnails
 
 on:
   push:
-    paths:
-      - 'assets/screenshots/**'
-      - 'scripts/generate_thumbnails.py'
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:

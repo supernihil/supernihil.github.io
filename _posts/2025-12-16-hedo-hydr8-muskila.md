@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 0.708
+thumbnail: /assets/thumbnails/hedo-hydr8-muskila.thumb.done.jpg
 layout: post
 title: Hedo Hydr8 + Muskila
 title_en: Hedo Hydr8 + Muskila
@@ -6,8 +8,8 @@ date: 2025-03-25
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/hedo.png
-image: /assets/screenshots/hedo.png
+cover: /assets/screenshots/hedo-hydr8-muskila.done.jpg
+image: /assets/screenshots/hedo-hydr8-muskila.done.jpg
 links:
   - label: event
     url: https://sekvens.buro.earth/hedohydrate

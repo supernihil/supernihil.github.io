@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.518
+thumbnail: /assets/thumbnails/art-radio-nabovarme.thumb.done.jpg
 layout: post
 title: RADIO NABOVARME
 title_en: RADIO NABOVARME
@@ -6,8 +8,8 @@ date: 2018-11-17
 category: web
 category_en: web
 type: static
-cover: /assets/screenshots/thumb (1).jpg
-image: /assets/screenshots/thumb (1).jpg
+cover: /assets/screenshots/art-radio-nabovarme.done.jpg
+image: /assets/screenshots/art-radio-nabovarme.done.jpg
 links:
   - label: repo
     url: https://github.com/sloev/radio_nabovarme

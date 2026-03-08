@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.546
+thumbnail: /assets/thumbnails/invasiv-github-io.thumb.done.gif
 layout: post
 title: INVASIV
 title_en: INVASIV
@@ -6,8 +8,8 @@ date: 2026-03-04T00:00:00.000Z
 category: kode
 category_en: code
 type: static
-cover: /assets/screenshots/invasiv.gif
-image: /assets/screenshots/invasiv.gif
+cover: /assets/screenshots/invasiv-github-io.done.gif
+image: /assets/screenshots/invasiv-github-io.done.gif
 links:
   - label: website
     url: https://invasiv.github.io/

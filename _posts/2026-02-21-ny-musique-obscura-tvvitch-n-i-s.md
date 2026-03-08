@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.0
+thumbnail: /assets/thumbnails/ny-musique-obscura-tvvitch-n-i-s.thumb.done.gif
 layout: post
 title: Tvvitch
 title_en: Tvvitch
@@ -6,8 +8,8 @@ date: 2026-02-21
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/thumb (1).gif
-image: /assets/screenshots/thumb (1).gif
+cover: /assets/screenshots/ny-musique-obscura-tvvitch-n-i-s.done.gif
+image: /assets/screenshots/ny-musique-obscura-tvvitch-n-i-s.done.gif
 links:
   - label: website
     url: https://hls.buro.earth/shows/3/95.hls/stream.m3u8

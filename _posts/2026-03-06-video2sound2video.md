@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.744
+thumbnail: /assets/thumbnails/video2sound2video.thumb.done.gif
 layout: post
 title: video2sound2video
 title_en: video2sound2video
@@ -6,8 +8,8 @@ date: 2013-05-29
 category: kode
 category_en: code
 type: static
-cover: /assets/screenshots/video2sound.gif
-image: /assets/screenshots/video2sound.gif
+cover: /assets/screenshots/video2sound2video.done.gif
+image: /assets/screenshots/video2sound2video.done.gif
 video_url: "http://www.youtube.com/watch?v=VZOOO4I29Sg"
 links:
   - label: repo

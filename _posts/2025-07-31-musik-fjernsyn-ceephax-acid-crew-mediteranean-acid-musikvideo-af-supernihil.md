@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.0
+thumbnail: /assets/thumbnails/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.thumb.done.gif
 layout: post
 title: CEEPHAX ACID CREW
 title_en: CEEPHAX ACID CREW
@@ -6,8 +8,8 @@ date: 2012-07-17
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/thumb.gif
-image: /assets/screenshots/thumb.gif
+cover: /assets/screenshots/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.done.gif
+image: /assets/screenshots/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.done.gif
 video_url: "https://buro.earth/#episode_25"
 links:
   - label: video

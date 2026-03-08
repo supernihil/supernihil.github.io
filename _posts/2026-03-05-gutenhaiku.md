@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.049
+thumbnail: /assets/thumbnails/gutenhaiku.thumb.done.gif
 layout: post
 title: gutenhaiku
 title_en: gutenhaiku
@@ -6,8 +8,8 @@ date: 2020-03-15
 category: kode
 category_en: code
 type: static
-cover: /assets/screenshots/gutenhaiku.gif
-image: /assets/screenshots/gutenhaiku.gif
+cover: /assets/screenshots/gutenhaiku.done.gif
+image: /assets/screenshots/gutenhaiku.done.gif
 links:
   - label: repo
     url: https://github.com/sloev/gutenhaiku

@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.235
+thumbnail: /assets/thumbnails/art-loppenbooth.thumb.done.gif
 layout: post
 title: LOPPENBOOTH
 title_en: LOPPENBOOTH
@@ -6,8 +8,8 @@ date: 2019-12-01
 category: installation
 category_en: installation
 type: live
-cover: /assets/screenshots/photo.gif
-image: /assets/screenshots/photo.gif
+cover: /assets/screenshots/art-loppenbooth.done.gif
+image: /assets/screenshots/art-loppenbooth.done.gif
 video_url: "https://www.youtube.com/watch?v=4fXzuDtlc6Q"
 links:
   - label: video

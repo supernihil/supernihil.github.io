@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.235
+thumbnail: /assets/thumbnails/vj-jedi-trance-at-loppen.thumb.done.gif
 layout: post
 title: JEDI TRANCE
 title_en: JEDI TRANCE
@@ -6,8 +8,8 @@ date: 2012-02-10
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/jedi.gif
-image: /assets/screenshots/jedi.gif
+cover: /assets/screenshots/vj-jedi-trance-at-loppen.done.gif
+image: /assets/screenshots/vj-jedi-trance-at-loppen.done.gif
 video_url: "https://www.youtube.com/watch?v=tCcX3JcitKE"
 links:
   - label: video

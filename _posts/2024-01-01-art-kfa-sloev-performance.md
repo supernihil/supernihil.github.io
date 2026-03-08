@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.382
+thumbnail: /assets/thumbnails/art-kfa-sloev-performance.thumb.done.gif
 layout: post
 title: KFA/SLOEV
 title_en: KFA/SLOEV
@@ -6,8 +8,8 @@ date: 2013-08-21
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/kfa.gif
-image: /assets/screenshots/kfa.gif
+cover: /assets/screenshots/art-kfa-sloev-performance.done.gif
+image: /assets/screenshots/art-kfa-sloev-performance.done.gif
 video_url: "https://youtu.be/GHVtgXkMdq4"
 links:
   - label: video

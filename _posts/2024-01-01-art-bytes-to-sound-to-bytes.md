@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.724
+thumbnail: /assets/thumbnails/art-bytes-to-sound-to-bytes.thumb.done.gif
 layout: post
 title: BYTES TO SOUND TO BYTES
 title_en: BYTES TO SOUND TO BYTES
@@ -6,8 +8,8 @@ date: 2019-01-12
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/bytes.gif
-image: /assets/screenshots/bytes.gif
+cover: /assets/screenshots/art-bytes-to-sound-to-bytes.done.gif
+image: /assets/screenshots/art-bytes-to-sound-to-bytes.done.gif
 video_url: "https://www.youtube.com/watch?v=cjQir99ix00"
 links:
   - label: repo

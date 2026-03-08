@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.917
+thumbnail: /assets/thumbnails/sekvens-festival-2024.thumb.done.jpg
 layout: post
 title: Sekvens Festival 2024
 title_en: Sekvens Festival 2024
@@ -6,8 +8,8 @@ date: 2024-08-30
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/sekvens_festival_2024.jpeg
-image: /assets/screenshots/sekvens_festival_2024.jpeg
+cover: /assets/screenshots/sekvens-festival-2024.done.jpg
+image: /assets/screenshots/sekvens-festival-2024.done.jpg
 links:
   - label: event
     url: https://sekvens.buro.earth/sekvens-festival

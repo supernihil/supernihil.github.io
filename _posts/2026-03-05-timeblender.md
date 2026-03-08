@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.0
+thumbnail: /assets/thumbnails/timeblender.thumb.done.jpg
 layout: post
 title: Timeblender
 title_en: Timeblender
@@ -6,8 +8,8 @@ date: 2014-02-11
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/1000005060.png
-image: /assets/screenshots/1000005060.png
+cover: /assets/screenshots/timeblender.done.jpg
+image: /assets/screenshots/timeblender.done.jpg
 video_url: "https://youtu.be/ykN2OgjwC0A"
 links:
   - label: video

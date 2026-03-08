@@ -1,8 +1,10 @@
 ---
+aspect_ratio: 1.333
+thumbnail: /assets/thumbnails/mall-of-mosh.thumb.done.gif
 category: video
 category_en: video
-cover: /assets/screenshots/2024-12-18-mall-of-mosh.gif
-image: /assets/screenshots/2024-12-18-mall-of-mosh.gif
+cover: /assets/screenshots/mall-of-mosh.done.gif
+image: /assets/screenshots/mall-of-mosh.done.gif
 date: 2024-12-18
 layout: post
 links:

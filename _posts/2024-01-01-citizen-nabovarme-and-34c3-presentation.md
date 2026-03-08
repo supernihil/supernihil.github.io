@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.724
+thumbnail: /assets/thumbnails/citizen-nabovarme-and-34c3-presentation.thumb.done.gif
 layout: post
 title: NABOVARME @ 34C3
 title_en: NABOVARME @ 34C3
@@ -6,8 +8,8 @@ date: 2017-12-27
 category: talk
 category_en: talk
 type: live
-cover: /assets/screenshots/34c3.gif
-image: /assets/screenshots/34c3.gif
+cover: /assets/screenshots/citizen-nabovarme-and-34c3-presentation.done.gif
+image: /assets/screenshots/citizen-nabovarme-and-34c3-presentation.done.gif
 video_url: "https://www.youtube.com/watch?v=vYKmnAxDXVs"
 links:
   - label: video

@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 0.708
+thumbnail: /assets/thumbnails/thermodans.thumb.done.jpg
 layout: post
 title: thermodans
 title_en: thermodans
@@ -6,8 +8,8 @@ date: 2025-11-15
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/thermodans-1-ezgif.com-optijpeg.jpg
-image: /assets/screenshots/thermodans-1-ezgif.com-optijpeg.jpg
+cover: /assets/screenshots/thermodans.done.jpg
+image: /assets/screenshots/thermodans.done.jpg
 links:
   - label: event
     url: https://sekvens.buro.earth/2025-10-29-thermodans

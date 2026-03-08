@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.78
+thumbnail: /assets/thumbnails/code-lambdarest-web-framework-for-aws-lambda.thumb.done.jpg
 layout: post
 title: LAMBDAREST
 title_en: LAMBDAREST
@@ -6,8 +8,8 @@ date: 2017-10-01
 category: web
 category_en: web
 type: static
-cover: /assets/screenshots/lambdarest_mug.jpg
-image: /assets/screenshots/lambdarest_mug.jpg
+cover: /assets/screenshots/code-lambdarest-web-framework-for-aws-lambda.done.jpg
+image: /assets/screenshots/code-lambdarest-web-framework-for-aws-lambda.done.jpg
 links:
   - label: website
     url: https://sloev.github.io/

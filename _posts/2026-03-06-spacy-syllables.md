@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.364
+thumbnail: /assets/thumbnails/spacy-syllables.thumb.done.jpg
 layout: post
 title: spacy syllables
 title_en: spacy syllables
@@ -6,8 +8,8 @@ date: 2020-03-13
 category: kode
 category_en: code
 type: static
-cover: /assets/screenshots/header.jpg
-image: /assets/screenshots/header.jpg
+cover: /assets/screenshots/spacy-syllables.done.jpg
+image: /assets/screenshots/spacy-syllables.done.jpg
 links:
   - label: repo
     url: https://github.com/sloev/spacy-syllables

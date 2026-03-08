@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 0.701
+thumbnail: /assets/thumbnails/maskedans-maskinen.thumb.done.jpg
 layout: post
 title: MASKEDANS
 title_en: MASKEDANCE
@@ -6,8 +8,8 @@ date: 2025-04-04
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/20250320_173414.jpg
-image: /assets/screenshots/20250320_173414.jpg
+cover: /assets/screenshots/maskedans-maskinen.done.jpg
+image: /assets/screenshots/maskedans-maskinen.done.jpg
 links:
   - label: website
     url: https://sekvens.buro.earth/2025-03-16-maskedans

@@ -8,8 +8,8 @@ layout: default
       <a href="{{ post.url | relative_url }}">
         {% if post.cover %}
           {% if post.cover contains 'assets/screenshots/' %}
-            {% assign thumb_url = post.cover | replace: 'assets/screenshots/', 'assets/thumbnails/' %}
-            <img src="{{ thumb_url | relative_url }}" alt="{{ post.title }}" loading="lazy" width="200">
+            {% assign thumb_url = post.cover | replace: 'assets/screenshots/', 'assets/thumbnails/' | split: '.' | first | append: '.gif' %}
+            <img src="{{ thumb_url | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
           {% else %}
             <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">
           {% endif %}

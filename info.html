@@ -3,16 +3,42 @@ layout: default
 title: Info
 permalink: /info/
 ---
+
 <div class="info-content">
-  <h2>
-    <span class="lang-da">{{ site.data.translations.da.kontakt }}</span>
-    <span class="lang-en">{{ site.data.translations.en.kontakt }}</span>
-  </h2>
-  <p>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-  <p>GitHub: <a href="https://github.com/{{ site.github_username }}">@{{ site.github_username }}</a></p>
-  
   <div class="about-section">
-    <p class="lang-da">{{ site.data.translations.da.footer_text }}</p>
-    <p class="lang-en">{{ site.data.translations.en.footer_text }}</p>
+    <div class="lang-da">
+      <h2 style="margin-top: 0;">Om Supernihil</h2>
+      <p>Supernihil er et arkiv over audiovisuelle eksperimenter, interaktive installationer og digitale fragmenter. Gennem en undersøgelse af teknologiens materialitet udforsker arkivet spændingsfeltet mellem den menneskelige intention og maskinens uforudsigelighed.</p>
+      
+      <h3>Kernetemaer</h3>
+      <ul>
+        <li><strong>Datatransformation:</strong> Oversættelsen af binær kode til sanselig erfaring – fra bytes til lyd, og fra lyd til billede.</li>
+        <li><strong>Fejlens Æstetik:</strong> En fascination af det uperfekte; glitch, støj og de visuelle artefakter, der opstår, når systemer presses til deres yderste.</li>
+        <li><strong>Digitale Genfærd:</strong> At give krop til det flygtige gennem tidsforskydning, feedback-loops og genanvendelse af forældet hardware.</li>
+      </ul>
+      <p>Projektet er baseret i Svendborg, Danmark, og manifesterer sig ofte gennem live-performances under fanen <em>Sekvens</em> eller som en del af det uafhængige radio- og tv-netværk <em>BURO</em>.</p>
+    </div>
+
+    <div class="lang-en">
+      <h2 style="margin-top: 0;">About Supernihil</h2>
+      <p>Supernihil is an archive of audiovisual experiments, interactive installations, and digital fragments. Through an investigation into the materiality of technology, the archive explores the tension between human intention and the unpredictability of the machine.</p>
+      
+      <h3>Core Themes</h3>
+      <ul>
+        <li><strong>Data Transformation:</strong> The translation of binary code into sensory experience – from bytes to sound, and from sound to image.</li>
+        <li><strong>Aesthetics of Failure:</strong> A fascination with the imperfect; glitch, noise, and the visual artifacts that emerge when systems are pushed to their breaking point.</li>
+        <li><strong>Digital Ghosts:</strong> Giving body to the ephemeral through time-shifting, feedback loops, and the repurposing of obsolete hardware.</li>
+      </ul>
+      <p>Based in Svendborg, Denmark, the project often manifests through live performances under the <em>Sekvens</em> banner or as part of the independent radio and TV network <em>BURO</em>.</p>
+    </div>
+  </div>
+
+  <div class="contact-section" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #000;">
+    <h2>
+      <span class="lang-da">{{ site.data.translations.da.kontakt }}</span>
+      <span class="lang-en">{{ site.data.translations.en.kontakt }}</span>
+    </h2>
+    <p>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p>GitHub: <a href="https://github.com/{{ site.github_username }}">@{{ site.github_username }}</a></p>
   </div>
 </div>

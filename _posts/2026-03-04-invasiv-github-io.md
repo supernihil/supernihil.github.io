@@ -3,7 +3,7 @@ layout: post
 title: INVASIV
 title_en: INVASIV
 date: 2026-03-04T00:00:00.000Z
-category: code
+category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/invasiv.gif

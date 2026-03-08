@@ -3,7 +3,7 @@ layout: post
 title: typography maze
 title_en: typography maze
 date: 2019-09-04
-category: code
+category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/the_trial-ezgif.com-optipng.png

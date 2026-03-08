@@ -3,7 +3,7 @@ layout: post
 title: lamictales
 title_en: lamictales
 date: 2021-06-22
-category: comic
+category: tegneserie
 category_en: comic
 type: static
 cover: /assets/screenshots/ezgif.com-optipng.png

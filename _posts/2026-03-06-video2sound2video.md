@@ -3,7 +3,7 @@ layout: post
 title: video2sound2video
 title_en: video2sound2video
 date: 2013-05-29
-category: code
+category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/video2sound.gif

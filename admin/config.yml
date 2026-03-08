@@ -22,8 +22,30 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Title (English)", name: "title_en", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
-      - {label: "Category", name: "category", widget: "string"}
-      - {label: "Category (English)", name: "category_en", widget: "string", required: false}
+      - label: "Category (Danish)"
+        name: "category"
+        widget: "select"
+        options: 
+          - { label: "Video", value: "video" }
+          - { label: "Performance", value: "performance" }
+          - { label: "Kode", value: "kode" }
+          - { label: "Web", value: "web" }
+          - { label: "Installation", value: "installation" }
+          - { label: "Talk", value: "talk" }
+          - { label: "Tegneserie", value: "tegneserie" }
+          - { label: "Koncept", value: "koncept" }
+      - label: "Category (English)"
+        name: "category_en"
+        widget: "select"
+        options: 
+          - { label: "Video", value: "video" }
+          - { label: "Performance", value: "performance" }
+          - { label: "Code", value: "code" }
+          - { label: "Web", value: "web" }
+          - { label: "Installation", value: "installation" }
+          - { label: "Talk", value: "talk" }
+          - { label: "Comic", value: "comic" }
+          - { label: "Concept", value: "concept" }
       - label: "Type"
         name: "type"
         widget: "select"

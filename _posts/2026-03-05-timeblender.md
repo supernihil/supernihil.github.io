@@ -3,8 +3,8 @@ layout: post
 title: Timeblender
 title_en: Timeblender
 date: 2014-02-11
-category: Video
-category_en: Video
+category: video
+category_en: video
 type: static
 cover: /assets/screenshots/1000005060.png
 video_url: "https://youtu.be/ykN2OgjwC0A"

@@ -8,9 +8,12 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
     for filename in os.listdir(source_dir):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
             source_path = os.path.join(source_dir, filename)
-            # Find the last dot to correctly replace the extension
-            base_name, _ = os.path.splitext(filename)
-            target_path = os.path.join(target_dir, f"{base_name}.gif")
+            base_name, ext = os.path.splitext(filename)
+            
+            # Determine target extension
+            is_gif = ext.lower() == '.gif'
+            target_ext = ".gif" if is_gif else ".jpg"
+            target_path = os.path.join(target_dir, f"{base_name}{target_ext}")
 
             # Skip if thumbnail already exists and is newer than source
             if os.path.exists(target_path) and os.path.getmtime(target_path) >= os.path.getmtime(source_path):
@@ -22,7 +25,7 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
                     aspect_ratio = img.height / img.width
                     new_height = int(max_width * aspect_ratio)
                     
-                    if getattr(img, "is_animated", False):
+                    if is_gif and getattr(img, "is_animated", False):
                         # Handle animated GIFs
                         frames = []
                         for frame in ImageSequence.Iterator(img):
@@ -34,19 +37,20 @@ def generate_thumbnails(source_dir, target_dir, max_width=300):
                             target_path,
                             save_all=True,
                             append_images=frames[1:],
-                            optimize=False, # Higher quality
+                            optimize=False,
                             loop=0,
                             format="GIF",
-                            disposal=2 # Help with transparency
+                            disposal=2
                         )
+                        print(f"Generated GIF thumbnail for {filename}")
                     else:
-                        # Convert static images to GIF
+                        # Convert to JPEG for everything else (or static GIFs if requested, but usually JPEG is better for static)
                         img.thumbnail((max_width, new_height), Image.Resampling.LANCZOS)
-                        # Use high quality palette generation
-                        img = img.convert("RGB").convert("P", palette=Image.ADAPTIVE, colors=256)
-                        img.save(target_path, format="GIF")
-                    
-                    print(f"Generated high-quality GIF thumbnail for {filename}")
+                        if img.mode in ("RGBA", "P"):
+                            img = img.convert("RGB")
+                        img.save(target_path, "JPEG", quality=90, optimize=True)
+                        print(f"Generated JPEG thumbnail for {filename}")
+                        
             except Exception as e:
                 print(f"Error processing {filename}: {e}")
 

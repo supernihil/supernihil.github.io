@@ -16,7 +16,9 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install dependencies
-        run: pip install Pillow
+        run: |
+          sudo apt-get update && sudo apt-get install -y gifsicle
+          pip install Pillow
       - name: Generate thumbnails
         run: python scripts/generate_thumbnails.py
       - name: Commit changes

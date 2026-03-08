@@ -8,13 +8,20 @@ layout: default
       <a href="{{ post.url | relative_url }}">
         {% if post.cover %}
           {% if post.cover contains 'assets/screenshots/' %}
-            {% assign thumb_url = post.cover | replace: 'assets/screenshots/', 'assets/thumbnails/' %}
-            {% assign path_parts = post.cover | split: "." %}
-            {% assign ext = path_parts.last | downcase %}
+            {% assign path_parts = post.cover | split: '.' %}
+            {% assign last_index = path_parts.size | minus: 1 %}
+            {% assign original_ext = path_parts[last_index] | downcase %}
             
-            {% if ext != "gif" %}
-              {% assign thumb_url = thumb_url | replace: ".png", ".jpg" | replace: ".jpeg", ".jpg" | replace: ".webp", ".jpg" %}
+            {% assign thumb_ext = "jpg" %}
+            {% if original_ext == "gif" %}
+              {% assign thumb_ext = "gif" %}
             {% endif %}
+            
+            {% assign thumb_url = post.cover | replace: 'assets/screenshots/', 'assets/thumbnails/' %}
+            {% assign length_to_chop = original_ext.size | plus: 1 %}
+            {% assign thumb_url_base_length = thumb_url.size | minus: length_to_chop %}
+            {% assign thumb_url_base = thumb_url | slice: 0, thumb_url_base_length %}
+            {% assign thumb_url = thumb_url_base | append: '.' | append: thumb_ext %}
             <img src="{{ thumb_url | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
           {% else %}
             <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">

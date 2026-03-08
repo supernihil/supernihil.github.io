@@ -353,32 +353,26 @@ main {
 /* Footer & Visitor Counter */
 footer {
   padding: 4rem 2rem;
-  border-top: 2px solid red;
   margin-top: 8rem;
   width: 100%;
   box-sizing: border-box;
-  background: #000;
-  color: #fff;
+  color: #000; /* Back to black text */
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
+  opacity: 0.6; /* Subtle appearance */
 }
 
 .visitor-counter {
-  margin-top: 2rem;
-  padding: 10px;
-  border: 1px solid red;
+  margin-top: 1rem;
   display: inline-block;
-  background: #111;
 }
 
-.visitor-counter img {
-  display: block;
-  height: 30px;
-  /* If the counter is black text, we might need to invert it to see it on black */
-  filter: invert(1) hue-rotate(180deg) brightness(1.5); 
+.visitor-counter a {
+  text-decoration: none;
+  font-family: monospace;
 }
 
 /* Responsive adjustments */

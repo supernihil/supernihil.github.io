@@ -10,9 +10,19 @@ permalink: /levende-vaerker/
       <div class="work-item">
         <a href="{{ post.url | relative_url }}">
           {% if post.thumbnail %}
-            <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
+            <img src="{{ post.thumbnail | relative_url }}" 
+                 alt="{{ post.title }}" 
+                 loading="lazy" 
+                 decoding="async"
+                 style="aspect-ratio: {{ post.aspect_ratio | default: '1/1' }};"
+                 class="grid-thumb">
           {% elsif post.cover %}
-            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy" width="300">
+            <img src="{{ post.cover | relative_url }}" 
+                 alt="{{ post.title }}" 
+                 loading="lazy" 
+                 decoding="async"
+                 style="aspect-ratio: {{ post.aspect_ratio | default: '1/1' }};"
+                 class="grid-thumb">
           {% endif %}
           <div class="work-info">
             <span class="work-title">

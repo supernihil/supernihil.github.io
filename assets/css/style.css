@@ -154,6 +154,11 @@ main {
   height: auto;
   display: block;
   margin-bottom: 0.5rem;
+  background: #eee; /* Skeleton background */
+}
+
+.grid-thumb {
+  transition: opacity 0.3s ease;
 }
 
 .work-info {

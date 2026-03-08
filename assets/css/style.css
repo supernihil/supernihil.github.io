@@ -24,41 +24,62 @@ header {
   top: 0;
   background: #fff;
   z-index: 1000;
+  border-bottom: 1px solid #eee;
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   width: 100%;
+  gap: 2rem;
 }
 
 .site-title {
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin: 0;
   font-weight: 900;
   background: red;
   color: black;
   display: inline-block;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  font-style: normal;
-  text-decoration: none;
-  box-shadow: 5px 5px 5px black;
+  flex-shrink: 0;
+  box-shadow: 4px 4px 0px black;
 }
 
-nav ul {
+nav {
+  flex-grow: 1;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-nav ul li a {
-  font-size: 1.1rem;
+.nav-links li a {
+  font-size: 1rem;
   text-transform: lowercase;
+  font-weight: 500;
+}
+
+.lang-switcher {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  padding-left: 1.5rem;
+  border-left: 1px solid #ddd;
 }
 
 .lang-link.active {
@@ -428,34 +449,34 @@ footer {
 
   .header-content {
     flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    text-align: center;
+    gap: 1rem;
+    align-items: flex-start;
   }
 
   .site-title {
-    font-size: 2.2rem;
-    padding: 0 1rem;
-    width: 100%;
-    box-sizing: border-box;
+    font-size: 1.8rem;
   }
 
-  nav ul {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
+  }
+
+  .nav-links {
+    gap: 0.8rem;
+  }
+
+  .nav-links li a {
+    font-size: 0.9rem;
+  }
+
+  .lang-switcher {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
     width: 100%;
-  }
-
-  nav ul li {
-    display: inline-block;
-  }
-
-  nav ul li a {
-    font-size: 0.85rem;
-    padding: 0.2rem 0.4rem;
-    border: 1px solid transparent;
   }
 
   /* Add some breathing room for the grid on mobile */

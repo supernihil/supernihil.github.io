@@ -29,41 +29,51 @@
         </a>
       </h1>
       <nav>
-        <ul>
-          <li><a href="#" id="lang-toggle-da" class="lang-link active">da</a> / <a href="#" id="lang-toggle-en" class="lang-link">en</a></li>
-          <li>
-            <a href="{{ "/timeline/" | relative_url }}">
-              <span class="lang-da">{{ site.data.translations.da.timeline }}</span>
-              <span class="lang-en">{{ site.data.translations.en.timeline }}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ "/statiske-vaerker/" | relative_url }}">
-              <span class="lang-da">{{ site.data.translations.da.statiske_vaerker }}</span>
-              <span class="lang-en">{{ site.data.translations.en.statiske_vaerker }}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ "/levende-vaerker/" | relative_url }}">
-              <span class="lang-da">{{ site.data.translations.da.levende_vaerker }}</span>
-              <span class="lang-en">{{ site.data.translations.en.levende_vaerker }}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ "/info/" | relative_url }}">
-              <span class="lang-da">{{ site.data.translations.da.info }}</span>
-              <span class="lang-en">{{ site.data.translations.en.info }}</span>
-            </a>
-          </li>
-          <li class="cms-link-wrapper"><a href="{{ "/admin/#/collections/blog/new" | relative_url }}" class="cms-link">
-            <span class="lang-da">{{ site.data.translations.da.new_post }}</span>
-            <span class="lang-en">{{ site.data.translations.en.new_post }}</span>
-          </a></li>
-          <li class="cms-link-wrapper"><a href="https://supernihil.goatcounter.com/" class="cms-link" target="_blank" rel="noopener noreferrer">
-            <span class="lang-da">{{ site.data.translations.da.stats }}</span>
-            <span class="lang-en">{{ site.data.translations.en.stats }}</span>
-          </a></li>
-        </ul>
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li>
+              <a href="{{ "/" | relative_url }}">
+                <span class="lang-da">{{ site.data.translations.da.frontpage }}</span>
+                <span class="lang-en">{{ site.data.translations.en.frontpage }}</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/timeline/" | relative_url }}">
+                <span class="lang-da">{{ site.data.translations.da.timeline }}</span>
+                <span class="lang-en">{{ site.data.translations.en.timeline }}</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/statiske-vaerker/" | relative_url }}">
+                <span class="lang-da">{{ site.data.translations.da.statiske_vaerker }}</span>
+                <span class="lang-en">{{ site.data.translations.en.statiske_vaerker }}</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/levende-vaerker/" | relative_url }}">
+                <span class="lang-da">{{ site.data.translations.da.levende_vaerker }}</span>
+                <span class="lang-en">{{ site.data.translations.en.levende_vaerker }}</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/info/" | relative_url }}">
+                <span class="lang-da">{{ site.data.translations.da.info }}</span>
+                <span class="lang-en">{{ site.data.translations.en.info }}</span>
+              </a>
+            </li>
+            <li class="cms-link-wrapper"><a href="{{ "/admin/#/collections/blog/new" | relative_url }}" class="cms-link">
+              <span class="lang-da">{{ site.data.translations.da.new_post }}</span>
+              <span class="lang-en">{{ site.data.translations.en.new_post }}</span>
+            </a></li>
+            <li class="cms-link-wrapper"><a href="https://supernihil.goatcounter.com/" class="cms-link" target="_blank" rel="noopener noreferrer">
+              <span class="lang-da">{{ site.data.translations.da.stats }}</span>
+              <span class="lang-en">{{ site.data.translations.en.stats }}</span>
+            </a></li>
+          </ul>
+          <div class="lang-switcher">
+            <a href="#" id="lang-toggle-da" class="lang-link active">da</a> / <a href="#" id="lang-toggle-en" class="lang-link">en</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>

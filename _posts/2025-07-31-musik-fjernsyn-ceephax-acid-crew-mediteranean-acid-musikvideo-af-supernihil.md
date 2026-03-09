@@ -6,17 +6,17 @@ date: 2012-07-17
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/7900297316_bed51f54d8_c.jpg
+cover: /assets/screenshots/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.done.jpg
 video_url: https://www.youtube.com/watch?v=5f3pPTpBxMA&feature=youtu.be
-thumbnail: /assets/thumbnails/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.thumb.done.gif
-image: /assets/screenshots/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.done.gif
+thumbnail: /assets/thumbnails/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.thumb.done.jpg
+image: /assets/screenshots/musik-fjernsyn-ceephax-acid-crew-mediteranean-acid-musikvideo-af-supernihil.done.jpg
 links:
   - label: video
     url: https://www.youtube.com/watch?v=5f3pPTpBxMA&feature=youtu.be
   - label: event
     url: https://loppen.dk/kalender/spaending-og-str%C3%B8m-pr%C3%A6senterer-ceephax-acid-crew-uk-j%C3%A6wer-j%C3%A6v-dk-lisbent-dk-jens-robot-dk
 body_en: Ceephax Acid Crew is known for his uncompromising and often humorous approach to acid techno, and 'Mediteranean Acid' is no exception. Supernihil has created a music video that perfectly matches the playful and energetic nature of the music. Through the use of glitch effects, bold colors, and fast cuts, a visual flow is created that draws the listener directly into Ceephax's universe. It is a work that celebrates the joy of creating and dancing, presented in a form that feels both nostalgic and hyper-modern. One of the absolute highlights in the Music Television schedule.
-aspect_ratio: 1
+aspect_ratio: 0.709
 ---
 
 <div class="lang-da">Et legendarisk møde mellem Ceephax Acid Crews pulserende beats og Supernihils visuelle kaos. 'Mediteranean Acid' er en fest for både ører og øjne, hvor sommerens varme transformeres til analoge syre-loops.</div>

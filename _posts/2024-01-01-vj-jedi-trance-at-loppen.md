@@ -6,17 +6,17 @@ date: 2012-02-10
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/6892748384_044188ba28_b.jpg
+cover: /assets/screenshots/vj-jedi-trance-at-loppen.done.jpg
 video_url: https://www.youtube.com/watch?v=tCcX3JcitKE
-thumbnail: /assets/thumbnails/vj-jedi-trance-at-loppen.thumb.done.gif
-image: /assets/screenshots/vj-jedi-trance-at-loppen.done.gif
+thumbnail: /assets/thumbnails/vj-jedi-trance-at-loppen.thumb.done.jpg
+image: /assets/screenshots/vj-jedi-trance-at-loppen.done.jpg
 links:
   - label: video
     url: https://www.youtube.com/watch?v=tCcX3JcitKE
   - label: event
     url: https://loppen.dk/kalender/spaending-pr%C3%A6senterer-jedi-trance-hecq-d-karsten-pflum-dj-hvad-dj-ellesiv-teppop-lisbent
 body_en: With 'Jedi Trance', sloev explored the visual possibilities of the trance genre. Through the use of laser-like lines, complex fractals, and starry skies, Loppen was transformed into an intergalactic dance floor. The documentation presents the visual setups and explains how the different elements were controlled live to match the intensity of the music. It is a work that celebrates the visual heritage of trance culture and brings it into a modern, digital framework. A session that demonstrates the importance of light and images in creating an immersive listening and dancing experience.
-aspect_ratio: 1.235
+aspect_ratio: 0.708
 ---
 
 <div class="lang-da">VJ-sets til 'Jedi Trance' på Loppen. En rejse gennem kosmiske visuals og geometriske mønstre, der understøttede trance-musikkens hypnotiske og transcendente kvaliteter.</div>

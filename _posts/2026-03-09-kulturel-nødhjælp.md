@@ -1,4 +1,7 @@
 ---
+image: /assets/screenshots/kulturel-nødhjælp.done.jpg
+aspect_ratio: 1.277
+thumbnail: /assets/thumbnails/kulturel-nødhjælp.thumb.done.jpg
 layout: post
 title: kulturel nødhjælp
 title_en: kulturel nødhjælp
@@ -6,7 +9,7 @@ date: 2013-02-15
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/8448621384_bd87fbc5d1_o.jpg
+cover: /assets/screenshots/kulturel-nødhjælp.done.jpg
 video_url: ''
 links:
   - label: event

@@ -1,4 +1,7 @@
 ---
+image: /assets/screenshots/cyberbreakgrindcore-ultradeathfest.done.jpg
+aspect_ratio: 2.709
+thumbnail: /assets/thumbnails/cyberbreakgrindcore-ultradeathfest.thumb.done.jpg
 layout: post
 title: CYBERBREAKGRINDCORE ULTRADEATHFEST
 title_en: CYBERBREAKGRINDCORE ULTRADEATHFEST
@@ -6,7 +9,7 @@ date: 2014-08-13
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/CyberBreakGrindCoreUltraDeathFest.jpg
+cover: /assets/screenshots/cyberbreakgrindcore-ultradeathfest.done.jpg
 video_url: ''
 links:
   - label: event

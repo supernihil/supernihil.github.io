@@ -1,4 +1,7 @@
 ---
+image: /assets/screenshots/apocalypse-wauw.done.jpg
+aspect_ratio: 0.71
+thumbnail: /assets/thumbnails/apocalypse-wauw.thumb.done.jpg
 layout: post
 title: apocalypse wauw
 title_en: apocalypse wauw
@@ -6,7 +9,7 @@ date: 2012-12-07
 category: performance
 category_en: performance
 type: live
-cover: /assets/screenshots/8248571909_9f5e2332ed_b.jpg
+cover: /assets/screenshots/apocalypse-wauw.done.jpg
 video_url: ''
 links:
   - label: event

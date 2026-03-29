@@ -1,4 +1,7 @@
 ---
+image: /assets/screenshots/megatherium.done.gif
+aspect_ratio: 1.796
+thumbnail: /assets/thumbnails/megatherium.thumb.done.gif
 layout: post
 title: Megatherium
 title_en: Megatherium
@@ -6,7 +9,7 @@ date: 2018-12-07
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/mega.gif
+cover: /assets/screenshots/megatherium.done.gif
 video_url: https://www.youtube.com/watch?v=1u5n6u8Ilgg
 links:
   - label: video

@@ -6,7 +6,7 @@ date: 2018-12-07
 category: video
 category_en: video
 type: static
-cover: ''
+cover: /assets/screenshots/mega.gif
 video_url: https://www.youtube.com/watch?v=1u5n6u8Ilgg
 links:
   - label: video

@@ -12,7 +12,7 @@ cover: /assets/screenshots/thermodans.done.jpg
 image: /assets/screenshots/thermodans.done.jpg
 links:
   - label: event
-    url: https://sekvens.buro.earth/2025-10-29-thermodans
+    url: https://sekvenssekvens.github.io/2025-10-29-thermodans
 body_en: When autumn set in in 2025, Sekvens responded with Thermodans. The highlight was the guest performance from DJ Berrin Baş, who, with roots in Turkey and upbringing in Jutland, created a musical bridge between cultures. Her set was characterized by lived experience rather than formal training, giving the music a rare depth and sincerity. Residents Dj Aggi and Dj Salti complemented with their respective sets, blending Middle Eastern and North African sounds with modern beats. It was a night where dance became a defense against the cold and proof that feeling always trumps trends.
 ---
 <div class="lang-da">

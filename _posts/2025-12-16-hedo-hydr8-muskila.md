@@ -12,7 +12,7 @@ cover: /assets/screenshots/hedo-hydr8-muskila.done.jpg
 image: /assets/screenshots/hedo-hydr8-muskila.done.jpg
 links:
   - label: event
-    url: https://sekvens.buro.earth/hedohydrate
+    url: https://sekvenssekvens.github.io/hedohydrate
 body_en: When Sekvens was invited to Copenhagen, they brought their entire unique atmosphere with them. Christianshavns Beboerhus became the setting for a meeting between two scenes, where Hedo Hydr8 and Muskila brought their special b2b energy to the lineup. The program was a journey through global genres, where heavy LPs with habibi funk met the latest electronic currents. Supernihil's visuals connected the different musical expressions and ensured that Sekvens' signature was clear throughout the night. A successful export of the South Funen spirit to the capital.
 ---
 <div class="lang-da">

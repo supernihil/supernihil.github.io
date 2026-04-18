@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="{{ "/assets/screenshots/hedo.png" | relative_url }}">
   <link rel="apple-touch-icon" href="{{ "/assets/screenshots/hedo.png" | relative_url }}">
-  <link rel="canonical" href="https://supernihil.buro.earth{{ page.url }}">
+  <link rel="canonical" href="https://supernihil.github.io{{ page.url }}">
   <script>
     if (window.location.hostname === 'supernihil.github.io') {
-      window.location.replace('https://supernihil.buro.earth' + window.location.pathname + window.location.search);
+      window.location.replace('https://supernihil.github.io' + window.location.pathname + window.location.search);
     }
   </script>
   {% seo %}
@@ -104,11 +104,11 @@
       // Language Toggle Logic
       const toggleDa = document.getElementById('lang-toggle-da');
       const toggleEn = document.getElementById('lang-toggle-en');
-      
+
       function setLanguage(lang) {
         localStorage.setItem('preferred-lang', lang);
         document.body.setAttribute('data-lang', lang);
-        
+
         if (lang === 'da') {
           toggleDa.classList.add('active');
           toggleEn.classList.remove('active');
@@ -133,10 +133,10 @@
                                            0.33 0.33 0.33 0 0
                                            0.33 0.33 0.33 0 0
                                            0 0 0 1 0" result="gray"/>
-      
+
       <!-- Noise generation -->
       <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise"/>
-      
+
       <!-- Contrast noise -->
       <feComponentTransfer in="noise" result="high-noise">
         <feFuncR type="linear" slope="2" intercept="-0.5"/>
@@ -153,7 +153,7 @@
         <feFuncG type="linear" slope="1.4" intercept="0.1"/>
         <feFuncB type="linear" slope="1.4" intercept="0.1"/>
       </feComponentTransfer>
-      
+
       <!-- Color mapping: Grayscale to Black-Red -->
       <feColorMatrix in="enhanced-gray" type="matrix" values="1 0 0 0 0
                                            0 0 0 0 0

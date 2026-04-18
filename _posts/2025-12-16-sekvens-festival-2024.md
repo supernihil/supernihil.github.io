@@ -12,7 +12,7 @@ thumbnail: /assets/thumbnails/sekvens-festival-2024.thumb.done.jpg
 image: /assets/screenshots/sekvens-festival-2024.done.jpg
 links:
   - label: event
-    url: https://sekvens.buro.earth/sekvens-festival
+    url: https://sekvenssekvens.github.io/sekvens-festival
 body_en: On August 30, 2024, Aserbo formed the setting for the first Sekvens DJ Festival. It was the culmination of years of work for the collective, now unfolded in an immersive experience between forest and beach. From Matriark to Tec2nisk, the program featured a string of artists who transformed a medieval tower into the city's most unique dance floor. The festival captured the feeling of the last days of summer, where music, nature, and beautiful people met in perfect symbiosis. An ambitious and successful project that underscored Sekvens' ability to create something truly special.
 aspect_ratio: 1.917
 ---

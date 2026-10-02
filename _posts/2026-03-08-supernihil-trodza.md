@@ -10,11 +10,19 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/supernihil-trodza.done.jpg
-video_url: ''
 links:
-  - label: website
-    url: https://trodza1.bandcamp.com/album/vault-9
-body_en: At the cofeeshop
+- label: website
+  url: https://trodza1.bandcamp.com/album/vault-9
+body_en: |
+  An evening with supernihil and trodza at Kafbaren.
 ---
+<div class="lang-da">
+Supernihil og trodza live på Kafbaren.
+</div>
+<div class="lang-en">
+Supernihil and trodza live at Kafbaren.
+</div>
 
-På kafbaren
+<!--more-->
+
+En aften med supernihil og trodza på Kafbaren.

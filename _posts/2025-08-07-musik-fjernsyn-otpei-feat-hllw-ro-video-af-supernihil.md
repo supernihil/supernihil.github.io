@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/musik-fjernsyn-otpei-feat-hllw-ro-video-af-supernihil.thumb.done.jpg
 layout: post
 title: RO
 title_en: RO
@@ -6,12 +8,8 @@ date: 2025-08-07T00:00:00.000Z
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/16/26.hls/thumb.gif
-video_url: ''
-image: https://hls.buro.earth/shows/16/26.hls/thumb.gif
-links:
-  - label: website
-    url: https://hls.buro.earth/shows/16/26.hls/stream.m3u8
+cover: /assets/screenshots/musik-fjernsyn-otpei-feat-hllw-ro-video-af-supernihil.done.jpg
+image: /assets/screenshots/musik-fjernsyn-otpei-feat-hllw-ro-video-af-supernihil.done.jpg
 body_en: In the collaboration between Otpei and HLLW, a special synergy arises where electronic precision meets an organic sense of calm. 'Ro' (Calm) is not just the absence of noise, but an active creation of a space for immersion. Supernihil's video work here acts as a visual guide, with its fluid movements and muted colors helping the listener find the core of the work. It is Music Television at its most introspective and beautiful, demonstrating BURO's ability to present works that dare to treat time as an important player.
 ---
 

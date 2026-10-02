@@ -10,11 +10,16 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/apocalypse-wauw.done.jpg
-video_url: ''
-links:
-  - label: event
-    url: nothing
-body_en: vjing for spaending
+body_en: |
+  Visuals for Spaending's night Apocalypse Wauw.
 ---
+<div class="lang-da">
+VJ-sæt for Spaending.
+</div>
+<div class="lang-en">
+VJ set for Spaending.
+</div>
 
-vjing for spaending
+<!--more-->
+
+Visuals til Spaendings aften Apocalypse Wauw.

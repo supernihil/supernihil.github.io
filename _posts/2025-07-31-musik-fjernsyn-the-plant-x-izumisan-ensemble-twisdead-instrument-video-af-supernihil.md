@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/musik-fjernsyn-the-plant-x-izumisan-ensemble-twisdead-instrument-video-af-supernihil.thumb.done.jpg
 layout: post
 title: TWISDEAD INSTRUMENT
 title_en: TWISDEAD INSTRUMENT
@@ -6,11 +8,8 @@ date: 2025-07-31T00:00:00.000Z
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/16/28.hls/thumb.gif
-image: https://hls.buro.earth/shows/16/28.hls/thumb.gif
-links:
-  - label: website
-    url: https://hls.buro.earth/shows/16/28.hls/stream.m3u8
+cover: /assets/screenshots/musik-fjernsyn-the-plant-x-izumisan-ensemble-twisdead-instrument-video-af-supernihil.done.jpg
+image: /assets/screenshots/musik-fjernsyn-the-plant-x-izumisan-ensemble-twisdead-instrument-video-af-supernihil.done.jpg
 body_en: When The Plant meets Izumisan Ensemble, something very special happens. 'TWISDEAD INSTRUMENT' is an exploration of the physical nature of sound, where the participants play with the balance between control and dissolution. The music is both challenging and incredibly beautiful, with a wealth of detail that testifies to a high technical level of all involved. Supernihil's video uses more muted and focused images this time, allowing the instrument handling and the sound itself to be at the center. A work that demonstrates Music Television's ability to convey complex musical collaborations in a way that is both accessible and artistically uncompromising.
 ---
 <div class="lang-da">Et unikt samarbejde mellem The Plant og Izumisan Ensemble i værket 'TWISDEAD INSTRUMENT'. En sonisk undersøgelse af instrumentets grænser og muligheder, smukt indfanget på video af Supernihil.</div>

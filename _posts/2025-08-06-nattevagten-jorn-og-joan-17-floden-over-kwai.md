@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/nattevagten-jorn-og-joan-17-floden-over-kwai.thumb.done.jpg
 layout: post
 title: JORN OG JOAN
 title_en: JORN AND JOAN
@@ -6,12 +8,8 @@ date: 2025-08-06T00:00:00.000Z
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/2/53.hls/thumb.gif
-image: https://hls.buro.earth/shows/2/53.hls/thumb.gif
-video_url: "https://buro.earth/#show_2"
-links:
-  - label: video
-    url: https://buro.earth/#show_2
+cover: /assets/screenshots/nattevagten-jorn-og-joan-17-floden-over-kwai.done.jpg
+image: /assets/screenshots/nattevagten-jorn-og-joan-17-floden-over-kwai.done.jpg
 body_en: Even a blockbuster like 'The Bridge on the River Kwai' (or 'The River over Kwai', as they call it) is not safe from Jorn and Joan's analysis. In this episode, the film's themes of duty and pride are turned upside down in the night. Their retelling is full of quirky details and personal observations that make the classic new again. Supernihil's video uses references to the jungle and historical war images, giving the episode an epic feel despite its intimate format. A tribute to the film medium's ability to create shared memories.
 ---
 <div class="lang-da">Filmhistorie og personlig fortolkning: 'Floden over Kwai'. Jorn og Joan kaster sig over en af de store klassikere, med deres helt egen unikke vinkel på historien. Visuelt iscenesat af Supernihil.</div>

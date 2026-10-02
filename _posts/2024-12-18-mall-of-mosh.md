@@ -8,7 +8,7 @@ image: /assets/screenshots/mall-of-mosh.done.gif
 date: 2024-12-18
 layout: post
 links:
-- label: website
+- label: video
   url: https://www.youtube.com/watch?v=oJArEQ1GKCU
 title: mall of mosh
 title_en: mall of mosh

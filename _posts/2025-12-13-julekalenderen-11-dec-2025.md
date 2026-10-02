@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/julekalenderen-11-dec-2025.thumb.done.jpg
 layout: post
 title: JULEKALENDEREN
 title_en: THE ADVENT CALENDAR
@@ -6,12 +8,8 @@ date: 2025-12-13T00:00:00.000Z
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/23/75.hls/thumb.gif
-image: https://hls.buro.earth/shows/23/75.hls/thumb.gif
-video_url: "https://buro.earth/#show_23"
-links:
-  - label: video
-    url: https://buro.earth/#show_23
+cover: /assets/screenshots/julekalenderen-11-dec-2025.done.jpg
+image: /assets/screenshots/julekalenderen-11-dec-2025.done.jpg
 body_en: On December 11th, Christmas coziness is replaced by a confronting investigation of evil. Supernihil's work 'Deep Sincerity in 3/4' plays with the waltz rhythm, but turns it into something heavy and almost claustrophobic. The description of 'evil people' forms the background for a listening experience that challenges Christmas's traditional message of peace. It is a reminder that darkness also exists during this time, and that it requires courage to face it. One of the most radical and thought-provoking doors in this year's calendar, showing BURO's artistic range.
 ---
 <div class="lang-da">

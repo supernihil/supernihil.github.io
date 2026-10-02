@@ -24,4 +24,4 @@ Sekvens takes over Christianshavns Beboerhus with guests Hedo Hydr8 and Muskila.
 
 <!--more-->
 
-Da Sekvens blev inviteret til København, tog de hele deres unikke atmosfære med sig. Christianshavns Beboerhus blev rammen om et møde mellem to scener, hvor Hedo Hydr8 og Muskila bragte their særlige b2b energi til plakaten. Programmet var en rejse gennem globale genrer, hvor tunge lp-plader med habibi funk mødte de nyeste elektroniske strømninger. Supernihils visuals forbandt de forskellige musikalske udtryk og sikrede, at Sekvens' signatur var tydelig hele natten. En succesfuld eksport af den sydfynske ånd til hovedstaden.
+Da Sekvens blev inviteret til København, tog de hele deres unikke atmosfære med sig. Christianshavns Beboerhus blev rammen om et møde mellem to scener, hvor Hedo Hydr8 og Muskila bragte deres særlige b2b energi til plakaten. Programmet var en rejse gennem globale genrer, hvor tunge lp-plader med habibi funk mødte de nyeste elektroniske strømninger. Supernihils visuals forbandt de forskellige musikalske udtryk og sikrede, at Sekvens' signatur var tydelig hele natten. En succesfuld eksport af den sydfynske ånd til hovedstaden.

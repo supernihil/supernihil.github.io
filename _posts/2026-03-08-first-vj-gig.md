@@ -10,18 +10,20 @@ category: performance
 category_en: performance
 type: live
 cover: /assets/screenshots/first-vj-gig.done.jpg
-video_url: ''
-links:
-  - label: event
-    url: None
-body_en: |-
-  i had my first vj gig at kisasa fest, odense, southern denmark last weekend.
-  it turned out quite nice and i controlled module8 through a usb keyboard midi controller. which added a nice improvisational character to the show.
-  at the late hours i found the logo of the place in some image file and got it melted into the show which made people frenzy.
-  nice show and thanks goes to UAP for helping out and getting such nice stuff up and going.
----
+body_en: |
+  I had my first VJ gig at Kisasa Fest in Odense, southern Denmark. It turned out really well – I controlled Modul8 with a USB keyboard as a MIDI controller, which gave the show a nice improvisational character.
 
-i had my first vj gig at kisasa fest, odense, southern denmark last weekend.
-it turned out quite nice and i controlled module8 through a usb keyboard midi controller. which added a nice improvisational character to the show.
-at the late hours i found the logo of the place in some image file and got it melted into the show which made people frenzy.
-nice show and thanks goes to UAP for helping out and getting such nice stuff up and going.
+  Late at night I found the venue's logo in an image file and got it melted into the show, which sent people into a frenzy. Thanks to UAP for helping out and getting such nice things up and running.
+---
+<div class="lang-da">
+Første VJ-job på Kisasa Fest i Odense.
+</div>
+<div class="lang-en">
+First VJ gig at Kisasa Fest in Odense.
+</div>
+
+<!--more-->
+
+Jeg havde mit første VJ-job på Kisasa Fest i Odense. Det blev rigtig godt – jeg styrede Modul8 med et USB-keyboard som MIDI-controller, hvilket gav showet en fin improviseret karakter.
+
+Sent på natten fandt jeg stedets logo i en billedfil og fik det smeltet ind i showet, hvilket fik folk helt op at køre. Tak til UAP for hjælpen og for at få så fede ting op at stå.

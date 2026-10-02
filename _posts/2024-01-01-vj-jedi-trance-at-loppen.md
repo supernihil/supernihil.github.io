@@ -25,4 +25,5 @@ aspect_ratio: 0.708
 <!--more-->
 
 Med 'Jedi Trance' udforskede sloev de visuelle muligheder i trance-genren. Gennem brug af laser-agtige linjer, komplekse fraktaler og stjernehimle, blev Loppen forvandlet til et intergalaktisk dansegulv. Dokumentationen præsenterer de visuelle setups og forklarer, hvordan de forskellige elementer blev styret live for at matche musikkens intensitet. Det er et værk, der hylder trance-kulturens visuelle arv og bringer den ind i en moderne, digital ramme. En session der viser betydningen af lys og billeder for at skabe en fordybende lytte- og danseoplevelse.
-![](/assets/screenshots/7038846741_6ce10de893_b.jpg)
+
+![billede mangler / image missing](/assets/placeholders/billede-mangler.jpg)

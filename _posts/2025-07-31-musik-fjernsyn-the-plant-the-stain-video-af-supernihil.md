@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/musik-fjernsyn-the-plant-the-stain-video-af-supernihil.thumb.done.jpg
 layout: post
 title: THE STAIN
 title_en: THE STAIN
@@ -6,12 +8,8 @@ date: 2025-07-31T00:00:00.000Z
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/16/27.hls/thumb.gif
-video_url: ''
-image: https://hls.buro.earth/shows/16/27.hls/thumb.gif
-links:
-  - label: website
-    url: https://hls.buro.earth/shows/16/27.hls/stream.m3u8
+cover: /assets/screenshots/musik-fjernsyn-the-plant-the-stain-video-af-supernihil.done.jpg
+image: /assets/screenshots/musik-fjernsyn-the-plant-the-stain-video-af-supernihil.done.jpg
 body_en: With 'The stain', The Plant moves into darker and more complex territory. The music is characterized by layers of textures that feel both foreign and strangely biological. Supernihil's video takes the title's metaphor as a starting point, creating images that flow together to form new, unexpected patterns. It is an investigation into how we as humans leave traces in the world, and how these traces are transformed over time. The music and images melt into a whole that demands the listener's full engagement. A powerful and relevant contribution to BURO's visual portfolio.
 ---
 
@@ -20,4 +18,4 @@ body_en: With 'The stain', The Plant moves into darker and more complex territor
 
 <!--more-->
 
-Med 'The stain' bevæger The Plant med ind i et mørkere og mere komplekst territorium. Musikken er præget af lag af teksturer, der føles både fremmede og mærkeligt biologiske. Supernihils video tager udgangspunkt i titlens metafor og skaber billeder, der flyder sammen og danner nye, uventede mønstre. Det er en undersøgelse af, hvordan vi som mennesker efterlader spor i verden, og hvordan disse spor transformeres over tid. Musikken og billederne smelter sammen til en helhed, der kræver lytterens fulde engagement. Et stærkt og vedkommende bidrag til BUROs visuelle portefølje.
+Med 'The stain' bevæger The Plant sig ind i et mørkere og mere komplekst territorium. Musikken er præget af lag af teksturer, der føles både fremmede og mærkeligt biologiske. Supernihils video tager udgangspunkt i titlens metafor og skaber billeder, der flyder sammen og danner nye, uventede mønstre. Det er en undersøgelse af, hvordan vi som mennesker efterlader spor i verden, og hvordan disse spor transformeres over tid. Musikken og billederne smelter sammen til en helhed, der kræver lytterens fulde engagement. Et stærkt og vedkommende bidrag til BUROs visuelle portefølje.

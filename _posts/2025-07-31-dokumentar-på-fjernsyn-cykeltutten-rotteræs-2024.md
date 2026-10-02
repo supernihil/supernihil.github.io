@@ -7,12 +7,8 @@ category: video
 category_en: video
 type: static
 cover: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
-video_url: ''
 thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.thumb.done.jpg
 image: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
-links:
-  - label: website
-    url: https://hls.buro.earth/shows/17/24.hls/stream.m3u8
 body_en: "'Rotteræs' at Cykeltutten is not for the faint of heart, and Supernihil's documentation from 2024 gives us a front-row seat to the event. The film captures the raw and unpolished atmosphere of the race, where the competitive spirit and good humor go hand in hand. Through fast cuts and intense close-ups, you can almost feel the asphalt and smell the tire smoke. It's a tribute to the local DIY culture and to the people who dare to throw themselves into challenges that are equal parts fun and demanding. A piece of living Funen cultural history captured with the camera as witness."
 aspect_ratio: 0.714
 ---

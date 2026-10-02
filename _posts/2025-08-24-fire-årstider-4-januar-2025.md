@@ -1,4 +1,6 @@
 ---
+aspect_ratio: 1.5
+thumbnail: /assets/thumbnails/fire-årstider-4-januar-2025.thumb.done.jpg
 layout: post
 title: fire årstider
 title_en: four seasons
@@ -6,12 +8,8 @@ date: 2025-01-04
 category: video
 category_en: video
 type: static
-cover: https://hls.buro.earth/shows/19/60.hls/thumb.gif
-video_url: https://hls.buro.earth/shows/19/60.hls/stream.m3u8
-image: https://hls.buro.earth/shows/19/60.hls/thumb.gif
-links:
-  - label: video
-    url: https://hls.buro.earth/shows/19/60.hls/stream.m3u8
+cover: /assets/screenshots/fire-årstider-4-januar-2025.done.jpg
+image: /assets/screenshots/fire-årstider-4-januar-2025.done.jpg
 body_en: January 4 forms the basis for this session, which dives into the special atmosphere of winter. The music and auditory layers in the work reflect on the beginning of the new year, the cold, and the waiting light. It is part of a larger series that follows the cycle of the year, giving each date its own unique sonic signature. By isolating a specific day, a space for immersion and awareness of the small changes in nature and ourselves is created. A beautiful and introspective start to the 'four seasons' project.
 ---
 

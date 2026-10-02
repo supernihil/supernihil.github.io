@@ -10,9 +10,6 @@ category_en: performance
 type: live
 cover: /assets/screenshots/ny-musique-obscura-tvvitch-n-i-s.done.gif
 image: /assets/screenshots/ny-musique-obscura-tvvitch-n-i-s.done.gif
-links:
-  - label: website
-    url: https://hls.buro.earth/shows/3/95.hls/stream.m3u8
 body_en: "On February 21, 2026, FLUK formed the setting for an evening under the banner 'n.i.s', where Tvvitch delivered a session that now stands as an important document of the contemporary scene. The recording is characterized by immediate interaction, where the soundscape changes in step with the room's response. It is musique obscura in its most vivid form: unpredictable, technically impressive, and deeply rooted in local club culture. A journey through complex textures that requires good speakers and an open mind."
 ---
 <div class="lang-da">

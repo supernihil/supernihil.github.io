@@ -10,10 +10,20 @@ category_en: video
 type: static
 cover: /assets/screenshots/timeblender.done.jpg
 image: /assets/screenshots/timeblender.done.jpg
-video_url: "https://youtu.be/ykN2OgjwC0A"
+video_url: https://youtu.be/ykN2OgjwC0A
 links:
-  - label: video
-    url: https://youtu.be/ykN2OgjwC0A?is=EOUOR7MQjbE9vkp3
-body_en: "An experimental video work inspired by Henri-Georges Clouzot's unfinished masterpiece 'L'Enfer'. It explores time-shifting and visual distortion through digital manipulation of historical footage."
+- label: video
+  url: https://youtu.be/ykN2OgjwC0A
+body_en: |
+  Timeblender explores time-shifting and visual distortion through digital manipulation of historical footage. The images are stretched and blended over time, so movements melt together and leave trails.
 ---
-Et eksperimentelt videoværk inspireret af Henri-Georges Clouzots ufuldendte mesterværk 'L'Enfer'. Det udforsker tidsforskydning og visuel forvrængning gennem digital manipulation af historiske optagelser.
+<div class="lang-da">
+Et eksperimentelt videoværk inspireret af Henri-Georges Clouzots ufuldendte film 'L'Enfer'.
+</div>
+<div class="lang-en">
+An experimental video work inspired by Henri-Georges Clouzot's unfinished film 'L'Enfer'.
+</div>
+
+<!--more-->
+
+Timeblender udforsker tidsforskydning og visuel forvrængning gennem digital manipulation af historiske optagelser. Billederne strækkes og blandes over tid, så bevægelser smelter sammen og efterlader spor.

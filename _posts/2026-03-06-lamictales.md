@@ -11,8 +11,18 @@ type: static
 cover: /assets/screenshots/lamictales.done.jpg
 image: /assets/screenshots/lamictales.done.jpg
 links:
-  - label: repo
-    url: https://github.com/sloev/comics
-body_en: "An autobiographical comic series exploring the intersections of mental health, medication, and daily life through a raw, minimalist visual style."
+- label: repo
+  url: https://github.com/sloev/comics
+body_en: |
+  lamictales explores the intersection of mental illness, medication and the small and large events of daily life through a raw, minimalist visual style.
 ---
-En selvbiografisk tegneserie, der udforsker krydsfeltet mellem mental sundhed, medicinering og dagligdag gennem en rå og minimalistisk visuel stil.
+<div class="lang-da">
+En selvbiografisk tegneserie om mental sundhed, medicin og hverdagsliv.
+</div>
+<div class="lang-en">
+An autobiographical comic about mental health, medication and everyday life.
+</div>
+
+<!--more-->
+
+lamictales udforsker krydsfeltet mellem psykisk sygdom, medicinering og dagligdagens små og store hændelser gennem en rå og minimalistisk visuel stil.

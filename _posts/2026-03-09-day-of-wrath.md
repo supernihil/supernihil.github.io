@@ -16,18 +16,20 @@ links:
 - label: video
   url: https://youtu.be/PndVoAgQFzw
 body_en: |
-  Visuals for Spaending's night with Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv and Lisbent – mostly strobe.
+  Organiser: Spaending. Programme: Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv, Lisbent. Visuals mainly strobe.
+
+  ![billede mangler / image missing](/assets/placeholders/billede-mangler.jpg)
 aspect_ratio: 0.708
 ---
 <div class="lang-da">
-VJ-sæt til Day of Wrath på Loppen.
+VJ-sæt til Day of Wrath, Loppen, november 2011.
 </div>
 <div class="lang-en">
-VJ set for Day of Wrath at Loppen.
+VJ set for Day of Wrath, Loppen, November 2011.
 </div>
 
 <!--more-->
 
-Visuals til Spaendings aften med Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv og Lisbent – mest stroboskop.
+Arrangør: Spaending. Program: Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv, Lisbent. Visuals primært stroboskop.
 
 ![billede mangler / image missing](/assets/placeholders/billede-mangler.jpg)

@@ -14,15 +14,15 @@ links:
 - label: website
   url: https://trodza1.bandcamp.com/album/vault-9
 body_en: |
-  An evening with supernihil and trodza at Kafbaren.
+  Live performance.
 ---
 <div class="lang-da">
-Supernihil og trodza live på Kafbaren.
+supernihil og trodza, Kafbaren, december 2024.
 </div>
 <div class="lang-en">
-Supernihil and trodza live at Kafbaren.
+supernihil and trodza, Kafbaren, December 2024.
 </div>
 
 <!--more-->
 
-En aften med supernihil og trodza på Kafbaren.
+Live-optræden.

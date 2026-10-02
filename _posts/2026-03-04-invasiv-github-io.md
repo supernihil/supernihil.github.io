@@ -4,24 +4,25 @@ thumbnail: /assets/thumbnails/invasiv-github-io.thumb.done.gif
 layout: post
 title: INVASIV
 title_en: INVASIV
-date: 2026-03-04T00:00:00.000Z
+date: 2026-03-04
 category: kode
 category_en: code
 type: static
 cover: /assets/screenshots/invasiv-github-io.done.gif
 image: /assets/screenshots/invasiv-github-io.done.gif
 links:
-  - label: website
-    url: https://invasiv.github.io/
-body_en: The platform serves as a hub for the Invasiv project's digital tools, including the skewer app and the projector interface. It is a space for real-time manipulation of audiovisual streams.
+- label: website
+  url: https://invasiv.github.io/
+body_en: |
+  Hosts tools including the skewer app and the projector interface for real-time manipulation of audiovisual signals.
 ---
 <div class="lang-da">
-Invasiv.github.io er en interaktiv platform dedikeret til eksperimentel lyd og visuelle systemer.
+Webplatform for Invasiv-projektets værktøjer til lyd og billede.
 </div>
 <div class="lang-en">
-Invasiv.github.io is an interactive platform dedicated to experimental sound and visual systems.
+Web platform for the Invasiv project's sound and image tools.
 </div>
 
 <!--more-->
 
-Platformen fungerer som et knudepunkt for Invasiv-projektets digitale værktøjer, herunder skewer-appen og projector-interfacet. Det er et rum for realtids-manipulation af audiovisuelle strømme.
+Samler bl.a. skewer-appen og projektor-interfacet til realtidsmanipulation af audiovisuelle signaler.

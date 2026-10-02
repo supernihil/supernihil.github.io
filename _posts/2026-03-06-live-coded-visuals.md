@@ -14,15 +14,15 @@ links:
 - label: repo
   url: https://github.com/sloev/loaf_sketches
 body_en: |
-  Visuals written and changed live during performance in the live coding environment loaf. The sketches from the sets are collected in the loaf_sketches repository.
+  Code written and modified during performance. Sketches collected in the loaf_sketches repository.
 ---
 <div class="lang-da">
-Live-kodede visuals lavet i loaf.
+Live-kodede visuals i loaf.
 </div>
 <div class="lang-en">
-Live-coded visuals made in loaf.
+Live-coded visuals in loaf.
 </div>
 
 <!--more-->
 
-Visuals skrevet og ændret live under optræden i live coding-miljøet loaf. Skitserne fra sættene er samlet i repoet loaf_sketches.
+Kode skrevet og ændret under optræden. Skitser samlet i repoet loaf_sketches.

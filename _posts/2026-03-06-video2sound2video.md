@@ -17,15 +17,15 @@ links:
 - label: video
   url: https://www.youtube.com/watch?v=VZOOO4I29Sg
 body_en: |
-  An investigation into the lossy nature of media translation. Video data is converted into audio, processed as sound and then re-encoded back into video, revealing the digital artifacts of the process.
+  Each iteration adds compression and conversion artefacts. Code and video are available.
 ---
 <div class="lang-da">
-Video omsat til lyd og tilbage til video – igen og igen.
+Video konverteret til lyd og tilbage, gentaget.
 </div>
 <div class="lang-en">
-Video converted to sound and back to video – again and again.
+Video converted to sound and back, repeated.
 </div>
 
 <!--more-->
 
-En undersøgelse af medieoversættelsens tabsgivende natur. Videodata konverteres til lyd, behandles som lyd og kodes derefter tilbage til video, hvilket afslører processens digitale artefakter.
+Hver iteration tilføjer kompressions- og konverteringsartefakter. Kode og video er tilgængelige.

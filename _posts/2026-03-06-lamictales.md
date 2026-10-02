@@ -14,15 +14,15 @@ links:
 - label: repo
   url: https://github.com/sloev/comics
 body_en: |
-  lamictales explores the intersection of mental illness, medication and the small and large events of daily life through a raw, minimalist visual style.
+  Minimalist drawing style. Everyday episodes.
 ---
 <div class="lang-da">
-En selvbiografisk tegneserie om mental sundhed, medicin og hverdagsliv.
+Selvbiografisk tegneserie om psykisk sygdom og medicin.
 </div>
 <div class="lang-en">
-An autobiographical comic about mental health, medication and everyday life.
+Autobiographical comic about mental illness and medication.
 </div>
 
 <!--more-->
 
-lamictales udforsker krydsfeltet mellem psykisk sygdom, medicinering og dagligdagens små og store hændelser gennem en rå og minimalistisk visuel stil.
+Minimalistisk tegnestil. Hverdagsepisoder.

@@ -15,15 +15,15 @@ links:
 - label: video
   url: https://youtu.be/ykN2OgjwC0A
 body_en: |
-  Timeblender explores time-shifting and visual distortion through digital manipulation of historical footage. The images are stretched and blended over time, so movements melt together and leave trails.
+  Historical footage is blended over time so that movement leaves trails. Point of departure: Henri-Georges Clouzot's unfinished film L'Enfer.
 ---
 <div class="lang-da">
-Et eksperimentelt videoværk inspireret af Henri-Georges Clouzots ufuldendte film 'L'Enfer'.
+Videoeksperiment med tidsforskydning, 2014.
 </div>
 <div class="lang-en">
-An experimental video work inspired by Henri-Georges Clouzot's unfinished film 'L'Enfer'.
+Video experiment with time displacement, 2014.
 </div>
 
 <!--more-->
 
-Timeblender udforsker tidsforskydning og visuel forvrængning gennem digital manipulation af historiske optagelser. Billederne strækkes og blandes over tid, så bevægelser smelter sammen og efterlader spor.
+Historiske optagelser blandes over tid, så bevægelser efterlader spor. Udgangspunkt: Henri-Georges Clouzots ufuldendte film L'Enfer.

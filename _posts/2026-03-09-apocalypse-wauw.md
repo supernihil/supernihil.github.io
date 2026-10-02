@@ -11,15 +11,15 @@ category_en: performance
 type: live
 cover: /assets/screenshots/apocalypse-wauw.done.jpg
 body_en: |
-  Visuals for Spaending's night Apocalypse Wauw.
+  Organiser: Spaending.
 ---
 <div class="lang-da">
-VJ-sæt for Spaending.
+VJ-sæt til Apocalypse Wauw, december 2012.
 </div>
 <div class="lang-en">
-VJ set for Spaending.
+VJ set for Apocalypse Wauw, December 2012.
 </div>
 
 <!--more-->
 
-Visuals til Spaendings aften Apocalypse Wauw.
+Arrangør: Spaending.

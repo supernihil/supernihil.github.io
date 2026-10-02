@@ -14,15 +14,15 @@ links:
 - label: event
   url: https://loppen.dk/kalender/spaending-pr%C3%A6senterer-dr-livingstones-kulturelle-n%C3%B8dhj%C3%A6lp
 body_en: |
-  Visuals for Spaending's night Dr. Livingstone's Cultural Emergency Aid at Loppen.
+  Organiser: Spaending.
 ---
 <div class="lang-da">
-VJ-sæt for Spaending: Dr. Livingstones Kulturelle Nødhjælp.
+VJ-sæt til Dr. Livingstones Kulturelle Nødhjælp, Loppen, februar 2013.
 </div>
 <div class="lang-en">
-VJ set for Spaending: Dr. Livingstone's Cultural Emergency Aid.
+VJ set for Dr. Livingstone's Cultural Emergency Aid, Loppen, February 2013.
 </div>
 
 <!--more-->
 
-Visuals til Spaendings aften Dr. Livingstones Kulturelle Nødhjælp på Loppen.
+Arrangør: Spaending.

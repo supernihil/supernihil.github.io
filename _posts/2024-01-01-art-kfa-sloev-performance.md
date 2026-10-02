@@ -10,15 +10,20 @@ category_en: performance
 type: live
 cover: /assets/screenshots/art-kfa-sloev-performance.done.gif
 image: /assets/screenshots/art-kfa-sloev-performance.done.gif
-video_url: "https://youtu.be/GHVtgXkMdq4"
+video_url: https://youtu.be/GHVtgXkMdq4
 links:
-  - label: video
-    url: https://youtu.be/GHVtgXkMdq4
-body_en: The performance by kfa/sloev is an investigation of real-time interaction. Here, different artistic disciplines meet in a space where sound becomes movement and movement becomes sound. The documentation captures key moments in the process and reflects on the challenges and opportunities that arise when allowing mechanical processes to be part of a human performance. It is a work that dares to exist in the unpredictable and uses the performative space to test new ideas about presence and technology.
+- label: video
+  url: https://youtu.be/GHVtgXkMdq4
+body_en: |
+  Collaboration between KFA and sloev. Sound, movement and machine-driven processes in real time. Documented on video.
 ---
-<div class="lang-da">Et samarbejde mellem KFA og sloev i en unik live-performance. Projektet udforsker spændingsfeltet mellem krop, maskine og lyd, præsenteret som en dokumentation af en grænsesøgende begivenhed.</div>
-<div class="lang-en">A collaboration between KFA and sloev in a unique live performance. The project explores the tension between body, machine, and sound, presented as documentation of a boundary-pushing event.</div>
+<div class="lang-da">
+Live-performance, KFA og sloev, 2013.
+</div>
+<div class="lang-en">
+Live performance, KFA and sloev, 2013.
+</div>
 
 <!--more-->
 
-Performancen af kfa/sloev is an undersøgelse af interaktion i realtid. Her mødes forskellige kunstneriske discipliner i et rum, hvor lyden bliver til bevægelse og bevægelsen til lyd. Dokumentationen fanger de centrale øjeblikke i forløbet og reflekterer over de udfordringer og muligheder, der opstår, når man lader maskinelle processer indgå i en menneskelig performance. Det er et værk, der tør være i det uforudsigelige og som bruger det performative rum til at teste nye ideer om tilstedeværelse og teknologi.
+Samarbejde mellem KFA og sloev. Lyd, bevægelse og maskinstyrede processer i realtid. Dokumenteret på video.

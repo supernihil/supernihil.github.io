@@ -9,13 +9,17 @@ type: static
 cover: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
 thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.thumb.done.jpg
 image: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
-body_en: "'Rotteræs' at Cykeltutten is not for the faint of heart, and Supernihil's documentation from 2024 gives us a front-row seat to the event. The film captures the raw and unpolished atmosphere of the race, where the competitive spirit and good humor go hand in hand. Through fast cuts and intense close-ups, you can almost feel the asphalt and smell the tire smoke. It's a tribute to the local DIY culture and to the people who dare to throw themselves into challenges that are equal parts fun and demanding. A piece of living Funen cultural history captured with the camera as witness."
+body_en: |
+  Footage from the bicycle race. Broadcast in Documentary on Television on BURO.
 aspect_ratio: 0.714
 ---
-
-<div class="lang-da">Ekstremsport på FYYYYNSK! Supernihil dokumenterer det hæsblæsende 'Rotteræs' på Cykeltutten i 2024. En film fyldt med fart, adrenalin og den helt særlige energi, der opstår når lokale kræfter mødes til dyst.</div>
-<div class="lang-en">Extreme sports on FUNEN! Supernihil documents the breathtaking 'Rotteræs' at Cykeltutten in 2024. A film full of speed, adrenaline, and the very special energy that arises when local forces meet to compete.</div>
+<div class="lang-da">
+Dokumentar om Rotteræs ved Cykeltutten, 2024.
+</div>
+<div class="lang-en">
+Documentary on Rotteræs at Cykeltutten, 2024.
+</div>
 
 <!--more-->
 
-Rotteræs på Cykeltutten er ikke for sarte sjæle, og Supernihils dokumentation fra 2024 giver os forsædet til begivenheden. Filmen fanger den rå og upolerede stemning til løbet, hvor konkurrencegenet og det gode humør går hånd i hånd. Gennem hurtige klip og intense nærbilleder mærker man næsten asfalten og lugten af dækrøg. Det er en hyldest til den lokale DIY-kultur og til de mennesker, der tør kaste sig ud i udfordringer, der er lige dele sjove og udfordrende. Et stykke levende fynsk kulturhistorie indfanget med kameraet som vidne.
+Optagelser fra cykelløbet. Sendt i Dokumentar på Fjernsyn på BURO.

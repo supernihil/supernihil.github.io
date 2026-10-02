@@ -13,16 +13,16 @@ links:
 - label: event
   url: https://mejeriet.ukrudt.net/Aakilde_Festival
 body_en: |
-  Visuals for Åkilde Festival.
+  Visuals during the festival.
 aspect_ratio: 0.708
 ---
 <div class="lang-da">
-VJ på Åkilde Festival.
+VJ-sæt, Åkilde Festival, august 2025.
 </div>
 <div class="lang-en">
-VJing at Åkilde Festival.
+VJ set, Åkilde Festival, August 2025.
 </div>
 
 <!--more-->
 
-Visuals til Åkilde Festival.
+Visuals under festivalen.

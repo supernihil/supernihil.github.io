@@ -14,15 +14,15 @@ links:
 - label: repo
   url: https://github.com/sloev/typography_maze
 body_en: |
-  The emotional weight of the words determines the turns and complexity of the maze, turning the text into a typographic labyrinth.
+  The sentiment score of a text determines the turns and complexity of the maze.
 ---
 <div class="lang-da">
-Et generativt projekt, der bygger labyrinter ud fra sentimentanalyse af tekst.
+Generative labyrinter styret af sentimentanalyse.
 </div>
 <div class="lang-en">
-A generative project that builds mazes from sentiment analysis of text.
+Generative mazes driven by sentiment analysis.
 </div>
 
 <!--more-->
 
-Ordenes følelsesmæssige vægt bestemmer labyrintens drejninger og kompleksitet, så teksten bliver til en typografisk labyrint.
+Teksts sentimentværdi bestemmer labyrintens drejninger og kompleksitet.

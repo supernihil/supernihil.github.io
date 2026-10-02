@@ -15,17 +15,15 @@ links:
 - label: video
   url: https://www.youtube.com/watch?v=1u5n6u8Ilgg
 body_en: |
-  Video by sloev ([sloev.github.io](https://sloev.github.io/)).
-  Track by The Plant ([bandcamp](https://theplant.bandcamp.com/) | [soundcloud](https://soundcloud.com/the-plant)).
+  Video: sloev ([sloev.github.io](https://sloev.github.io/)). Music: The Plant ([bandcamp](https://theplant.bandcamp.com/), [soundcloud](https://soundcloud.com/the-plant)).
 ---
 <div class="lang-da">
-Musikvideo til The Plant – Megatherium.
+Musikvideo til The Plant – Megatherium, 2018.
 </div>
 <div class="lang-en">
-Music video for The Plant – Megatherium.
+Music video for The Plant – Megatherium, 2018.
 </div>
 
 <!--more-->
 
-Video af sloev ([sloev.github.io](https://sloev.github.io/)).
-Musik af The Plant ([bandcamp](https://theplant.bandcamp.com/) | [soundcloud](https://soundcloud.com/the-plant)).
+Video: sloev ([sloev.github.io](https://sloev.github.io/)). Musik: The Plant ([bandcamp](https://theplant.bandcamp.com/), [soundcloud](https://soundcloud.com/the-plant)).

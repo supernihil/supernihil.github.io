@@ -14,15 +14,15 @@ links:
 - label: repo
   url: https://github.com/sloev/gutenhaiku
 body_en: |
-  gutenhaiku searches texts from Project Gutenberg for sentences that fit the 5-7-5 syllable form of the haiku. The tool has a retro terminal interface, supports multiple languages and automatically reconstructs the punctuation of the poems it finds.
+  Finds sentences with 5-7-5 syllables in free books. Multilingual. Reconstructs punctuation. 80s-style terminal interface.
 ---
 <div class="lang-da">
-Et CLI-værktøj i 80'er-stil, der udvinder haiku-digte fra Project Gutenbergs bibliotek af frie bøger.
+CLI-værktøj, der udtrækker haiku fra Project Gutenberg.
 </div>
 <div class="lang-en">
-An 80s-styled CLI tool that mines haiku poems from Project Gutenberg's library of free books.
+CLI tool that extracts haiku from Project Gutenberg.
 </div>
 
 <!--more-->
 
-gutenhaiku gennemsøger tekster fra Project Gutenberg efter sætninger, der passer ind i haikuens 5-7-5-stavelsesform. Værktøjet har en retro-terminalgrænseflade, understøtter flere sprog og rekonstruerer automatisk tegnsætningen i de fundne digte.
+Finder sætninger med 5-7-5 stavelser i frie bøger. Flersproget. Rekonstruerer tegnsætning. Terminalgrænseflade i 80'er-stil.

@@ -15,7 +15,7 @@ links:
 - label: video
   url: https://www.youtube.com/watch?v=Q4Vs-DHTJQM
 body_en: |
-  A music video made for the track You Make Me Smile by Indians.
+  Published on YouTube.
 ---
 <div class="lang-da">
 Musikvideo til Indians – You Make Me Smile.
@@ -26,4 +26,4 @@ Music video for Indians – You Make Me Smile.
 
 <!--more-->
 
-En musikvideo lavet til nummeret You Make Me Smile af Indians.
+Udgivet på YouTube.

@@ -13,16 +13,16 @@ links:
 - label: event
   url: https://ra.co/events/121388
 body_en: |
-  For Phono Festival in 2009 I made two installations.
+  Installations exhibited during the festival.
 aspect_ratio: 1.497
 ---
 <div class="lang-da">
-To installationer på Phono Festival 2009.
+To installationer, Phono Festival, oktober 2009.
 </div>
 <div class="lang-en">
-Two installations at Phono Festival 2009.
+Two installations, Phono Festival, October 2009.
 </div>
 
 <!--more-->
 
-Til Phono Festival i 2009 lavede jeg to installationer.
+Installationer udstillet under festivalen.

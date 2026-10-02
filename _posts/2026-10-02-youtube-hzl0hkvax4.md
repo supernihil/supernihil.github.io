@@ -15,15 +15,15 @@ links:
 - label: video
   url: https://youtu.be/-hZl0hkvax4
 body_en: |
-  The video can be watched on YouTube.
+  Published on YouTube.
 ---
 <div class="lang-da">
-En video af supernihil.
+Videoværk.
 </div>
 <div class="lang-en">
-A video by supernihil.
+Video work.
 </div>
 
 <!--more-->
 
-Videoen kan ses på YouTube.
+Udgivet på YouTube.

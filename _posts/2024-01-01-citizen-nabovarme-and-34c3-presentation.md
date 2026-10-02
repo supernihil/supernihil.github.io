@@ -10,15 +10,20 @@ category_en: talk
 type: live
 cover: /assets/screenshots/citizen-nabovarme-and-34c3-presentation.done.gif
 image: /assets/screenshots/citizen-nabovarme-and-34c3-presentation.done.gif
-video_url: "https://www.youtube.com/watch?v=vYKmnAxDXVs"
+video_url: https://www.youtube.com/watch?v=vYKmnAxDXVs
 links:
-  - label: video
-    url: https://www.youtube.com/watch?v=vYKmnAxDXVs
-body_en: The Nabovarme project is an important example of how technology can be used for social change and local empowerment. The presentation at the legendary 34th Chaos Communication Congress (34C3) documents the journey from idea to practical implementation of a decentralized heat management system. By using open hardware and software, the monopoly of large utility companies is challenged, pointing towards a future of greater transparency and sustainability. It is a session that blends technical expertise with a strong ethical vision of citizen involvement in the green transition.
+- label: video
+  url: https://www.youtube.com/watch?v=vYKmnAxDXVs
+body_en: |
+  Nabovarme is a citizen-run system for metering and managing district heating with open hardware and software. The talk describes the process from idea to operation.
 ---
-<div class="lang-da">Nabovarme: Et 'citizen science' projekt om decentraliseret varmestyring, præsenteret på 34C3. Projektet undersøger muligheden for at give borgerne kontrol over deres egen energiinfrastruktur gennem åbne teknologier.</div>
-<div class="lang-en">Nabovarme: A 'citizen science' project on decentralized heat management, presented at 34C3. The project explores the possibility of giving citizens control over their own energy infrastructure through open technologies.</div>
+<div class="lang-da">
+Foredrag om Nabovarme ved 34C3 (34th Chaos Communication Congress), december 2017.
+</div>
+<div class="lang-en">
+Talk on Nabovarme at 34C3 (34th Chaos Communication Congress), December 2017.
+</div>
 
 <!--more-->
 
-Nabovarme-projektet er et vigtigt eksempel på, hvordan teknologi kan bruges til social forandring og lokal empowerment. Præsentationen på den legendariske 34. Chaos Communication Congress (34C3) dokumenterer rejsen fra idé til praktisk implementering af et decentraliseret varmestyringssystem. Ved at bruge åben hardware og software udfordres de store forsyningsselskabers monopol og der peges mod en fremtid med større gennemsigtighed og bæredygtighed. Det er en session der blander teknisk ekspertise med en stærk etisk vision om borgerinddragelse i den grønne omstilling.
+Nabovarme er et borgerdrevet system til måling og styring af fjernvarme med åben hardware og software. Foredraget beskriver forløbet fra idé til drift.

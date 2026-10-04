@@ -1,5 +1,5 @@
 ---
-aspect_ratio: 0.502
+aspect_ratio: 0.785
 thumbnail: /assets/thumbnails/datamusak.thumb.done.gif
 layout: post
 title: datamusak

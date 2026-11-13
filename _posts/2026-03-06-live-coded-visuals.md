@@ -10,11 +10,14 @@ category_en: performance
 type: live
 cover: /assets/screenshots/live-coded-visuals.done.gif
 image: /assets/screenshots/live-coded-visuals.done.gif
+video_url: https://www.youtube.com/watch?v=tdI-lV870Mo
 links:
+- label: video
+  url: https://www.youtube.com/watch?v=tdI-lV870Mo
 - label: repo
   url: https://github.com/sloev/loaf_sketches
 body_en: |
-  Code written and modified during performance. Sketches collected in the loaf_sketches repository.
+  Code written and modified during performance. Sketches collected in the loaf_sketches repository. Video: Mejeriet, November 2022.
 ---
 <div class="lang-da">
 Live-kodede visuals i loaf.
@@ -25,4 +28,4 @@ Live-coded visuals in loaf.
 
 <!--more-->
 
-Kode skrevet og ændret under optræden. Skitser samlet i repoet loaf_sketches.
+Kode skrevet og ændret under optræden. Skitser samlet i repoet loaf_sketches. Video: Mejeriet, november 2022.

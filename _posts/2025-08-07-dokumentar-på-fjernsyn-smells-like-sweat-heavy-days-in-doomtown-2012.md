@@ -1,6 +1,6 @@
 ---
-aspect_ratio: 1.5
-thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.thumb.done.jpg
+aspect_ratio: 1.778
+thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.thumb.done.gif
 layout: post
 title: SMELLS LIKE SWEAT
 title_en: SMELLS LIKE SWEAT
@@ -8,8 +8,12 @@ date: 2012-05-07
 category: video
 category_en: video
 type: static
-cover: /assets/screenshots/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.done.jpg
-image: /assets/screenshots/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.done.jpg
+cover: /assets/screenshots/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.done.gif
+image: /assets/screenshots/dokumentar-på-fjernsyn-smells-like-sweat-heavy-days-in-doomtown-2012.done.gif
+video_url: https://www.youtube.com/watch?v=yDEUMYk573I
+links:
+- label: video
+  url: https://www.youtube.com/watch?v=yDEUMYk573I
 body_en: |
   Footage from Ungdomshuset, Stengade and Loppen, Copenhagen. Broadcast in Documentary on Television on BURO.
 ---

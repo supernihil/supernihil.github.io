@@ -6,6 +6,10 @@ date: 2024-05-27
 category: video
 category_en: video
 type: static
+video_url: https://www.youtube.com/watch?v=he0rzqIOsc8
+links:
+- label: video
+  url: https://www.youtube.com/watch?v=he0rzqIOsc8
 cover: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg
 thumbnail: /assets/thumbnails/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.thumb.done.jpg
 image: /assets/screenshots/dokumentar-på-fjernsyn-cykeltutten-rotteræs-2024.done.jpg

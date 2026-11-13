@@ -1,5 +1,7 @@
 // /admin — password login, signed session cookie, GitHub-backed post editing, stats.
 // Secrets (wrangler secret put): ADMIN_USER, ADMIN_PASS, SESSION_SECRET, GITHUB_TOKEN
+import content from "./content.json";
+const V = content.built;
 const REPO = "supernihil/supernihil.github.io";
 const BRANCH = "master";
 const COOKIE = "sn_admin";
@@ -126,7 +128,7 @@ export async function handleAdmin(request, env, url, path) {
   }
 }
 
-const head = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" href="/static/favicon.svg"><link rel="stylesheet" href="/static/style.css?v=3"><link rel="stylesheet" href="/static/admin.css?v=3"><title>admin — supernihil</title></head>`;
+const head = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" href="/static/favicon.svg"><link rel="stylesheet" href="/static/style.css?v=${V}"><link rel="stylesheet" href="/static/admin.css?v=${V}"><title>admin — supernihil</title></head>`;
 
 function loginPage(err = "") {
   return `${head}<body class="adm"><form class="login" method="post" action="/admin/login">
@@ -140,5 +142,5 @@ ${err ? `<p class="err">${err}</p>` : ""}
 function appShell() {
   return `${head}<body class="adm"><header class="top"><a class="brand" href="/admin">supernihil / admin</a><nav><a href="#/">værker</a><a href="#/new">+ ny</a><a href="#/stats">statistik</a><a href="/" target="_blank">site ↗</a><form method="post" action="/admin/logout"><button class="linkbtn">log ud</button></form></nav></header>
 <div id="status" class="deploy"></div><main id="app"></main>
-<script type="module" src="/static/admin.js?v=3"></script></body></html>`;
+<script type="module" src="/static/admin.js?v=${V}"></script></body></html>`;
 }

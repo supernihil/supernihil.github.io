@@ -24,6 +24,7 @@ export default {
     if (url.hostname.startsWith("www.")) return redirect(`${ORIGIN}${url.pathname}${url.search}`);
     if (path === "/admin" || path.startsWith("/admin/")) return handleAdmin(request, env, url, path);
     if (path.startsWith("/assets/")) return proxyMedia(request, url, ctx);
+    if (path.startsWith("/static/")) return serveStatic(path.slice(8));
 
     // old Jekyll URLs
     const old = path.match(/^\/(?:[^/]+\/)*\d{4}\/\d{2}\/\d{2}\/([^/]+)\.html$/);
@@ -53,6 +54,16 @@ export default {
     return res;
   },
 };
+
+const STATIC_TYPES = { css: "text/css; charset=utf-8", js: "text/javascript; charset=utf-8", svg: "image/svg+xml" };
+function serveStatic(name) {
+  const body = content.statics[name];
+  if (body == null) return new Response("not found", { status: 404 });
+  return new Response(body, { headers: {
+    "content-type": STATIC_TYPES[name.split(".").pop()] || "text/plain",
+    "cache-control": "public, max-age=31536000, immutable",
+  } });
+}
 
 // Media lives in the GitHub repo; Cloudflare caches it at the edge.
 async function proxyMedia(request, url, ctx) {

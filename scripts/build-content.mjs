@@ -38,5 +38,7 @@ for (const f of readdirSync("_pages").filter((f) => f.endsWith(".md"))) {
 }
 
 const t = parse(readFileSync("_data/translations.yml", "utf8"));
-writeFileSync("src/content.json", JSON.stringify({ works, pages, t, built: new Date().toISOString() }));
+// public/static/* is small enough to ship inside the worker bundle
+const statics = Object.fromEntries(readdirSync("public/static").map((f) => [f, readFileSync(`public/static/${f}`, "utf8")]));
+writeFileSync("src/content.json", JSON.stringify({ works, pages, t, statics, built: new Date().toISOString() }));
 console.log(`content.json: ${works.length} works`);

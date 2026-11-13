@@ -7,7 +7,7 @@ Archive of works by supernihil. One Cloudflare Worker serves everything; the con
 - `_data/translations.yml` — interface strings and category names
 - `assets/` — covers and thumbnails, served through the worker from GitHub and cached at Cloudflare's edge
 - `src/` — the worker: pages (`render.js`), admin CMS (`admin.js`), page-view stats (`stats.js`, a Durable Object)
-- `public/static/` — CSS, admin JS, favicon
+- `public/static/` — CSS, admin JS, favicon (bundled into the worker at build time)
 
 ## Admin
 

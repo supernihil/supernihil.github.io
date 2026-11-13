@@ -38,6 +38,7 @@ ${image ? `<meta property="og:image" content="${ORIGIN}${esc(image)}"><meta name
     <nav>
       <ul class="nav-links">
         ${item("works", "works", "/")}
+        ${item("machine", "machine", "/machine")}
         ${item("info", "info", "/info")}
       </ul>
     </nav>
@@ -157,6 +158,45 @@ export function renderInfo(c) {
   });
 }
 
+export function renderMachine() {
+  return layout({
+    title: "The Machine",
+    desc: "A shared noise sequencer. Everyone on the page plays the same pattern, peer to peer over CORVAX.",
+    path: "/machine",
+    nav: "machine",
+    body: `<div class="machine">
+  <div class="m-head">
+    <h1 class="work-name"><span>The Machine</span></h1>
+    <p class="m-intro">One pattern, shared by everyone on this page. Flip squares, shout, listen.
+      No server keeps it: it lives in the browsers that are here, connected peer to peer over <a href="/works/corvax">CORVAX</a>.</p>
+  </div>
+  <div class="m-stage">
+    <div class="m-board">
+      <div class="m-grid" id="grid" style="--steps:16"></div>
+      <div class="m-transport">
+        <button class="prominent-link" id="play" type="button">▶ play</button>
+        <button class="m-clear" id="clear" type="button">clear</button>
+        <span class="m-budget"><span class="m-k">signals</span><span class="m-meter" id="meter"></span></span>
+      </div>
+    </div>
+    <aside class="m-side">
+      <div class="m-here"><b id="here">?</b><span>here now</span></div>
+      <button class="prominent-link m-enter" id="enter" type="button">enter the room →</button>
+      <p class="m-note">Joining connects you directly to the others in the room, so they can see your IP address. You get 10 signals a minute: each batch of edits or each shout costs one.</p>
+      <p class="m-status" id="status" role="status"></p>
+      <ul class="m-people" id="people"></ul>
+      <form class="m-shout" id="shout" autocomplete="off">
+        <input name="t" maxlength="120" placeholder="shout into the machine…" aria-label="Shout">
+        <button type="submit">send</button>
+      </form>
+      <ol class="m-log" id="log" aria-live="polite"></ol>
+    </aside>
+  </div>
+</div>
+<script type="module" src="/static/machine.js?v=${V}"></script>`,
+  });
+}
+
 export function renderNotFound() {
   return layout({ title: "404", path: "/", body: `<div class="info-content"><div class="about-section"><h2>404</h2><p>Page not found. <a href="/">→ works</a></p></div></div>` });
 }
@@ -167,6 +207,6 @@ export function renderFeed(c) {
 }
 
 export function renderSitemap(c) {
-  const urls = ["/", "/info", ...c.works.map((w) => `/works/${enc(w.slug)}`)];
+  const urls = ["/", "/info", "/machine", ...c.works.map((w) => `/works/${enc(w.slug)}`)];
   return `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>${ORIGIN}${u}</loc></url>`).join("")}</urlset>`;
 }

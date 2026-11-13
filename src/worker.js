@@ -1,7 +1,7 @@
 // supernihil.party — one worker: public pages, media from R2, stats, admin, GitHub backup.
 import { getContent, store } from "./content.js";
 import { serveStatic } from "./statics.js";
-import { renderIndex, renderWork, renderInfo, renderNotFound, renderFeed, renderSitemap } from "./render.js";
+import { renderIndex, renderWork, renderInfo, renderMachine, renderNotFound, renderFeed, renderSitemap } from "./render.js";
 import { handleAdmin } from "./admin.js";
 export { Stats } from "./stats.js";
 export { Store } from "./content.js";
@@ -45,6 +45,7 @@ export default {
     let res;
     if (path === "/") res = html(renderIndex(content));
     else if (path === "/info") res = html(renderInfo(content));
+    else if (path === "/machine") res = html(renderMachine());
     else if (path.startsWith("/works/")) {
       const i = content.works.findIndex((w) => w.slug === path.slice(7));
       res = i < 0 ? html(renderNotFound(), 404) : html(renderWork(content, i));

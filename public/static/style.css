@@ -954,7 +954,7 @@ a.punch:hover {
   background: #000;
   color: #fff;
   padding: 1px 5px;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   border-left: 5px solid hsl(var(--who, 0) 85% 50%);
 }
 
@@ -968,16 +968,27 @@ a.punch:hover {
   --melt: 0;
   position: relative;
   display: block;
-  width: 40px;
-  height: 40px;
 }
 
 .w-goo {
   position: absolute;
   inset: 0;
-  background: #000;
-  border-radius: 52% 48% 38% 42% / 62% 60% 40% 38%;
   transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+/* glossy black jelly rolls with a few speckles */
+.w-tier {
+  position: absolute;
+  border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.38) 0 9%, transparent 10% 100%),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.12) 0 4%, transparent 5% 100%),
+    radial-gradient(1.5px 1.5px at 22% 64%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 58% 40%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 80% 30%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(ellipse at 50% 30%, #2b2b2b 0%, #090909 55%, #000 100%);
+  box-shadow: inset 0 -4px 3px rgba(255, 255, 255, 0.07), inset 0 3px 2px rgba(255, 255, 255, 0.05);
   will-change: transform;
 }
 
@@ -986,8 +997,8 @@ a.punch:hover {
   position: absolute;
   left: 50%;
   bottom: -2px;
-  width: calc(70% + 60% * var(--melt));
-  height: calc(4px + 5px * var(--melt));
+  width: calc(80% + 60% * var(--melt));
+  height: calc(5px + 6px * var(--melt));
   transform: translateX(-50%);
   background: #000;
   border-radius: 50%;
@@ -1003,31 +1014,77 @@ a.punch:hover {
   opacity: var(--melt);
 }
 
-.w-drip.a { left: 6px; }
-.w-drip.b { right: 9px; height: calc(3px + 8px * var(--melt)); }
+.w-drip.a { left: 18%; }
+.w-drip.b { right: 22%; height: calc(3px + 8px * var(--melt)); }
 
+/* bulging eyeballs on top, red glowing pupils */
 .w-eyes {
   position: absolute;
   left: 50%;
-  top: 11px;
+  top: calc(var(--eye) * -0.55);
   display: flex;
-  gap: 7px;
   transform-origin: 50% 50%;
   will-change: transform;
 }
 
 .w-eye {
+  position: relative;
   display: block;
-  width: 7px;
-  height: 9px;
-  background: red;
+  width: var(--eye);
+  height: calc(var(--eye) * 1.08);
   border-radius: 50%;
-  box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.75);
+  background: radial-gradient(circle at 35% 30%, #3a3a3a, #000 70%);
+  box-shadow: 0 1px 0 #000;
 }
 
-.w-av.me .w-eye {
-  width: 8px;
-  height: 10px;
+.w-eye b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  height: 52%;
+  margin: -26% 0 0 -23%;
+  border-radius: 50%;
+  background: red;
+  box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.8);
+  will-change: transform;
+}
+
+/* slapstick */
+.w-poster.bonk {
+  animation: w-swing 1.1s cubic-bezier(0.3, 0, 0.3, 1);
+  transform-origin: 50% -26px;
+}
+
+@keyframes w-swing {
+  0% { transform: rotate(var(--tilt)); }
+  15% { transform: rotate(calc(var(--tilt) + 11deg)) translateY(-6px); }
+  35% { transform: rotate(calc(var(--tilt) - 8deg)); }
+  55% { transform: rotate(calc(var(--tilt) + 5deg)); }
+  75% { transform: rotate(calc(var(--tilt) - 2deg)); }
+  100% { transform: rotate(var(--tilt)); }
+}
+
+.w-fx {
+  position: absolute;
+  z-index: 4;
+  transform: translateX(-50%) rotate(var(--rot));
+  background: red;
+  color: #000;
+  font-weight: 900;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  padding: 0 0.4rem;
+  box-shadow: 4px 4px 0 #000;
+  pointer-events: none;
+  animation: w-pop 1.2s ease-out forwards;
+}
+
+@keyframes w-pop {
+  0% { opacity: 0; transform: translateX(-50%) rotate(var(--rot)) scale(0.3); }
+  15% { opacity: 1; transform: translateX(-50%) rotate(var(--rot)) scale(1.15); }
+  30% { transform: translateX(-50%) rotate(var(--rot)) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-40px) rotate(var(--rot)) scale(0.95); }
 }
 
 .w-bubble {

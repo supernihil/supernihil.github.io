@@ -43,12 +43,13 @@ for (const [i, w] of [...works].reverse().entries()) {
   const a = document.createElement("a");
   a.className = "w-poster"; a.href = `/works/${encodeURIComponent(w.slug)}`;
   a.style.left = `${x}px`;
-  a.style.bottom = `${ROWS[r] + ((i * 37) % 3) * 8}px`;
+  const bottomPx = ROWS[r] + ((i * 37) % 3) * 8;
+  a.style.bottom = `${bottomPx}px`;
   a.style.setProperty("--tilt", `${(((i * 7919) % 25) - 12) / 8}deg`);
   a.innerHTML = `<span class="w-img" style="width:${wpx}px;height:${h}px"></span><span class="w-cap"><b></b><i>${year}</i></span>${w.type === "live" ? '<span class="sticker">LIVE</span>' : ""}`;
   a.querySelector("b").textContent = w.title;
   world.append(a);
-  posters.push({ el: a, x, w: wpx + 8, thumb: w.thumb, anim: w.anim, loaded: false, animOn: false, title: w.title });
+  posters.push({ el: a, x, w: wpx + 8, lift: bottomPx - GROUND, h, thumb: w.thumb, anim: w.anim, loaded: false, animOn: false, title: w.title });
   lane[r] = x + wpx + GAP;
   if (lane[r] - lane[1 - r] > ROW_H) lane[1 - r] = Math.max(lane[1 - r], lane[r] - ROW_H * 1.2);
 }
@@ -73,13 +74,35 @@ const edges = { left: stage.querySelector(".w-edge.l"), right: stage.querySelect
 // ---- avatars -----------------------------------------------------------------
 const hue = (a) => { let h = 0; for (const ch of String(a)) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; };
 const handle = (a) => `crow-${String(a).slice(0, 4)}`;
-function makeAvatar(name, self) {
+// Every player gets their own body, derived from their address: height, width, rolls, eyes.
+function shapeOf(key) {
+  let h = 2166136261;
+  for (const ch of String(key)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  const r = (n) => { h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h >>> 0) % 1000) / 1000 * n; };
+  return { H: Math.round(46 + r(34)), W: Math.round(54 + r(34)), tiers: 2 + Math.floor(r(3)), eye: Math.round(11 + r(7)), gap: Math.round(1 + r(9)) };
+}
+function makeAvatar(name, self, key = Math.random()) {
   const el = document.createElement("div");
   el.className = `w-av${self ? " me" : ""}`;
-  el.innerHTML = `<span class="w-bubble" hidden></span><span class="w-name"></span><span class="w-blob"><span class="w-goo"><i class="w-drip a"></i><i class="w-drip b"></i></span><span class="w-eyes"><i class="w-eye"></i><i class="w-eye"></i></span></span>`;
+  el.innerHTML = `<span class="w-bubble" hidden></span><span class="w-name"></span><span class="w-blob"></span>`;
   el.querySelector(".w-name").textContent = name;
   world.append(el);
   return el;
+}
+function shape(a, key) {
+  const s = shapeOf(key);
+  a.H = s.H; a.W = s.W; a.goo = null;
+  const tiers = [];
+  for (let i = 0; i < s.tiers; i++) {                        // stacked rolls, narrower towards the top
+    const k = i / s.tiers;
+    const w = s.W * (1 - 0.34 * k - 0.12 * k * k), th = (s.H / s.tiers) * 2.1, b = Math.max(0, (s.H - th) * (i / Math.max(1, s.tiers - 1)));
+    tiers.push(`<i class="w-tier" style="width:${w.toFixed(0)}px;height:${th.toFixed(0)}px;bottom:${b.toFixed(0)}px;left:${((s.W - w) / 2).toFixed(0)}px"></i>`);
+  }
+  const blob = a.el.querySelector(".w-blob");
+  blob.style.width = `${s.W}px`; blob.style.height = `${s.H}px`;
+  a.el.style.width = `${s.W}px`; a.el.style.marginLeft = `${-s.W / 2}px`;
+  blob.innerHTML = `<span class="w-goo">${tiers.join("")}<i class="w-drip a"></i><i class="w-drip b"></i></span>`
+    + `<span class="w-eyes" style="gap:${s.gap}px;--eye:${s.eye}px"><i class="w-eye"><b></b></i><i class="w-eye"><b></b></i></span>`;
 }
 function speak(av, text) {
   const b = av.el.querySelector(".w-bubble");
@@ -89,6 +112,7 @@ function speak(av, text) {
 }
 
 const me = { x: START * 0.45 + Math.random() * START * 0.2, y: 0, vy: 0, f: 1, walking: false, el: makeAvatar("you", true) };
+shape(me, (() => { try { return sessionStorage.getItem("walk.seed") || "me"; } catch { return "me"; } })());
 const others = new Map();   // address -> { el, x, y, tx, ty, f, walking, ch, seen }
 
 // ---- input -------------------------------------------------------------------
@@ -115,7 +139,55 @@ const hold = (btn, key) => {
 hold(stage.querySelector(".w-left"), "left");
 hold(stage.querySelector(".w-right"), "right");
 stage.querySelector(".w-jump").addEventListener("pointerdown", (e) => { e.preventDefault(); jump(); });
-function jump() { if (me.y === 0) me.vy = 620; }
+function jump() { if (me.y === 0) me.vy = 640; }
+
+// ---- slapstick -----------------------------------------------------------------
+const QUIPS = {
+  bonk: ["art hurts", "critique received", "that's load-bearing art", "do not touch the art", "ow, culture", "rude", "i felt that in my rolls", "conceptual concussion"],
+  stomp: ["boing", "sorry not sorry", "trampoline mode", "excuse me", "free ride", "splat"],
+  squashed: ["hey!", "i was melting here", "personal space!", "pancake mode", "flattered. flattened.", "rude"],
+};
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+function fx(x, y, text) {
+  const el = document.createElement("span");
+  el.className = "w-fx"; el.textContent = text;
+  el.style.left = `${x}px`; el.style.bottom = `${GROUND + y}px`;
+  el.style.setProperty("--rot", `${(Math.random() * 16 - 8).toFixed(0)}deg`);
+  world.append(el);
+  setTimeout(() => el.remove(), 1200);
+}
+function bonkPoster(i, local) {
+  const p = posters[i];
+  if (!p) return;
+  p.el.classList.remove("bonk"); void p.el.offsetWidth; p.el.classList.add("bonk");
+  fx(p.x + p.w / 2, p.lift - 6, pick(["BONK!", "CLANG!", "THUNK!"]));
+  if (local) { speak(me, pick(QUIPS.bonk)); sendAll({ t: "fx", k: "bonk", i }); }
+}
+let bonkCooldown = 0;
+function collide(now) {
+  if (me.y > 0 && me.vy > 0 && now > bonkCooldown) {             // head into a hanging work
+    const head = me.y + me.H;
+    for (const [i, p] of posters.entries()) {
+      if (me.x > p.x + 6 && me.x < p.x + p.w - 6 && head > p.lift + 12 && head < p.lift + p.h * 0.6) {
+        me.vy = -180; bonkCooldown = now + 600; bonkPoster(i, true); break;
+      }
+    }
+  }
+  if (me.y > 0 && me.vy < 0) {                                    // land on another player
+    for (const [addr, o] of others) {
+      if (o.el.hidden) continue;
+      const top = o.y + (o.H || 40) * (o.sy || 1);
+      if (Math.abs(me.x - o.x) < ((me.W || 44) + (o.W || 44)) * 0.35 && me.y <= top && me.y > top - 26) {
+        me.y = top; me.vy = 820;
+        o.squash = 1;
+        fx(o.x, top + 8, pick(["BOING!", "SPLAT!", "SQUISH!"]));
+        speak(me, pick(QUIPS.stomp));
+        try { o.ch?.send(JSON.stringify({ t: "stomp" })); } catch {}
+        break;
+      }
+    }
+  }
+}
 
 let near = null;
 function openNear() { if (near) location.href = near.el.href; }
@@ -142,6 +214,7 @@ function frame(now) {
   me.x = Math.max(40, Math.min(WORLD_W - 60, me.x + dir * 240 * dt));
   me.vy -= 1800 * dt; me.y = Math.max(0, me.y + me.vy * dt);
   if (me.y === 0) me.vy = 0;
+  collide(now);
   place(me);
 
   for (const o of others.values()) {
@@ -234,40 +307,53 @@ function place(a) {
   const walking = !!a.walking && a.y <= 0.5, air = a.y > 0.5;
   if (!a.goo) {
     a.goo = a.el.querySelector(".w-goo"); a.eyes = a.el.querySelector(".w-eyes"); a.blob = a.el.querySelector(".w-blob");
-    a.melt = 0; a.phase = Math.random() * 6; a.lx = 0; a.ly = 0; a.tlx = 0; a.tly = 0; a.nextLook = 0; a.nextBlink = now + 1500;
+    a.tiers = [...a.el.querySelectorAll(".w-tier")]; a.pupils = [...a.el.querySelectorAll(".w-eye b")];
+    a.name = a.el.querySelector(".w-name");
+    a.melt ??= 0; a.phase ??= Math.random() * 6; a.lx ??= 0; a.ly ??= 0; a.tlx ??= 0; a.tly ??= 0; a.nextLook ??= 0; a.nextBlink ??= now + 1500;
   }
+  const H = a.H || 40;
   a.melt = walking || air ? Math.max(0, a.melt - dt * 3) : Math.min(1, a.melt + dt * 0.25);
   const m = a.melt * a.melt * (3 - 2 * a.melt);                      // smoothstep: sag starts slow
-  a.phase += dt * (walking ? 13 : 1.6);
+  a.phase += dt * (walking ? 12 : 1.6);
 
   let sx, sy, rot = 0, hop = 0;
-  if (air) { sx = 0.86; sy = 1.18; rot = 8 * a.f; }
+  if (air) { sx = 0.88; sy = 1.16; rot = 6 * a.f; }
   else if (walking) {
     const s2 = Math.sin(a.phase * 2);
-    sx = 1 - 0.09 * s2; sy = 1 + 0.12 * s2;
-    rot = 7 * Math.sin(a.phase) * a.f;
-    hop = Math.abs(Math.sin(a.phase)) * 6;
+    sx = 1 - 0.08 * s2; sy = 1 + 0.1 * s2;
+    rot = 5 * Math.sin(a.phase) * a.f;
+    hop = Math.abs(Math.sin(a.phase)) * 5;
   } else {
     const breathe = 0.025 * Math.sin(a.phase);
     sx = 1 + 0.6 * m - breathe; sy = 1 - 0.55 * m + breathe;
   }
+  if (a.squash > 0) {                                                // got jumped on: pancake, then spring back
+    const q = a.squash;
+    sx *= 1 + 0.7 * q; sy *= 1 - 0.65 * q;
+    a.squash = Math.max(0, q - dt * 1.4);
+  }
+  a.sy = sy;
   a.el.style.transform = `translate3d(${a.x}px,${-(a.y + hop)}px,0)`;
   a.goo.style.transform = `rotate(${rot.toFixed(1)}deg) scale(${sx.toFixed(3)},${sy.toFixed(3)})`;
   a.blob.style.setProperty("--melt", m.toFixed(3));
+  // jelly: the rolls sway out of phase, more when walking
+  const amp = walking ? 3 : air ? 1.5 : 0.8 + 2 * m;
+  a.tiers.forEach((t, i) => { t.style.transform = `translateX(${(Math.sin(a.phase * 1.3 - i * 0.9) * amp * (i + 1) * 0.5).toFixed(1)}px)`; });
 
-  // eyes: wander when idle, look ahead when walking
+  // eyes: wander when idle, look ahead when walking; pupils move inside the eyeballs
   if (now > a.nextLook) {
-    a.tlx = (Math.random() * 2 - 1) * 4; a.tly = Math.random() * 3 - 1;
+    a.tlx = Math.random() * 2 - 1; a.tly = Math.random() * 2 - 1;
     a.nextLook = now + 900 + Math.random() * 2400;
   }
-  const tx = walking || air ? 4 * a.f : a.tlx, ty = walking ? -1 : a.tly;
+  const tx = walking || air ? a.f : a.tlx, ty = walking ? -0.3 : a.tly;
   a.lx += (tx - a.lx) * Math.min(1, dt * 8); a.ly += (ty - a.ly) * Math.min(1, dt * 8);
   let blink = 1;
-  if (now > a.nextBlink) { blink = 0.1; if (now > a.nextBlink + 130) a.nextBlink = now + 1800 + Math.random() * 3500; }
-  const sag = 40 * (1 - sy);
-  const eyeY = Math.max(0, sag * 0.55);                              // eyes ride the top as it sags
-  (a.name ||= a.el.querySelector(".w-name")).style.transform = `translateY(${Math.max(0, sag - 2).toFixed(1)}px)`;
-  a.eyes.style.transform = `translate(calc(-50% + ${(a.lx + rot * 0.3).toFixed(1)}px), ${(eyeY + a.ly).toFixed(1)}px) scaleY(${blink})`;
+  if (now > a.nextBlink) { blink = 0.08; if (now > a.nextBlink + 130) a.nextBlink = now + 1800 + Math.random() * 3500; }
+  const sag = H * (1 - sy);
+  a.eyes.style.transform = `translate(calc(-50% + ${(a.lx * 2 + rot * 0.4).toFixed(1)}px), ${(sag * 0.97).toFixed(1)}px) scaleY(${blink})`;
+  const pp = `translate(${(a.lx * 2.6).toFixed(1)}px, ${(a.ly * 2).toFixed(1)}px)`;
+  for (const b of a.pupils) b.style.transform = pp;
+  a.name.style.transform = `translateY(${Math.max(0, sag - 2).toFixed(1)}px)`;
 }
 requestAnimationFrame(frame);
 
@@ -286,6 +372,7 @@ function attach(addr, ch) {
   let o = others.get(addr);
   if (!o) {
     o = { x: START - 200, y: 0, tx: START - 200, ty: 0, f: 1, walking: false, el: makeAvatar(handle(addr)), ch: null };
+    shape(o, addr);
     o.el.style.setProperty("--who", hue(addr));
     o.el.hidden = true;
     others.set(addr, o);
@@ -301,6 +388,12 @@ function attach(addr, ch) {
       o.tx = +m.x || 0; o.ty = +m.y || 0; o.f = m.f < 0 ? -1 : 1; o.walking = !!m.w;
       if (first) { o.x = o.tx; o.y = o.ty; o.el.hidden = false; }
     } else if (m.t === "s" && typeof m.m === "string") speak(o, m.m.slice(0, 140));
+    else if (m.t === "fx" && m.k === "bonk") bonkPoster(Number(m.i), false);
+    else if (m.t === "stomp") {                                    // somebody jumped on me
+      me.squash = 1;
+      fx(me.x, me.y + (me.H || 40) + 6, pick(["SPLAT!", "SQUISH!"]));
+      setTimeout(() => speak(me, pick(QUIPS.squashed)), 250);
+    }
   });
   ch.addEventListener("close", () => { if (o.ch === ch) drop(addr); });
 }
@@ -328,6 +421,7 @@ async function connect() {
     peer = await Peer.create({ seed });
     try { sessionStorage.setItem("walk.seed", peer.seed); } catch {}
     myAddr = peer.address;
+    shape(me, myAddr);
     me.el.style.setProperty("--who", 0);
     peer.accept(({ from, channel }) => attach(from, channel));
     await peer.publish();

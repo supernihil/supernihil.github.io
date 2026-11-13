@@ -74,14 +74,42 @@ const edges = { left: stage.querySelector(".w-edge.l"), right: stage.querySelect
 // ---- avatars -----------------------------------------------------------------
 const hue = (a) => { let h = 0; for (const ch of String(a)) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; };
 const handle = (a) => `crow-${String(a).slice(0, 4)}`;
-// Every player gets their own body, derived from their address: height, width, rolls, eyes.
+// Every player gets their own body and personality, derived from their address.
+const KINDS = {
+  dome:    { w: [58, 80], h: [46, 60], taper: 0.45 },
+  tower:   { w: [46, 60], h: [66, 86], taper: 0.3 },
+  pancake: { w: [80, 100], h: [34, 44], taper: 0.55 },
+  pear:    { w: [62, 78], h: [56, 72], taper: 0.62 },
+};
+const MOODS = {
+  lazy:    { hop: 3, wobble: 0.7, melt: 0.4, jitter: 0.6, look: 3500, quips: ["can we not", "i was napping", "effort detected"] },
+  nervous: { hop: 6, wobble: 1.6, melt: 0.18, jitter: 2.2, look: 700, quips: ["sorry sorry sorry", "was that me?", "eep"] },
+  bouncy:  { hop: 11, wobble: 1.3, melt: 0.12, jitter: 1.2, look: 1500, quips: ["again!", "wheee", "boing boing"] },
+  grumpy:  { hop: 4, wobble: 0.8, melt: 0.25, jitter: 0.8, look: 2600, quips: ["typical", "unbelievable", "hmph"] },
+  dreamy:  { hop: 5, wobble: 1.0, melt: 0.3, jitter: 0.5, look: 4200, quips: ["oh. a wall.", "how poetic", "i see colours"] },
+};
 function shapeOf(key) {
   let h = 2166136261;
   for (const ch of String(key)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
-  const r = (n) => { h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h >>> 0) % 1000) / 1000 * n; };
-  return { H: Math.round(46 + r(34)), W: Math.round(54 + r(34)), tiers: 2 + Math.floor(r(3)), eye: Math.round(11 + r(7)), gap: Math.round(1 + r(9)) };
+  const r = (n = 1) => { h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h >>> 0) % 10000) / 10000 * n; };
+  const range = ([a, b]) => Math.round(a + r(b - a));
+  const kindName = Object.keys(KINDS)[Math.floor(r(4))], kind = KINDS[kindName];
+  const moodName = Object.keys(MOODS)[Math.floor(r(5))];
+  const W = range(kind.w), H = range(kind.h);
+  const tiers = kindName === "tower" ? 3 + Math.floor(r(2)) : 2 + Math.floor(r(2));
+  const n = [1, 2, 2, 2, 3, 3, 4][Math.floor(r(7))];                  // most have two
+  const eyes = [];
+  const top = W * (1 - kind.taper * 0.75);                           // width of the upper body
+  for (let k = 0; k < n; k++) {
+    const size = Math.round(Math.min(W, H) * (0.2 + r(0.16)) * (n > 2 ? 0.8 : 1));
+    const span = Math.max(0, top - size);
+    const x = (W - top) / 2 + (n === 1 ? span / 2 : (span * k) / (n - 1)) + r(4) - 2;
+    const y = H * (0.2 + r(0.16)) + (n > 2 && k % 2 ? size * 0.35 : 0);
+    eyes.push({ x: Math.round(x), y: Math.round(y), size });
+  }
+  return { kind: kindName, mood: moodName, W, H, tiers, taper: kind.taper, eyes, ...MOODS[moodName] };
 }
-function makeAvatar(name, self, key = Math.random()) {
+function makeAvatar(name, self) {
   const el = document.createElement("div");
   el.className = `w-av${self ? " me" : ""}`;
   el.innerHTML = `<span class="w-bubble" hidden></span><span class="w-name"></span><span class="w-blob"></span>`;
@@ -91,18 +119,19 @@ function makeAvatar(name, self, key = Math.random()) {
 }
 function shape(a, key) {
   const s = shapeOf(key);
-  a.H = s.H; a.W = s.W; a.goo = null;
+  Object.assign(a, { H: s.H, W: s.W, traits: s, goo: null });
   const tiers = [];
-  for (let i = 0; i < s.tiers; i++) {                        // stacked rolls, narrower towards the top
+  for (let i = 0; i < s.tiers; i++) {                                // stacked rolls, narrower towards the top
     const k = i / s.tiers;
-    const w = s.W * (1 - 0.34 * k - 0.12 * k * k), th = (s.H / s.tiers) * 2.1, b = Math.max(0, (s.H - th) * (i / Math.max(1, s.tiers - 1)));
+    const w = s.W * (1 - s.taper * k - 0.1 * k * k), th = (s.H / s.tiers) * 2.1, b = Math.max(0, (s.H - th) * (i / Math.max(1, s.tiers - 1)));
     tiers.push(`<i class="w-tier" style="width:${w.toFixed(0)}px;height:${th.toFixed(0)}px;bottom:${b.toFixed(0)}px;left:${((s.W - w) / 2).toFixed(0)}px"></i>`);
   }
+  const eyes = s.eyes.map((e) => `<i class="w-eye" style="left:${e.x}px;top:${e.y}px;width:${e.size}px;height:${e.size}px"><b></b></i>`).join("");
   const blob = a.el.querySelector(".w-blob");
   blob.style.width = `${s.W}px`; blob.style.height = `${s.H}px`;
   a.el.style.width = `${s.W}px`; a.el.style.marginLeft = `${-s.W / 2}px`;
-  blob.innerHTML = `<span class="w-goo">${tiers.join("")}<i class="w-drip a"></i><i class="w-drip b"></i></span>`
-    + `<span class="w-eyes" style="gap:${s.gap}px;--eye:${s.eye}px"><i class="w-eye"><b></b></i><i class="w-eye"><b></b></i></span>`;
+  a.el.dataset.mood = s.mood;
+  blob.innerHTML = `<span class="w-goo">${tiers.join("")}<i class="w-drip a"></i><i class="w-drip b"></i>${eyes}</span>`;
 }
 function speak(av, text) {
   const b = av.el.querySelector(".w-bubble");
@@ -148,6 +177,7 @@ const QUIPS = {
   squashed: ["hey!", "i was melting here", "personal space!", "pancake mode", "flattered. flattened.", "rude"],
 };
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
+const quip = (k) => (Math.random() < 0.35 && me.traits ? pick(me.traits.quips) : pick(QUIPS[k]));
 function fx(x, y, text) {
   const el = document.createElement("span");
   el.className = "w-fx"; el.textContent = text;
@@ -161,7 +191,23 @@ function bonkPoster(i, local) {
   if (!p) return;
   p.el.classList.remove("bonk"); void p.el.offsetWidth; p.el.classList.add("bonk");
   fx(p.x + p.w / 2, p.lift - 6, pick(["BONK!", "CLANG!", "THUNK!"]));
-  if (local) { speak(me, pick(QUIPS.bonk)); sendAll({ t: "fx", k: "bonk", i }); }
+  if (local) { speak(me, quip("bonk")); sendAll({ t: "fx", k: "bonk", i }); }
+}
+// Blobs are solid: you can't walk through someone, you bump and squeeze instead.
+// (You can still land on top of them.)
+function blocked(nx, dir) {
+  if (!dir) return null;
+  for (const o of others.values()) {
+    if (o.el.hidden) continue;
+    const reach = ((me.W || 50) + (o.W || 50)) * 0.42;
+    const overlapY = me.y < o.y + (o.H || 50) * 0.7 && o.y < me.y + (me.H || 50) * 0.7;
+    const d = o.x - nx;
+    if (overlapY && Math.abs(d) < reach && Math.sign(d) === dir && Math.abs(o.x - me.x) >= Math.abs(d) - 0.01) {
+      me.bump = Math.min(1, (me.bump || 0) + 0.25); o.bump = Math.min(1, (o.bump || 0) + 0.25);
+      return o.x - dir * reach;
+    }
+  }
+  return null;
 }
 let bonkCooldown = 0;
 function collide(now) {
@@ -181,7 +227,7 @@ function collide(now) {
         me.y = top; me.vy = 820;
         o.squash = 1;
         fx(o.x, top + 8, pick(["BOING!", "SPLAT!", "SQUISH!"]));
-        speak(me, pick(QUIPS.stomp));
+        speak(me, quip("stomp"));
         try { o.ch?.send(JSON.stringify({ t: "stomp" })); } catch {}
         break;
       }
@@ -211,7 +257,8 @@ function frame(now) {
   const dir = (keys.has("right") || keys.has("d") ? 1 : 0) - (keys.has("left") || keys.has("a") ? 1 : 0);
   me.walking = dir !== 0;
   if (dir) me.f = dir;
-  me.x = Math.max(40, Math.min(WORLD_W - 60, me.x + dir * 240 * dt));
+  const nx = Math.max(40, Math.min(WORLD_W - 60, me.x + dir * 240 * dt));
+  me.x = blocked(nx, dir) ?? nx;
   me.vy -= 1800 * dt; me.y = Math.max(0, me.y + me.vy * dt);
   if (me.y === 0) me.vy = 0;
   collide(now);
@@ -304,56 +351,69 @@ for (const el of Object.values(edges)) {
 let blobDt = 0.016;
 function place(a) {
   const dt = blobDt, now = performance.now();
+  const t = a.traits || MOODS.dreamy;
   const walking = !!a.walking && a.y <= 0.5, air = a.y > 0.5;
   if (!a.goo) {
-    a.goo = a.el.querySelector(".w-goo"); a.eyes = a.el.querySelector(".w-eyes"); a.blob = a.el.querySelector(".w-blob");
-    a.tiers = [...a.el.querySelectorAll(".w-tier")]; a.pupils = [...a.el.querySelectorAll(".w-eye b")];
+    a.goo = a.el.querySelector(".w-goo"); a.blob = a.el.querySelector(".w-blob");
+    a.tiers = [...a.el.querySelectorAll(".w-tier")];
+    a.eyesEl = [...a.el.querySelectorAll(".w-eye")].map((el, k) => ({ el, b: el.querySelector("b"), r: (a.traits?.eyes[k]?.size || 12) * 0.28, px: 0, py: 0, vx: 0, vy: 0 }));
     a.name = a.el.querySelector(".w-name");
-    a.melt ??= 0; a.phase ??= Math.random() * 6; a.lx ??= 0; a.ly ??= 0; a.tlx ??= 0; a.tly ??= 0; a.nextLook ??= 0; a.nextBlink ??= now + 1500;
+    a.melt ??= 0; a.phase ??= Math.random() * 6; a.lookX ??= 0; a.lookY ??= 0; a.nextLook ??= 0; a.nextBlink ??= now + 1500;
+    a.pvx ??= 0; a.pvy ??= 0; a.lastX ??= a.x; a.lastY ??= a.y;
   }
-  const H = a.H || 40;
-  a.melt = walking || air ? Math.max(0, a.melt - dt * 3) : Math.min(1, a.melt + dt * 0.25);
-  const m = a.melt * a.melt * (3 - 2 * a.melt);                      // smoothstep: sag starts slow
+  const H = a.H || 50;
+  a.melt = walking || air ? Math.max(0, a.melt - dt * 3) : Math.min(1, a.melt + dt * t.melt);
+  const m = a.melt * a.melt * (3 - 2 * a.melt);
   a.phase += dt * (walking ? 12 : 1.6);
 
   let sx, sy, rot = 0, hop = 0;
-  if (air) { sx = 0.88; sy = 1.16; rot = 6 * a.f; }
+  if (air) { sx = 0.9; sy = 1.14; rot = 5 * a.f; }
   else if (walking) {
     const s2 = Math.sin(a.phase * 2);
-    sx = 1 - 0.08 * s2; sy = 1 + 0.1 * s2;
-    rot = 5 * Math.sin(a.phase) * a.f;
-    hop = Math.abs(Math.sin(a.phase)) * 5;
+    sx = 1 - 0.07 * s2 * t.wobble; sy = 1 + 0.09 * s2 * t.wobble;
+    rot = 4 * Math.sin(a.phase) * a.f * t.wobble;
+    hop = Math.abs(Math.sin(a.phase)) * t.hop;
   } else {
-    const breathe = 0.025 * Math.sin(a.phase);
-    sx = 1 + 0.6 * m - breathe; sy = 1 - 0.55 * m + breathe;
+    const breathe = 0.02 * Math.sin(a.phase);
+    sx = 1 + 0.3 * m - breathe; sy = 1 - 0.28 * m + breathe;           // sags about half way
   }
-  if (a.squash > 0) {                                                // got jumped on: pancake, then spring back
-    const q = a.squash;
-    sx *= 1 + 0.7 * q; sy *= 1 - 0.65 * q;
-    a.squash = Math.max(0, q - dt * 1.4);
-  }
+  if (a.squash > 0) { const q = a.squash; sx *= 1 + 0.7 * q; sy *= 1 - 0.65 * q; a.squash = Math.max(0, q - dt * 1.4); }
+  if (a.bump > 0) { sx *= 1 - 0.12 * a.bump; sy *= 1 + 0.08 * a.bump; a.bump = Math.max(0, a.bump - dt * 3); }
   a.sy = sy;
   a.el.style.transform = `translate3d(${a.x}px,${-(a.y + hop)}px,0)`;
   a.goo.style.transform = `rotate(${rot.toFixed(1)}deg) scale(${sx.toFixed(3)},${sy.toFixed(3)})`;
   a.blob.style.setProperty("--melt", m.toFixed(3));
-  // jelly: the rolls sway out of phase, more when walking
-  const amp = walking ? 3 : air ? 1.5 : 0.8 + 2 * m;
-  a.tiers.forEach((t, i) => { t.style.transform = `translateX(${(Math.sin(a.phase * 1.3 - i * 0.9) * amp * (i + 1) * 0.5).toFixed(1)}px)`; });
+  const amp = (walking ? 3 : air ? 1.5 : 0.8 + 1.5 * m) * t.wobble;
+  a.tiers.forEach((el, i) => { el.style.transform = `translateX(${(Math.sin(a.phase * 1.3 - i * 0.9) * amp * (i + 1) * 0.5).toFixed(1)}px)`; });
+  a.name.style.transform = `translateY(${Math.max(0, H * (1 - sy) - 2).toFixed(1)}px)`;
 
-  // eyes: wander when idle, look ahead when walking; pupils move inside the eyeballs
+  // googly eyes: each pupil is a little mass on a spring, pushed around by the body's motion
+  const bvx = (a.x - a.lastX) / Math.max(dt, 0.001), bvy = (a.y + hop - a.lastY) / Math.max(dt, 0.001);
+  const ax = (bvx - a.pvx) / Math.max(dt, 0.001), ay = (bvy - a.pvy) / Math.max(dt, 0.001);
+  a.lastX = a.x; a.lastY = a.y + hop; a.pvx = bvx; a.pvy = bvy;
   if (now > a.nextLook) {
-    a.tlx = Math.random() * 2 - 1; a.tly = Math.random() * 2 - 1;
-    a.nextLook = now + 900 + Math.random() * 2400;
+    a.lookX = (Math.random() * 2 - 1) * 0.8; a.lookY = (Math.random() * 2 - 1) * 0.6;
+    a.nextLook = now + t.look * (0.5 + Math.random());
   }
-  const tx = walking || air ? a.f : a.tlx, ty = walking ? -0.3 : a.tly;
-  a.lx += (tx - a.lx) * Math.min(1, dt * 8); a.ly += (ty - a.ly) * Math.min(1, dt * 8);
+  const lx = walking ? a.f * 0.7 : a.lookX, ly = walking ? 0.2 : a.lookY;
   let blink = 1;
-  if (now > a.nextBlink) { blink = 0.08; if (now > a.nextBlink + 130) a.nextBlink = now + 1800 + Math.random() * 3500; }
-  const sag = H * (1 - sy);
-  a.eyes.style.transform = `translate(calc(-50% + ${(a.lx * 2 + rot * 0.4).toFixed(1)}px), ${(sag * 0.97).toFixed(1)}px) scaleY(${blink})`;
-  const pp = `translate(${(a.lx * 2.6).toFixed(1)}px, ${(a.ly * 2).toFixed(1)}px)`;
-  for (const b of a.pupils) b.style.transform = pp;
-  a.name.style.transform = `translateY(${Math.max(0, sag - 2).toFixed(1)}px)`;
+  if (now > a.nextBlink) { blink = 0.1; if (now > a.nextBlink + 120) a.nextBlink = now + 2000 + Math.random() * 4000; }
+  for (const e of a.eyesEl) {
+    const R = e.r * 1.25;                                           // how far the pupil can roll
+    const jit = t.jitter;
+    e.vx += (-ax * 0.004 + (lx * R - e.px) * 30 + (Math.random() - 0.5) * jit * 40) * dt;
+    e.vy += (ay * 0.004 + 220 + (-ly * R - e.py) * 12 + (Math.random() - 0.5) * jit * 40) * dt;   // gravity pulls it down
+    e.vx *= Math.pow(0.04, dt); e.vy *= Math.pow(0.04, dt);
+    e.px += e.vx * dt; e.py += e.vy * dt;
+    const d = Math.hypot(e.px, e.py);
+    if (d > R) {                                                    // bounce off the rim
+      e.px *= R / d; e.py *= R / d;
+      const nx = e.px / R, ny = e.py / R, dot = e.vx * nx + e.vy * ny;
+      if (dot > 0) { e.vx -= 1.6 * dot * nx; e.vy -= 1.6 * dot * ny; }
+    }
+    e.b.style.transform = `translate(${e.px.toFixed(1)}px, ${e.py.toFixed(1)}px)`;
+    e.el.style.transform = `scaleY(${blink})`;
+  }
 }
 requestAnimationFrame(frame);
 
@@ -392,7 +452,7 @@ function attach(addr, ch) {
     else if (m.t === "stomp") {                                    // somebody jumped on me
       me.squash = 1;
       fx(me.x, me.y + (me.H || 40) + 6, pick(["SPLAT!", "SQUISH!"]));
-      setTimeout(() => speak(me, pick(QUIPS.squashed)), 250);
+      setTimeout(() => speak(me, quip("squashed")), 250);
     }
   });
   ch.addEventListener("close", () => { if (o.ch === ch) drop(addr); });

@@ -1017,24 +1017,15 @@ a.punch:hover {
 .w-drip.a { left: 18%; }
 .w-drip.b { right: 22%; height: calc(3px + 8px * var(--melt)); }
 
-/* bulging eyeballs on top, red glowing pupils */
-.w-eyes {
-  position: absolute;
-  left: 50%;
-  top: calc(var(--eye) * -0.55);
-  display: flex;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-
+/* googly eyes, set into the body; the pupil rolls around (see walk.js) */
 .w-eye {
-  position: relative;
+  position: absolute;
   display: block;
-  width: var(--eye);
-  height: calc(var(--eye) * 1.08);
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #3a3a3a, #000 70%);
-  box-shadow: 0 1px 0 #000;
+  background: radial-gradient(circle at 38% 32%, #fff 0 55%, #e9e9e9 80%, #d0d0d0 100%);
+  box-shadow: 0 0 0 1.5px #000, inset 0 -2px 3px rgba(0, 0, 0, 0.18);
+  transform-origin: 50% 50%;
+  z-index: 1;
 }
 
 .w-eye b {
@@ -1042,12 +1033,15 @@ a.punch:hover {
   left: 50%;
   top: 50%;
   width: 46%;
-  height: 52%;
-  margin: -26% 0 0 -23%;
+  height: 46%;
+  margin: -23% 0 0 -23%;
   border-radius: 50%;
-  background: red;
-  box-shadow: 0 0 6px 1px rgba(255, 0, 0, 0.8);
+  background: radial-gradient(circle at 34% 30%, #555 0 12%, #000 22%);
   will-change: transform;
+}
+
+.w-av.me .w-eye b {
+  background: radial-gradient(circle at 34% 30%, #ff8080 0 12%, #000 22%);
 }
 
 /* slapstick */

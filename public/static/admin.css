@@ -1,3 +1,4 @@
+.adm *, .adm *::before, .adm *::after { box-sizing: border-box; }
 :root { --bg: #fff; --fg: #000; --mute: #6b6b6b; --tile: #eee; --pad: 2rem; }
 .adm main { padding: 0; min-height: 0; }
 .adm-nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; font-weight: 500; text-transform: lowercase; }

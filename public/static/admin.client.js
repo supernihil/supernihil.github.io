@@ -7,7 +7,7 @@ const app = document.getElementById("app");
 const statusEl = document.getElementById("status");
 const CATS = ["video", "performance", "code", "web", "installation", "talk", "comic", "concept"];
 const LINKS = ["website", "video", "repo", "event", "article"];
-const COVER_W = 900, THUMB_W = 400;
+const COVER_W = 900, THUMB_W = 300;
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const slugify = (s) => s.toLowerCase().replace(/æ/g, "ae").replace(/ø/g, "oe").replace(/å/g, "aa")
@@ -61,13 +61,13 @@ async function resizeStill(blob, maxW, quality) {
 }
 
 let gifsicle;
-async function resizeGif(file, maxW) {
+async function resizeGif(file, maxW, lossy = 0) {
   gifsicle ??= (await import("https://cdn.jsdelivr.net/npm/gifsicle-wasm-browser@1.5.19/dist/gifsicle.min.js")).default;
   const [out] = await gifsicle.run({
     input: [{ file, name: "in.gif" }],
-    command: [`-O2 --resize-fit-width ${maxW} in.gif -o /out/out.gif`],
+    command: [`-O3 ${lossy ? `--lossy=${lossy}` : ""} --resize-fit-width ${maxW} in.gif -o /out/out.gif`],
   });
-  return out;
+  return out.size < file.size ? out : file; // never make it bigger
 }
 
 // returns { cover, thumbnail, aspect_ratio, files: [{path, data}] }
@@ -80,12 +80,12 @@ async function processUpload(file, base, onStep) {
   onStep(isGif ? "resizing gif (can take a while)…" : "resizing…");
   const cover = isGif ? await resizeGif(file, COVER_W) : await resizeStill(file, 1600, 0.86);
   onStep("making thumbnail…");
-  const thumb = isGif ? await resizeGif(file, THUMB_W) : await resizeStill(file, THUMB_W * 2, 0.8);
+  const thumb = isGif ? await resizeGif(cover, THUMB_W, 80) : await resizeStill(file, THUMB_W * 2, 0.8);
   const coverPath = `assets/screenshots/${id}.${ext}`;
   const thumbPath = `assets/thumbnails/${id}.thumb.${ext}`;
   return {
     cover: `/${coverPath}`, thumbnail: `/${thumbPath}`, aspect_ratio: Math.round((w / h) * 1000) / 1000,
-    size: cover.size + thumb.size,
+    coverSize: cover.size, thumbSize: thumb.size,
     files: [{ path: coverPath, data: await toB64(cover) }, { path: thumbPath, data: await toB64(thumb) }],
     preview: URL.createObjectURL(cover),
   };
@@ -162,7 +162,7 @@ async function editView(name) {
       const base = slugify(f.title.value || file.name.replace(/\.[^.]+$/, ""));
       media = await processUpload(file, base, upmsg);
       document.getElementById("prev").innerHTML = `<img src="${media.preview}">`;
-      upmsg(`ready: ${(file.size / 1e6).toFixed(1)} MB → ${(media.size / 1e6).toFixed(1)} MB. Saved together with the work.`);
+      upmsg(`ready: ${(file.size / 1e6).toFixed(1)} MB → cover ${(media.coverSize / 1e6).toFixed(1)} MB + thumbnail ${(media.thumbSize / 1e6).toFixed(1)} MB. Saved together with the work.`);
     } catch (err) { media = null; upmsg(`error: ${err.message}`); }
     save.disabled = false;
   };

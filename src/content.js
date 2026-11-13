@@ -1,6 +1,6 @@
-// Content comes straight from the GitHub repo at runtime: one GraphQL request
-// fetches every post, page and the translations. The Store Durable Object keeps
-// the parsed result and re-fetches when master moves (checked at most once a minute).
+// All content lives in Cloudflare: text files in the Store Durable Object (SQLite),
+// media in R2. Paths mirror the repo layout (_posts/…, _pages/info.md,
+// _data/translations.yml, assets/…) so the GitHub backup is a 1:1 copy.
 import { DurableObject } from "cloudflare:workers";
 import { parse } from "yaml";
 import { marked } from "marked";
@@ -8,76 +8,26 @@ import { marked } from "marked";
 export const OWNER = "supernihil";
 export const NAME = "supernihil.github.io";
 export const BRANCH = "master";
-const CHECK_EVERY = 60_000;
-
-const QUERY = `query($o:String!,$n:String!,$posts:String!,$pages:String!,$t:String!,$ref:String!){
-  repository(owner:$o,name:$n){
-    ref(qualifiedName:$ref){ target{ oid } }
-    posts: object(expression:$posts){ ... on Tree { entries { name object { ... on Blob { text } } } } }
-    pages: object(expression:$pages){ ... on Tree { entries { name object { ... on Blob { text } } } } }
-    t: object(expression:$t){ ... on Blob { text } }
-  }
-}`;
-
-const gh = (env) => ({
-  authorization: `Bearer ${env.GITHUB_TOKEN}`,
-  "user-agent": "supernihil-worker",
-});
-
-export async function headSha(env) {
-  const r = await fetch(`https://api.github.com/repos/${OWNER}/${NAME}/commits/${BRANCH}`, {
-    headers: { ...gh(env), accept: "application/vnd.github.sha" },
-  });
-  if (!r.ok) throw new Error(`GitHub ${r.status}`);
-  return (await r.text()).trim();
-}
-
-// Local development without a token: list via REST, read files from raw.githubusercontent.com.
-async function fetchContentNoToken(env) {
-  const ua = { "user-agent": "supernihil-worker" };
-  const raw = (p) => fetch(`https://raw.githubusercontent.com/${OWNER}/${NAME}/${BRANCH}/${p}`).then((r) => r.text());
-  const list = async (dir) => {
-    const local = env.DEV_FILES && JSON.parse(env.DEV_FILES)[dir];
-    if (local) return Promise.all(local.map(async (name) => ({ name, text: await raw(`${dir}/${encodeURIComponent(name)}`) })));
-    const r = await fetch(`https://api.github.com/repos/${OWNER}/${NAME}/contents/${dir}?ref=${BRANCH}`, { headers: ua });
-    if (!r.ok) throw new Error(`GitHub ${r.status}: ${(await r.text()).slice(0, 200)}`);
-    const files = (await r.json()).filter((f) => f.name.endsWith(".md"));
-    return Promise.all(files.map(async (f) => ({ name: f.name, text: await raw(`${dir}/${encodeURIComponent(f.name)}`) })));
-  };
-  const [posts, pages, translations] = await Promise.all([list("_posts"), list("_pages"), raw("_data/translations.yml")]);
-  return buildContent({ sha: "local", posts, pages, translations });
-}
-
-async function fetchContent(env) {
-  if (!env.GITHUB_TOKEN) {
-    if (env.DEV_NO_TOKEN) return fetchContentNoToken(env);
-    throw new Error("GITHUB_TOKEN secret is not set on the worker");
-  }
-  const r = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: { ...gh(env), "content-type": "application/json" },
-    body: JSON.stringify({ query: QUERY, variables: {
-      o: OWNER, n: NAME, ref: `refs/heads/${BRANCH}`,
-      posts: `${BRANCH}:_posts`, pages: `${BRANCH}:_pages`, t: `${BRANCH}:_data/translations.yml`,
-    } }),
-  });
-  const j = await r.json();
-  if (!r.ok || j.errors) throw new Error(`GitHub GraphQL: ${JSON.stringify(j.errors || j.message)}`);
-  const repo = j.data.repository;
-  return buildContent({
-    sha: repo.ref.target.oid,
-    posts: repo.posts.entries.map((e) => ({ name: e.name, text: e.object?.text || "" })),
-    pages: (repo.pages?.entries || []).map((e) => ({ name: e.name, text: e.object?.text || "" })),
-    translations: repo.t?.text || "",
-  });
-}
+const MAX_BACKUP_MEDIA = 30;          // per run, keeps us under the subrequest limit
+const MAX_BACKUP_MEDIA_BYTES = 25e6;  // bigger files stay in R2 only
 
 const md = (s) => (s ? marked.parse(String(s)) : "");
+const isText = (p) => /^(_posts\/[^/]+\.md|_pages\/[^/]+\.md|_data\/translations\.yml)$/.test(p);
+export const validMedia = (p) => /^assets\/(screenshots|thumbnails)\/[^/\\]+\.(gif|jpe?g|png|webp)$/i.test(p);
 
-export function buildContent({ sha, posts, pages, translations }) {
+async function sha1(s) {
+  const d = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(s));
+  return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+export function buildContent(files, version) {
   const all = [];
-  for (const { name, text } of posts) {
-    if (!name.endsWith(".md")) continue;
+  let info = "", translations = "";
+  for (const { path, text } of files) {
+    if (path === "_pages/info.md") { info = text; continue; }
+    if (path === "_data/translations.yml") { translations = text; continue; }
+    if (!path.startsWith("_posts/")) continue;
+    const name = path.slice(7);
     const m = text.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
     if (!m) continue;
     let fm;
@@ -101,57 +51,153 @@ export function buildContent({ sha, posts, pages, translations }) {
     });
   }
   all.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.slug.localeCompare(b.slug)));
-  const pagesOut = {};
-  for (const { name, text } of pages) {
-    pagesOut[name.replace(/\.md$/, "")] = md(text);
-  }
-  return {
-    sha,
-    loaded: new Date().toISOString(),
-    all,
-    works: all.filter((w) => !w.draft),
-    pages: pagesOut,
-    t: parse(translations) || {},
-  };
+  let t = {};
+  try { t = parse(translations) || {}; } catch {}
+  return { version, all, works: all.filter((w) => !w.draft), pages: { info: md(info) }, t };
 }
 
 export class Store extends DurableObject {
-  async get() {
-    this.c ??= await this.ctx.storage.get("c");
-    if (!this.c) return this.refresh();
-    if (Date.now() - (this.checked || 0) > CHECK_EVERY) {
-      this.checked = Date.now();
-      this.ctx.waitUntil(this.check().catch(() => {}));
+  constructor(ctx, env) {
+    super(ctx, env);
+    this.sql = ctx.storage.sql;
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS files (path TEXT PRIMARY KEY, text TEXT, hash TEXT, backed TEXT, updated INTEGER);
+      CREATE TABLE IF NOT EXISTS media (path TEXT PRIMARY KEY, size INTEGER, updated INTEGER, backed INTEGER DEFAULT 0);
+      CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT);
+    `);
+  }
+
+  meta(k, v) {
+    if (v === undefined) return this.sql.exec("SELECT v FROM meta WHERE k = ?", k).toArray()[0]?.v ?? null;
+    this.sql.exec("INSERT OR REPLACE INTO meta VALUES (?, ?)", k, String(v));
+  }
+  bump() { this.meta("version", Number(this.meta("version") || 0) + 1); this.c = null; }
+
+  // ---- reads ---------------------------------------------------------------
+  content() {
+    if (!this.c) {
+      const files = this.sql.exec("SELECT path, text FROM files WHERE text IS NOT NULL").toArray();
+      this.c = buildContent(files, Number(this.meta("version") || 0));
     }
     return this.c;
   }
+  version() { return Number(this.meta("version") || 0); }
+  read(path) { return this.sql.exec("SELECT text FROM files WHERE path = ? AND text IS NOT NULL", path).toArray()[0]?.text ?? null; }
 
-  async check() {
-    if (!this.env.GITHUB_TOKEN) return;
-    if ((await headSha(this.env)) !== this.c?.sha) await this.refresh();
+  // ---- writes --------------------------------------------------------------
+  async write(path, text) {
+    if (!isText(path)) throw new Error(`bad path ${path}`);
+    this.sql.exec("INSERT INTO files (path, text, hash, updated) VALUES (?, ?, ?, ?) ON CONFLICT(path) DO UPDATE SET text = excluded.text, hash = excluded.hash, updated = excluded.updated",
+      path, text, await sha1(text), Date.now());
+    this.bump();
+  }
+  remove(path) {
+    // tombstone: kept until the deletion has been backed up to GitHub
+    this.sql.exec("UPDATE files SET text = NULL, hash = NULL, updated = ? WHERE path = ?", Date.now(), path);
+    this.bump();
+  }
+  addMedia(path, size, backed = 0) {
+    this.sql.exec("INSERT OR REPLACE INTO media VALUES (?, ?, ?, ?)", path, size, Date.now(), backed);
+  }
+  // Bulk load (first import / restore). Files given are considered already backed up.
+  async importFiles(files, media = [], replace = false) {
+    if (replace) this.sql.exec("DELETE FROM files");
+    for (const f of files) {
+      if (!isText(f.path)) continue;
+      const h = await sha1(f.text);
+      this.sql.exec("INSERT OR REPLACE INTO files VALUES (?, ?, ?, ?, ?)", f.path, f.text, h, h, Date.now());
+    }
+    for (const m of media) if (validMedia(m.path)) this.addMedia(m.path, m.size || 0, 1);
+    this.bump();
+    return { files: files.length, media: media.length };
   }
 
-  // `expect`: commit sha the admin just wrote; retry briefly until GitHub serves it.
-  async refresh(expect) {
-    let c;
-    for (let i = 0; i < 4; i++) {
-      c = await fetchContent(this.env);
-      if (!expect || c.sha === expect) break;
-      await new Promise((r) => setTimeout(r, 700));
+  // ---- backup to GitHub ----------------------------------------------------
+  pending() {
+    const files = this.sql.exec("SELECT path, text FROM files WHERE (text IS NOT NULL AND hash IS NOT backed) OR (text IS NULL AND backed IS NOT NULL)").toArray();
+    const media = this.sql.exec("SELECT path, size FROM media WHERE backed = 0 ORDER BY updated").toArray();
+    return { files, media };
+  }
+  backupStatus() {
+    const p = this.pending();
+    return {
+      pendingFiles: p.files.length,
+      pendingMedia: p.media.length,
+      lastBackup: this.meta("lastBackup"),
+      lastCommit: this.meta("lastCommit"),
+      lastError: this.meta("lastError"),
+    };
+  }
+
+  async backup() {
+    const env = this.env;
+    if (!env.GITHUB_TOKEN) return { skipped: "GITHUB_TOKEN not set" };
+    // deletions of files that never reached GitHub need no commit
+    this.sql.exec("DELETE FROM files WHERE text IS NULL AND backed IS NULL");
+    const { files, media } = this.pending();
+    if (!files.length && !media.length) return { nothing: true };
+
+    const gh = async (path, init = {}) => {
+      const r = await fetch(`https://api.github.com/repos/${OWNER}/${NAME}${path}`, {
+        ...init,
+        headers: { authorization: `Bearer ${env.GITHUB_TOKEN}`, accept: "application/vnd.github+json", "user-agent": "supernihil-backup", ...(init.body ? { "content-type": "application/json" } : {}) },
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(`GitHub ${r.status} ${path}: ${j.message}`);
+      return j;
+    };
+
+    try {
+      const tree = files.map((f) => f.text == null
+        ? { path: f.path, mode: "100644", type: "blob", sha: null }
+        : { path: f.path, mode: "100644", type: "blob", content: f.text });
+      const mediaDone = [], mediaSkipped = [];
+      for (const m of media.slice(0, MAX_BACKUP_MEDIA)) {
+        const obj = await env.MEDIA.get(m.path);
+        if (!obj || obj.size > MAX_BACKUP_MEDIA_BYTES) { mediaSkipped.push(m.path); continue; }
+        const bytes = new Uint8Array(await obj.arrayBuffer());
+        let bin = "";
+        for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        const blob = await gh("/git/blobs", { method: "POST", body: JSON.stringify({ content: btoa(bin), encoding: "base64" }) });
+        tree.push({ path: m.path, mode: "100644", type: "blob", sha: blob.sha });
+        mediaDone.push(m.path);
+      }
+
+      if (tree.length) {
+        const ref = await gh(`/git/ref/heads/${BRANCH}`);
+        const parent = await gh(`/git/commits/${ref.object.sha}`);
+        const t = await gh("/git/trees", { method: "POST", body: JSON.stringify({ base_tree: parent.tree.sha, tree }) });
+        const c = await gh("/git/commits", { method: "POST", body: JSON.stringify({ message: `Backup from supernihil.party (${files.length} files, ${mediaDone.length} media)`, tree: t.sha, parents: [parent.sha] }) });
+        await gh(`/git/refs/heads/${BRANCH}`, { method: "PATCH", body: JSON.stringify({ sha: c.sha }) });
+        this.meta("lastCommit", c.sha);
+      }
+
+      for (const f of files) {
+        if (f.text == null) this.sql.exec("DELETE FROM files WHERE path = ? AND text IS NULL", f.path);
+        else this.sql.exec("UPDATE files SET backed = ? WHERE path = ? AND text = ?", await sha1(f.text), f.path, f.text);
+      }
+      for (const p of mediaDone) this.sql.exec("UPDATE media SET backed = 1 WHERE path = ?", p);
+      for (const p of mediaSkipped) this.sql.exec("UPDATE media SET backed = -1 WHERE path = ?", p);
+      this.meta("lastBackup", new Date().toISOString());
+      this.meta("lastError", "");
+      return { commit: this.meta("lastCommit"), files: files.length, media: mediaDone.length, skipped: mediaSkipped.length };
+    } catch (e) {
+      this.meta("lastError", e.message);
+      throw e;
     }
-    this.c = c;
-    this.checked = Date.now();
-    await this.ctx.storage.put("c", c);
-    return c;
   }
 }
 
-// Per-isolate memo so most requests skip the Durable Object round trip.
+export const store = (env) => env.STORE.get(env.STORE.idFromName("content"));
+
+// Per-isolate memo; asks the store for its version at most every few seconds.
 let memo = null;
 export async function getContent(env) {
-  if (memo && Date.now() - memo.at < 20_000) return memo.c;
-  const c = await env.STORE.get(env.STORE.idFromName("content")).get();
+  if (memo && Date.now() - memo.at < 5000) return memo.c;
+  const s = store(env);
+  if (memo && (await s.version()) === memo.c.version) { memo.at = Date.now(); return memo.c; }
+  const c = await s.content();
   memo = { c, at: Date.now() };
   return c;
 }
-export function forgetContent(c) { memo = c ? { c, at: Date.now() } : null; }
+export function forgetContent() { memo = null; }

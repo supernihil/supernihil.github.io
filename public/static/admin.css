@@ -89,3 +89,5 @@ legend { font-size: 13px; color: var(--mute); padding: 0 4px; }
   .row3 { grid-template-columns: 1fr 1fr; }
   .row3 label:first-child { grid-column: 1 / -1; }
 }
+.editor.single { grid-template-columns: 1fr; max-width: 900px; }
+.deploy .bad, .bad { color: #d12; }

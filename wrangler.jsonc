@@ -7,6 +7,8 @@
   "workers_dev": true,
   "routes": [{ "pattern": "supernihil.party", "custom_domain": true }],
   "rules": [{ "type": "Text", "globs": ["**/*.css", "**/*.svg", "**/*.client.js"], "fallthrough": false }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "supernihil-media" }],
+  "triggers": { "crons": ["17 * * * *"] },
   "durable_objects": { "bindings": [{ "name": "STATS", "class_name": "Stats" }, { "name": "STORE", "class_name": "Store" }] },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Stats"] }, { "tag": "v2", "new_sqlite_classes": ["Store"] }],
   "observability": { "enabled": true }

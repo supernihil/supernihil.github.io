@@ -1,13 +1,11 @@
-// supernihil.party — one worker: public pages, media proxy, stats, admin CMS.
-import { getContent } from "./content.js";
+// supernihil.party — one worker: public pages, media from R2, stats, admin, GitHub backup.
+import { getContent, store } from "./content.js";
 import { serveStatic } from "./statics.js";
 import { renderIndex, renderWork, renderInfo, renderNotFound, renderFeed, renderSitemap } from "./render.js";
 import { handleAdmin } from "./admin.js";
 export { Stats } from "./stats.js";
 export { Store } from "./content.js";
 
-const REPO = "supernihil/supernihil.github.io";
-const BRANCH = "master";
 const ORIGIN = "https://supernihil.party";
 const BOT = /bot|crawl|spider|slurp|preview|facebookexternalhit|embedly|curl|wget|python|httpclient|headless|lighthouse|monitor/i;
 const TYPES = { gif: "image/gif", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", svg: "image/svg+xml", mp4: "video/mp4" };
@@ -25,7 +23,7 @@ export default {
 
     if (url.hostname.startsWith("www.")) return redirect(`${ORIGIN}${url.pathname}${url.search}`);
     if (path === "/admin" || path.startsWith("/admin/")) return handleAdmin(request, env, url, path);
-    if (path.startsWith("/assets/")) return proxyMedia(request, url, ctx);
+    if (path.startsWith("/assets/")) return serveMedia(request, env, path.slice(1), ctx);
     if (path.startsWith("/static/")) return serveStatic(path.slice(8));
 
     // old URLs: Jekyll posts, the separate works pages, the timeline, /en/
@@ -55,27 +53,40 @@ export default {
     if (request.method === "GET" && res.status === 200) ctx.waitUntil(track(request, env, url));
     return res;
   },
+
+  // hourly: copy changed posts/pages and new media to the GitHub repo
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(store(env).backup());
+  },
 };
 
-// Media lives in the GitHub repo; Cloudflare caches it at the edge.
-async function proxyMedia(request, url, ctx) {
+// Media lives in R2. Range requests and conditional GETs are passed through.
+async function serveMedia(request, env, key, ctx) {
   const cache = caches.default;
-  const key = new Request(url.origin + url.pathname);
-  let res = await cache.match(key);
-  if (res) return res;
-  const upstream = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}${url.pathname}`, {
-    cf: { cacheEverything: true, cacheTtl: 86400 },
-  });
-  if (!upstream.ok) return new Response("not found", { status: 404 });
-  const ext = url.pathname.split(".").pop().toLowerCase();
-  res = new Response(upstream.body, {
-    headers: {
-      "content-type": TYPES[ext] || "application/octet-stream",
-      "cache-control": "public, max-age=604800",
-      "access-control-allow-origin": "*",
-    },
-  });
-  ctx.waitUntil(cache.put(key, res.clone()));
+  const cacheable = request.method === "GET" && !request.headers.has("range");
+  const cacheKey = new Request(new URL(request.url).origin + "/" + encodeURI(key));
+  if (cacheable) {
+    const hit = await cache.match(cacheKey);
+    if (hit) return hit;
+  }
+  const obj = await env.MEDIA.get(key, { range: request.headers, onlyIf: request.headers });
+  if (!obj) return new Response("not found", { status: 404 });
+  const headers = new Headers();
+  obj.writeHttpMetadata(headers);
+  const ext = key.split(".").pop().toLowerCase();
+  if (!headers.get("content-type")) headers.set("content-type", TYPES[ext] || "application/octet-stream");
+  headers.set("etag", obj.httpEtag);
+  headers.set("cache-control", "public, max-age=604800");
+  headers.set("accept-ranges", "bytes");
+  if (!("body" in obj)) return new Response(null, { status: 304, headers });
+  if (obj.range && request.headers.has("range")) {
+    const start = obj.range.offset ?? 0;
+    const end = start + (obj.range.length ?? obj.size - start) - 1;
+    headers.set("content-range", `bytes ${start}-${end}/${obj.size}`);
+    return new Response(obj.body, { status: 206, headers });
+  }
+  const res = new Response(obj.body, { headers });
+  if (cacheable && obj.size < 100e6) ctx.waitUntil(cache.put(cacheKey, res.clone()));
   return res;
 }
 

@@ -1,6 +1,7 @@
 // Admin UI: edit _posts/*.md in the GitHub repo, upload covers, see stats.
-// Images are resized here in the browser (GIFs via gifsicle compiled to wasm),
-// then saved together with the post as a single commit. The site updates instantly.
+// Everything is stored in Cloudflare (works in a Durable Object, media in R2) and
+// backed up to the GitHub repo every hour. Images are resized here in the browser
+// (GIFs via gifsicle compiled to wasm) before upload.
 import { parse, stringify } from "https://cdn.jsdelivr.net/npm/yaml@2.9.1/+esm";
 
 const app = document.getElementById("app");
@@ -30,17 +31,21 @@ function joinPost(fm, body) {
   return `---\n${stringify(fm, { lineWidth: 0 })}---\n\n${body.trim()}\n`;
 }
 
-function showLive(c) {
-  statusEl.innerHTML = `live: <code>${esc(c.sha.slice(0, 7))}</code> · loaded ${new Date(c.loaded).toLocaleString("en-GB")} · <button class="linkbtn" id="pull">reload from GitHub</button>`;
-  document.getElementById("pull").onclick = async () => {
-    statusEl.textContent = "loading…";
-    await api("refresh", { method: "POST" });
-    route();
+function showBackup(b) {
+  const pending = b.pendingFiles + b.pendingMedia;
+  statusEl.innerHTML = `github backup: ${pending ? `${b.pendingFiles} file(s), ${b.pendingMedia} image(s) waiting` : "up to date"}`
+    + (b.lastBackup ? ` · last ${new Date(b.lastBackup).toLocaleString("en-GB")}` : "")
+    + (b.lastError ? ` · <span class="bad">error: ${esc(b.lastError)}</span>` : "")
+    + (pending ? ` · <button class="linkbtn" id="bk">back up now</button>` : "");
+  const btn = document.getElementById("bk");
+  if (btn) btn.onclick = async () => {
+    statusEl.textContent = "backing up…";
+    try { showBackup((await api("backup", { method: "POST" })).status); }
+    catch (e) { statusEl.innerHTML = `<span class="bad">${esc(e.message)}</span>`; }
   };
 }
 
 // ---- media processing ------------------------------------------------------
-const toB64 = (blob) => new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(blob); });
 
 async function dims(blob) {
   const bmp = await createImageBitmap(blob);
@@ -70,7 +75,7 @@ async function resizeGif(file, maxW, lossy = 0) {
   return out.size < file.size ? out : file; // never make it bigger
 }
 
-// returns { cover, thumbnail, aspect_ratio, files: [{path, data}] }
+// returns { cover, thumbnail, aspect_ratio, files: [{path, blob}] }
 async function processUpload(file, base, onStep) {
   const isGif = file.type === "image/gif" || /\.gif$/i.test(file.name);
   const ext = isGif ? "gif" : "jpg";
@@ -86,7 +91,7 @@ async function processUpload(file, base, onStep) {
   return {
     cover: `/${coverPath}`, thumbnail: `/${thumbPath}`, aspect_ratio: Math.round((w / h) * 1000) / 1000,
     coverSize: cover.size, thumbSize: thumb.size,
-    files: [{ path: coverPath, data: await toB64(cover) }, { path: thumbPath, data: await toB64(thumb) }],
+    files: [{ path: coverPath, blob: cover }, { path: thumbPath, blob: thumb }],
     preview: URL.createObjectURL(cover),
   };
 }
@@ -95,7 +100,7 @@ async function processUpload(file, base, onStep) {
 async function listView() {
   app.innerHTML = `<p class="pad">loading…</p>`;
   const c = await api("posts");
-  showLive(c);
+  showBackup(c.backup);
   app.innerHTML = `<div class="pad bar"><input id="q" placeholder="search…" autocomplete="off"><a class="btn" href="#/new">+ new work</a></div>
   <ol class="list adm-list">${c.posts.map((p) => `<li data-q="${esc(`${p.title} ${p.file} ${p.category}`.toLowerCase())}"><a href="#/edit/${encodeURIComponent(p.file)}">
     <span class="y">${p.date.slice(0, 4)}</span>
@@ -183,9 +188,13 @@ async function editView(name) {
     msg(media ? "saving work and images…" : "saving…");
     document.getElementById("save").disabled = true;
     try {
-      const r = await api("post", { method: "PUT", body: JSON.stringify({ name: file, text: joinPost(out, d.get("body") || ""), files: media?.files || [] }) });
+      for (const f of media?.files || []) {
+        const r = await fetch(`/admin/api/media?path=${encodeURIComponent(f.path)}`, { method: "PUT", body: f.blob, headers: { "content-type": f.blob.type || "application/octet-stream" } });
+        if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `upload failed (${r.status})`);
+      }
+      await api("post", { method: "PUT", body: JSON.stringify({ name: file, text: joinPost(out, d.get("body") || "") }) });
       fm = out; media = null;
-      msg(r.live ? "saved — live now." : "saved — will show shortly.");
+      msg("saved — live now.");
       if (!name) location.hash = `#/edit/${encodeURIComponent(file)}`;
     } catch (err) { msg(err.message, true); }
     document.getElementById("save").disabled = false;
@@ -231,12 +240,30 @@ async function statsView(days = 30) {
 </div>`;
 }
 
+async function infoView() {
+  app.innerHTML = `<p class="pad">loading…</p>`;
+  const { text } = await api("page");
+  app.innerHTML = `<form id="pf" class="editor single">
+    <label>info page <small>markdown · ## for headings</small><textarea name="text" rows="24">${esc(text)}</textarea></label>
+    <div class="actions"><button class="btn">save</button><a class="btn ghost" href="/info" target="_blank">view ↗</a></div>
+    <p id="msg" class="msg"></p>
+  </form>`;
+  document.getElementById("pf").onsubmit = async (e) => {
+    e.preventDefault();
+    const m = document.getElementById("msg");
+    m.textContent = "saving…";
+    try { await api("page", { method: "PUT", body: JSON.stringify({ text: e.target.text.value }) }); m.textContent = "saved — live now."; }
+    catch (err) { m.textContent = err.message; m.className = "msg bad"; }
+  };
+}
+
 async function route() {
   const h = decodeURIComponent(location.hash.slice(1) || "/");
   try {
     if (h === "/new") await editView(null);
     else if (h.startsWith("/edit/")) await editView(h.slice(6));
     else if (h.startsWith("/stats")) await statsView(Number(h.split("/")[2]) || 30);
+    else if (h === "/info") await infoView();
     else await listView();
   } catch (e) { app.innerHTML = `<p class="pad msg bad">${esc(e.message)}</p>`; }
   window.scrollTo(0, 0);

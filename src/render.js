@@ -51,9 +51,16 @@ ${body}
 </html>`;
 }
 
+// small, stable tilt per card (-1.2..1.2deg), derived from the slug
+function tilt(slug) {
+  let h = 0;
+  for (const ch of slug) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  return ((((h % 25) + 25) % 25) - 12) / 10;
+}
+
 export function renderIndex(c) {
   const cards = c.works.map((w, i) => `
-  <div class="work-item">
+  <div class="work-item" style="--tilt:${tilt(w.slug)}deg">${w.type === "live" ? '<span class="sticker">LIVE</span>' : ""}
     <a href="/works/${enc(w.slug)}">
       ${w.thumbnail ? `<img src="${esc(w.thumbnail)}" alt="${esc(w.title)}" ${i < 6 ? "" : 'loading="lazy" '}decoding="async" style="aspect-ratio:${w.ar}" class="grid-thumb">` : ""}
       <div class="work-info">
@@ -80,9 +87,13 @@ export function renderWork(c, i) {
   const shorts = /shorts\//.test(w.video_url || "");
 
   const media = embed
-    ? `<div class="video-container${shorts ? " portrait" : ""}"><iframe src="${esc(embed)}" title="${esc(w.title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`
+    ? `<div class="work-video${shorts ? " portrait" : ""}"><iframe src="${esc(embed)}" title="${esc(w.title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`
     : w.cover ? `<img src="${esc(w.cover)}" alt="${esc(w.title)}" style="aspect-ratio:${w.ar}">` : "";
-  const step = (x, k) => (x ? `<a href="/works/${enc(x.slug)}"><small>${k}</small>${esc(x.title)}</a>` : "<span></span>");
+  const step = (x, dir) => x ? `<a class="work-step ${dir}" href="/works/${enc(x.slug)}">
+      ${x.thumbnail ? `<img src="${esc(x.thumbnail)}" alt="" loading="lazy">` : "<span class=\"noimg\"></span>"}
+      <span class="work-step-label">${dir === "newer" ? "← newer" : "older →"}</span>
+      <span class="work-step-title">${esc(x.title)}</span>
+    </a>` : "<span></span>";
 
   return layout({
     title: w.title,
@@ -90,33 +101,59 @@ export function renderWork(c, i) {
     image: w.cover,
     path: `/works/${enc(w.slug)}`,
     nav: "works",
-    body: `<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">${esc(w.title)}</h1>
-    <p class="post-meta"><time datetime="${w.date}">${esc(new Date(w.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }))}</time> • ${esc(label(c, w.category))} • ${esc(label(c, w.type))}</p>
-  </header>
-  <div class="post-layout">
-    <div class="post-media">${media}</div>
-    <div class="post-info-column">
-      <div class="post-content">
-        ${w.summary ? `<p class="post-summary">${esc(w.summary)}</p>` : ""}
-        ${w.body}
+    body: `<article class="work${embed ? " has-video" : ""}">
+  <div class="work-stage">
+    <figure class="work-media">${media}</figure>
+    <div class="work-side">
+      <div class="work-head">
+        <span class="work-year" aria-hidden="true">${year(w)}</span>
+        <h1 class="work-name"><span>${esc(w.title)}</span></h1>
       </div>
-      ${w.links.length ? `<div class="post-links"><ul class="prominent-links">${w.links.map((l) => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener" class="prominent-link">${esc(label(c, l.label))} →</a></li>`).join("")}</ul></div>` : ""}
-      <nav class="post-nav">${step(newer, "newer")}${step(older, "older")}</nav>
+      <p class="work-tags"><time datetime="${w.date}">${esc(new Date(w.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }))}</time><span class="chip">${esc(label(c, w.category))}</span><span class="chip">${esc(label(c, w.type))}</span></p>
+      ${w.summary ? `<p class="work-summary">${esc(w.summary)}</p>` : ""}
+      <div class="work-body">${w.body}</div>
+      ${w.links.length ? `<ul class="prominent-links">${w.links.map((l) => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener" class="prominent-link">${esc(label(c, l.label))} →</a></li>`).join("")}</ul>` : ""}
     </div>
   </div>
+  <nav class="work-steps">${step(newer, "newer")}${step(older, "older")}</nav>
 </article>`,
   });
 }
 
 export function renderInfo(c) {
+  const works = c.works;
+  const years = works.map((w) => Number(year(w)));
+  const min = Math.min(...years), max = Math.max(...years);
+  const byYear = new Map();
+  for (const w of [...works].reverse()) (byYear.get(Number(year(w))) || byYear.set(Number(year(w)), []).get(Number(year(w)))).push(w);
+  const cols = [];
+  for (let y = min; y <= max; y++) {
+    const list = byYear.get(y) || [];
+    cols.push(`<div class="punch-col"><div class="punch-stack">${list.map((w) => `<a class="punch ${w.type}" href="/works/${enc(w.slug)}" title="${esc(w.title)} (${y})"></a>`).join("")}</div><span class="punch-year">${String(y).slice(2)}</span></div>`);
+  }
+  const live = works.filter((w) => w.type === "live").length;
+  const cats = [...works.reduce((m, w) => m.set(w.category, (m.get(w.category) || 0) + 1), new Map())].sort((a, b) => b[1] - a[1]);
+
   return layout({
     title: "Info",
     desc: "About Supernihil.",
     path: "/info",
     nav: "info",
-    body: `<div class="info-content"><div class="about-section">${c.pages.info || ""}</div></div>`,
+    body: `<div class="info">
+  <div class="info-text">${(c.pages.info || "").replace(/<h2>([\s\S]*?)<\/h2>/g, "<h2><span>$1</span></h2>")}</div>
+  <aside class="archive">
+    <h2><span>The archive</span></h2>
+    <div class="archive-numbers">
+      <div><b>${works.length}</b><span>works</span></div>
+      <div><b>${min}–${String(max).slice(2)}</b><span>years</span></div>
+      <div><b class="red">${live}</b><span>live</span></div>
+      <div><b>${works.length - live}</b><span>static</span></div>
+    </div>
+    <div class="punchcard" role="img" aria-label="Works per year, ${min} to ${max}">${cols.join("")}</div>
+    <p class="punch-legend"><i class="punch live"></i> live <i class="punch static"></i> static · one square per work</p>
+    <p class="archive-cats">${cats.map(([k, n]) => `<span class="chip">${esc(label(c, k))} ${n}</span>`).join(" ")}</p>
+  </aside>
+</div>`,
   });
 }
 

@@ -28,6 +28,8 @@ ADMIN_USER=… ADMIN_PASS=… node scripts/restore-from-repo.mjs
 - `src/admin.js`, `public/static/admin.client.js` — admin
 - `src/stats.js` — cookieless page-view counter (Durable Object)
 - `public/static/walk.client.js` — /walk, the side-scrolling street shared peer to peer over CORVAX
+- `public/static/ghost.client.js` — the "ghost editor" that slowly edits the info page and the homepage subtitle
+- `assets/og/` — still JPG link-preview images (one per work, plus `supernihil.jpg` as the default)
 - `public/static/` — CSS, admin JS, favicon (bundled into the worker)
 
 Deploy code changes with `npm run deploy`. Local: put `ADMIN_USER=test`, `ADMIN_PASS=test`,

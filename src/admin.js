@@ -106,6 +106,15 @@ export async function handleAdmin(request, env, url, path) {
       await caches.default.delete(new Request(`${url.origin}/${encodeURI(key)}`)).catch(() => {});
       return json({ path: `/${key}`, size: obj.size });
     }
+    // remove a media file from R2 (and from the media index)
+    if (route === "media" && method === "DELETE") {
+      const key = url.searchParams.get("path") || "";
+      if (!validMedia(key)) return json({ error: "bad media path" }, 400);
+      await env.MEDIA.delete(key);
+      await st.forgetMedia([key]);
+      await caches.default.delete(new Request(`${url.origin}/${encodeURI(key)}`)).catch(() => {});
+      return json({ ok: true });
+    }
     if (route === "backup" && method === "POST") {
       return json({ result: await st.backup(), status: await st.backupStatus() });
     }

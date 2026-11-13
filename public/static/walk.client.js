@@ -15,38 +15,60 @@ const talk = stage.querySelector(".w-talk");
 const works = JSON.parse(document.getElementById("walk-data").textContent);
 
 // ---- world layout ------------------------------------------------------------
+// Salon hang: two staggered rows of cards, oldest on the left, years as markers.
 const GROUND = parseInt(getComputedStyle(stage).getPropertyValue("--ground")) || 96;
-const ROOM = stage.clientHeight - GROUND;                       // wall height above the ground
-const POSTER_H = Math.round(Math.max(120, Math.min(280, (ROOM - 190) * 0.62, stage.clientWidth * 0.5)));
-const GAP = Math.round(POSTER_H * 0.8), START = 520;
-let cursor = START, lastYear = null;
-const posters = [];
-for (const [i, w] of [...works].reverse().entries()) {          // oldest on the left
+const ROOM = stage.clientHeight - GROUND;                         // wall height above the ground
+const ROW_H = Math.round(Math.max(80, Math.min(210, (ROOM - 240) * 0.38, stage.clientWidth * 0.34)));
+const ROWS = [GROUND + 34, GROUND + 34 + ROW_H + 62];             // bottom of each row
+const GAP = Math.round(ROW_H * 0.18), START = 420;
+const YEAR_Y = Math.min(ROWS[1] + Math.round(ROW_H * 1.12) + 44, stage.clientHeight - 150);   // above the top row
+const lane = [START, START + Math.round(ROW_H * 0.5)];
+const posters = [], years = [];
+let lastYear = null;
+for (const [i, w] of [...works].reverse().entries()) {
   const year = w.date.slice(0, 4);
   if (year !== lastYear) {
+    const x = Math.max(...lane) + 30;
     const y = document.createElement("div");
-    y.className = "w-year"; y.textContent = year; y.style.left = `${cursor}px`;
+    y.className = "w-year"; y.textContent = year; y.style.left = `${x}px`; y.style.bottom = `${YEAR_Y}px`;
     world.append(y);
-    lastYear = year; cursor += 140;
+    years.push({ x, year });
+    lastYear = year;
+    lane[0] = lane[1] = x + 70;
   }
-  const h = POSTER_H, wpx = Math.round(Math.max(100, Math.min(300, h * w.ar)));
+  const r = lane[0] <= lane[1] ? 0 : 1;
+  const k = 0.82 + (((i * 7919) % 7) / 7) * 0.3;                  // stable size jitter
+  const h = Math.round(ROW_H * k), wpx = Math.round(Math.max(70, Math.min(ROW_H * 1.7, h * w.ar)));
+  const x = lane[r];
   const a = document.createElement("a");
   a.className = "w-poster"; a.href = `/works/${encodeURIComponent(w.slug)}`;
-  a.style.left = `${cursor}px`;
-  a.style.bottom = `${GROUND + Math.round(ROOM * 0.18) + ((i * 37) % 3) * 18}px`;
-  a.style.setProperty("--tilt", `${(((i * 7919) % 25) - 12) / 10}deg`);
+  a.style.left = `${x}px`;
+  a.style.bottom = `${ROWS[r] + ((i * 37) % 3) * 8}px`;
+  a.style.setProperty("--tilt", `${(((i * 7919) % 25) - 12) / 8}deg`);
   a.innerHTML = `<span class="w-img" style="width:${wpx}px;height:${h}px"></span><span class="w-cap"><b></b><i>${year}</i></span>${w.type === "live" ? '<span class="sticker">LIVE</span>' : ""}`;
   a.querySelector("b").textContent = w.title;
   world.append(a);
-  posters.push({ el: a, x: cursor, w: wpx + 8, thumb: w.thumb, loaded: false, title: w.title });
-  cursor += wpx + GAP;
+  posters.push({ el: a, x, w: wpx + 8, thumb: w.thumb, loaded: false, title: w.title });
+  lane[r] = x + wpx + GAP;
+  if (lane[r] - lane[1 - r] > ROW_H) lane[1 - r] = Math.max(lane[1 - r], lane[r] - ROW_H * 1.2);
 }
-const WORLD_W = cursor + 400;
+const WORLD_W = Math.max(...lane) + 300;
 world.style.width = `${WORLD_W}px`;
 const sign = document.createElement("div");
 sign.className = "w-sign"; sign.innerHTML = `<b>the archive</b><span>${works.at(-1)?.date.slice(0, 4)} → ${works[0]?.date.slice(0, 4)}</span>`;
-sign.style.left = "140px";
+sign.style.left = "90px";
 world.append(sign);
+const yearAt = (x) => (years.filter((y) => y.x <= x + 40).at(-1) || years[0])?.year || "";
+
+// timeline strip (minimap) + off-screen indicators
+const map = stage.querySelector(".w-map");
+const minGap = 64 / Math.max(320, stage.clientWidth);            // keep tick labels from overlapping
+let lastTick = -1;
+map.innerHTML = years.filter((y) => { const f = y.x / WORLD_W; if (f - lastTick < minGap) return false; lastTick = f; return true; })
+  .map((y) => `<span class="w-tick" style="left:${(y.x / WORLD_W) * 100}%">${y.year}</span>`).join("")
+  + `<span class="w-view"></span><span class="w-dot me"></span>`;
+const mapView = map.querySelector(".w-view"), mapMe = map.querySelector(".w-dot.me");
+const edges = { left: stage.querySelector(".w-edge.l"), right: stage.querySelector(".w-edge.r") };
 
 // ---- avatars -----------------------------------------------------------------
 const hue = (a) => { let h = 0; for (const ch of String(a)) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; };
@@ -66,7 +88,7 @@ function speak(av, text) {
   av.bubbleTimer = setTimeout(() => { b.hidden = true; }, 4000 + text.length * 60);
 }
 
-const me = { x: START - 260 + Math.random() * 120, y: 0, vy: 0, f: 1, walking: false, el: makeAvatar("you", true) };
+const me = { x: START - 200 + Math.random() * 120, y: 0, vy: 0, f: 1, walking: false, el: makeAvatar("you", true) };
 const others = new Map();   // address -> { el, x, y, tx, ty, f, walking, ch, seen }
 
 // ---- input -------------------------------------------------------------------
@@ -133,6 +155,8 @@ function frame(now) {
   world.style.transform = `translate3d(${-cam}px,0,0)`;
   far.style.transform = `translate3d(${-cam * 0.25}px,0,0)`;
 
+  drawRadar(vw);
+
   near = null;
   for (const p of posters) {
     if (!p.loaded && p.x > cam - 600 && p.x < cam + vw + 900) {
@@ -140,7 +164,8 @@ function frame(now) {
       const img = new Image(); img.alt = ""; img.decoding = "async"; img.src = p.thumb;
       p.el.querySelector(".w-img").append(img);
     }
-    if (me.x > p.x - 20 && me.x < p.x + p.w + 20) near = p;
+    const d = Math.abs(me.x - (p.x + p.w / 2));
+    if (d < p.w / 2 + 16 && (!near || d < near.d)) near = Object.assign(p, { d });
   }
   prompt.hidden = !near;
   if (near) prompt.querySelector("b").textContent = near.title;
@@ -152,6 +177,43 @@ function frame(now) {
   }
   requestAnimationFrame(frame);
 }
+let radarAt = 0;
+function drawRadar(vw) {
+  const now = performance.now();
+  mapMe.style.left = `${(me.x / WORLD_W) * 100}%`;
+  mapView.style.left = `${(cam / WORLD_W) * 100}%`;
+  mapView.style.width = `${(vw / WORLD_W) * 100}%`;
+  if (now - radarAt < 150) return;
+  radarAt = now;
+  const side = { left: [], right: [] };
+  for (const [addr, o] of others) {
+    if (o.el.hidden) continue;
+    let dot = o.dot;
+    if (!dot) { dot = o.dot = document.createElement("span"); dot.className = "w-dot"; dot.style.setProperty("--who", hue(addr)); map.append(dot); }
+    dot.style.left = `${(o.x / WORLD_W) * 100}%`;
+    if (o.x < cam + 10) side.left.push({ addr, o, d: cam - o.x });
+    else if (o.x > cam + vw - 10) side.right.push({ addr, o, d: o.x - cam - vw });
+  }
+  for (const k of ["left", "right"]) {
+    const list = side[k].sort((a, b) => a.d - b.d), el = edges[k];
+    el.hidden = !list.length;
+    if (!list.length) continue;
+    const n = list[0];
+    el.dataset.addr = n.addr;
+    el.style.setProperty("--who", hue(n.addr));
+    el.querySelector(".w-edge-n").textContent = list.length > 1 ? `${list.length}` : "";
+    el.querySelector(".w-edge-t").textContent = `${handle(n.addr)} · ${yearAt(n.o.x)}`;
+  }
+}
+for (const el of Object.values(edges)) {
+  el.addEventListener("click", () => {
+    const o = others.get(el.dataset.addr);
+    if (!o) return;
+    me.x = Math.max(40, Math.min(WORLD_W - 60, o.x + (o.x > me.x ? -70 : 70)));
+    me.vy = 380;
+  });
+}
+
 function place(a) {
   a.el.style.transform = `translate3d(${a.x}px,${-a.y}px,0)`;
   a.el.classList.toggle("walking", !!a.walking && a.y === 0);
@@ -196,7 +258,7 @@ function attach(addr, ch) {
 function drop(addr) {
   const o = others.get(addr);
   if (!o) return;
-  o.el.remove(); others.delete(addr); count();
+  o.el.remove(); o.dot?.remove(); others.delete(addr); count();
 }
 
 const dialing = new Set();

@@ -12,20 +12,51 @@ function youtubeId(u) {
   return m ? m[1] : null;
 }
 
-function layout({ title, desc, image, path, body, nav, bodyClass = "" }) {
+const DEFAULT_OG = "/assets/og/supernihil.jpg";
+const PERSON = { "@type": "Person", name: "supernihil", url: ORIGIN, sameAs: ["https://github.com/sloev"] };
+const SUBTITLES = [
+  "an archive of audiovisual experiments",
+  "noise, code and live visuals from Svendborg",
+  "data turned into sound turned into image",
+  "glitches, machines and digital ghosts",
+  "videos, websites, installations, live sets",
+  "the aesthetics of failure, archived",
+];
+
+// Every work gets a still JPG for link previews (GIFs are too big or not shown by most platforms).
+export const ogImage = (w) => (w?.cover ? `/assets/og/${w.slug}.jpg` : DEFAULT_OG);
+
+function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "", type = "website", jsonld = null, subtitle = false, ghost = false }) {
   const item = (key, text, href) => `<li><a href="${href}"${nav === key ? ' class="active"' : ""}>${text}</a></li>`;
+  const fullTitle = title ? `${title} | Supernihil` : "Supernihil — archive of audiovisual works, code and live performances";
+  const d = desc || DESC;
+  const url = `${ORIGIN}${path}`;
+  const img = `${ORIGIN}${image || DEFAULT_OG}`;
+  const ld = [{ "@context": "https://schema.org", "@type": "WebSite", name: "Supernihil", url: ORIGIN, description: DESC, author: PERSON }, ...(jsonld ? [jsonld] : [])];
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title ? `${title} | Supernihil` : "Supernihil")}</title>
-<meta name="description" content="${esc(desc || DESC)}">
-<link rel="canonical" href="${ORIGIN}${esc(path)}">
+<title>${esc(fullTitle)}</title>
+<meta name="description" content="${esc(d)}">
+<meta name="author" content="supernihil">
+<meta name="theme-color" content="#ff0000">
+<link rel="canonical" href="${esc(url)}">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Supernihil">
+<meta property="og:site_name" content="Supernihil">
+<meta property="og:type" content="${type}">
+<meta property="og:url" content="${esc(url)}">
 <meta property="og:title" content="${esc(title || "Supernihil")}">
-<meta property="og:description" content="${esc(desc || DESC)}">
-${image ? `<meta property="og:image" content="${ORIGIN}${esc(image)}"><meta name="twitter:card" content="summary_large_image">` : ""}
+<meta property="og:description" content="${esc(d)}">
+<meta property="og:image" content="${esc(img)}">
+<meta property="og:image:alt" content="${esc(imageAlt || title || "Supernihil")}">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title || "Supernihil")}">
+<meta name="twitter:description" content="${esc(d)}">
+<meta name="twitter:image" content="${esc(img)}">
+<script type="application/ld+json">${JSON.stringify(ld.length === 1 ? ld[0] : ld).replace(/</g, "\\u003c")}</script>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap">
@@ -34,7 +65,10 @@ ${image ? `<meta property="og:image" content="${ORIGIN}${esc(image)}"><meta name
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
 <header>
   <div class="header-content">
-    <h1 class="site-title"><a href="/">Supernihil</a></h1>
+    <div class="brand">
+      ${subtitle ? `<h1 class="site-title"><a href="/">Supernihil</a></h1>
+      <p class="site-sub" data-ghost-goals="${esc(JSON.stringify(SUBTITLES))}">${esc(SUBTITLES[0])}</p>` : `<p class="site-title"><a href="/">Supernihil</a></p>`}
+    </div>
     <nav>
       <ul class="nav-links">
         ${item("works", "works", "/")}
@@ -47,7 +81,7 @@ ${image ? `<meta property="og:image" content="${ORIGIN}${esc(image)}"><meta name
 <main>
 ${body}
 </main>
-<footer><div class="footer-content"><p>An archive of works by supernihil. · <a href="/feed.xml">rss</a></p></div></footer>
+${subtitle || ghost ? `<script type="module" src="/static/ghost.js?v=${V}"></script>` : ""}
 </body>
 </html>`;
 }
@@ -73,7 +107,12 @@ export function renderIndex(c) {
   return layout({
     path: "/",
     nav: "works",
-    image: c.works.find((w) => w.cover)?.cover,
+    subtitle: true,
+    imageAlt: "Supernihil: archive of audiovisual works",
+    jsonld: {
+      "@context": "https://schema.org", "@type": "CollectionPage", name: "Supernihil — works", url: ORIGIN + "/",
+      mainEntity: { "@type": "ItemList", numberOfItems: c.works.length, itemListElement: c.works.slice(0, 30).map((w, i) => ({ "@type": "ListItem", position: i + 1, url: `${ORIGIN}/works/${enc(w.slug)}`, name: w.title })) },
+    },
     body: `<div class="works-grid">${cards || "<p>No works yet.</p>"}\n</div>`,
   });
 }
@@ -97,11 +136,22 @@ export function renderWork(c, i) {
     </a>` : "<span></span>";
 
   return layout({
-    title: w.title,
-    desc: w.summary,
-    image: w.cover,
+    title: `${w.title} (${year(w)})`,
+    desc: w.summary || `${w.title}: ${label(c, w.category)}, ${year(w)}.`,
+    image: ogImage(w),
+    imageAlt: w.title,
+    type: "article",
     path: `/works/${enc(w.slug)}`,
     nav: "works",
+    jsonld: {
+      "@context": "https://schema.org",
+      "@type": w.type === "live" ? "Event" : w.category === "video" ? "VideoObject" : w.category === "code" ? "SoftwareSourceCode" : "CreativeWork",
+      name: w.title, url: `${ORIGIN}/works/${enc(w.slug)}`, description: w.summary,
+      ...(w.type === "live" ? { startDate: w.date, eventStatus: "https://schema.org/EventScheduled", performer: PERSON } : { dateCreated: w.date, creator: PERSON }),
+      ...(w.category === "video" && w.type !== "live" ? { uploadDate: w.date, thumbnailUrl: `${ORIGIN}${ogImage(w)}`, ...(w.video_url ? { contentUrl: w.video_url } : {}) } : {}),
+      image: `${ORIGIN}${ogImage(w)}`, genre: label(c, w.category),
+      ...(w.links.length ? { sameAs: w.links.map((l) => l.url) } : {}),
+    },
     body: `<article class="work${embed ? " has-video" : ""}">
   <div class="work-stage">
     <figure class="work-media">${media}</figure>
@@ -137,11 +187,13 @@ export function renderInfo(c) {
 
   return layout({
     title: "Info",
-    desc: "About Supernihil.",
+    desc: "About Supernihil: an archive of audiovisual experiments, interactive installations and digital fragments from Svendborg, Denmark. Contact and archive overview.",
     path: "/info",
     nav: "info",
+    ghost: true,
+    jsonld: { "@context": "https://schema.org", "@type": "AboutPage", name: "About Supernihil", url: ORIGIN + "/info", about: PERSON },
     body: `<div class="info">
-  <div class="info-text">${(c.pages.info || "").replace(/<h2>([\s\S]*?)<\/h2>/g, "<h2><span>$1</span></h2>")}</div>
+  <div class="info-text" data-ghost>${(c.pages.info || "").replace(/<h2>([\s\S]*?)<\/h2>/g, "<h2><span>$1</span></h2>")}</div>
   <aside class="archive">
     <h2><span>The archive</span></h2>
     <div class="archive-numbers">
@@ -169,6 +221,9 @@ export function renderWalk(c) {
     body: `<div class="walk" id="walk">
   <div class="w-far" aria-hidden="true"><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span></div>
   <div class="w-world"><div class="w-ground"></div></div>
+  <div class="w-map" aria-hidden="true"></div>
+  <button type="button" class="w-edge l" hidden><span class="w-edge-a">◀</span><span class="w-edge-n"></span><span class="w-edge-t"></span></button>
+  <button type="button" class="w-edge r" hidden><span class="w-edge-t"></span><span class="w-edge-n"></span><span class="w-edge-a">▶</span></button>
   <div class="w-hud">
     <span class="chip w-count">1 here</span>
     <span class="w-state">…</span>
@@ -199,6 +254,7 @@ export function renderFeed(c) {
 }
 
 export function renderSitemap(c) {
-  const urls = ["/", "/info", "/walk", ...c.works.map((w) => `/works/${enc(w.slug)}`)];
-  return `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>${ORIGIN}${u}</loc></url>`).join("")}</urlset>`;
+  const newest = c.works[0]?.date;
+  const urls = [["/", newest], ["/info", newest], ["/walk", newest], ...c.works.map((w) => [`/works/${enc(w.slug)}`, w.date])];
+  return `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(([u, d]) => `<url><loc>${ORIGIN}${u}</loc>${d ? `<lastmod>${d}</lastmod>` : ""}</url>`).join("")}</urlset>`;
 }

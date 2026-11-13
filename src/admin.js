@@ -100,6 +100,7 @@ export async function handleAdmin(request, env, url, path) {
       if (!validMedia(key)) return json({ error: "bad media path" }, 400);
       const obj = await env.MEDIA.put(key, request.body, { httpMetadata: { contentType: request.headers.get("content-type") || undefined } });
       await st.addMedia(key, obj.size);
+      await caches.default.delete(new Request(`${url.origin}/${encodeURI(key)}`)).catch(() => {});
       return json({ path: `/${key}`, size: obj.size });
     }
     if (route === "backup" && method === "POST") {

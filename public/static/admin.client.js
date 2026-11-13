@@ -92,6 +92,7 @@ async function processUpload(file, base, onStep) {
     cover: `/${coverPath}`, thumbnail: `/${thumbPath}`, aspect_ratio: Math.round((w / h) * 1000) / 1000,
     coverSize: cover.size, thumbSize: thumb.size,
     files: [{ path: coverPath, blob: cover }, { path: thumbPath, blob: thumb }],
+    og: await resizeStill(file, 1200, 0.85),          // still JPG for link previews (first frame of a GIF)
     preview: URL.createObjectURL(cover),
   };
 }
@@ -188,7 +189,8 @@ async function editView(name) {
     msg(media ? "saving work and images…" : "saving…");
     document.getElementById("save").disabled = true;
     try {
-      for (const f of media?.files || []) {
+      const ogFiles = media ? [{ path: `assets/og/${file.slice(11, -3)}.jpg`, blob: media.og }] : [];
+      for (const f of [...(media?.files || []), ...ogFiles]) {
         const r = await fetch(`/admin/api/media?path=${encodeURIComponent(f.path)}`, { method: "PUT", body: f.blob, headers: { "content-type": f.blob.type || "application/octet-stream" } });
         if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `upload failed (${r.status})`);
       }

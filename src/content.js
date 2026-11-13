@@ -13,7 +13,7 @@ const MAX_BACKUP_MEDIA_BYTES = 25e6;  // bigger files stay in R2 only
 
 const md = (s) => (s ? marked.parse(String(s)) : "");
 const isText = (p) => /^(_posts\/[^/]+\.md|_pages\/[^/]+\.md|_data\/translations\.yml)$/.test(p);
-export const validMedia = (p) => /^assets\/(screenshots|thumbnails)\/[^/\\]+\.(gif|jpe?g|png|webp)$/i.test(p);
+export const validMedia = (p) => /^assets\/(screenshots|thumbnails|og)\/[^/\\]+\.(gif|jpe?g|png|webp)$/i.test(p);
 
 async function sha1(s) {
   const d = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(s));

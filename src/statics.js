@@ -4,6 +4,7 @@ import adminCss from "../public/static/admin.css";
 import adminJs from "../public/static/admin.client.js";
 import favicon from "../public/static/favicon.svg";
 import walkJs from "../public/static/walk.client.js";
+import ghostJs from "../public/static/ghost.client.js";
 
 const files = {
   "style.css": [style, "text/css; charset=utf-8"],
@@ -11,6 +12,7 @@ const files = {
   "admin.js": [adminJs, "text/javascript; charset=utf-8"],
   "favicon.svg": [favicon, "image/svg+xml"],
   "walk.js": [walkJs, "text/javascript; charset=utf-8"],
+  "ghost.js": [ghostJs, "text/javascript; charset=utf-8"],
 };
 
 // cache-busting version: hash of all static files

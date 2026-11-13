@@ -1,7 +1,7 @@
 // supernihil.party — one worker: public pages, media from R2, stats, admin, GitHub backup.
 import { getContent, store } from "./content.js";
 import { serveStatic } from "./statics.js";
-import { renderIndex, renderWork, renderInfo, renderMachine, renderNotFound, renderFeed, renderSitemap } from "./render.js";
+import { renderIndex, renderWork, renderInfo, renderWalk, renderNotFound, renderFeed, renderSitemap } from "./render.js";
 import { handleAdmin } from "./admin.js";
 export { Stats } from "./stats.js";
 export { Store } from "./content.js";
@@ -30,6 +30,7 @@ export default {
     const old = path.match(/^\/(?:[^/]+\/)*\d{4}\/\d{2}\/\d{2}\/([^/]+)\.html$/);
     if (old) return redirect(`/works/${encodeURIComponent(old[1])}`);
     if (/^\/(statiske-vaerker|levende-vaerker|timeline)\/?$/.test(path)) return redirect("/");
+    if (path === "/machine") return redirect("/walk");
     if (path === "/en" || path.startsWith("/en/")) return redirect(url.pathname.slice(3) || "/");
     if (path.length > 1 && path.endsWith("/")) return redirect(url.pathname.slice(0, -1));
     if (url.search && path === "/") return redirect("/");
@@ -45,7 +46,7 @@ export default {
     let res;
     if (path === "/") res = html(renderIndex(content));
     else if (path === "/info") res = html(renderInfo(content));
-    else if (path === "/machine") res = html(renderMachine());
+    else if (path === "/walk") res = html(renderWalk(content));
     else if (path.startsWith("/works/")) {
       const i = content.works.findIndex((w) => w.slug === path.slice(7));
       res = i < 0 ? html(renderNotFound(), 404) : html(renderWork(content, i));

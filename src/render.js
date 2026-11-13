@@ -12,7 +12,7 @@ function youtubeId(u) {
   return m ? m[1] : null;
 }
 
-function layout({ title, desc, image, path, body, nav }) {
+function layout({ title, desc, image, path, body, nav, bodyClass = "" }) {
   const item = (key, text, href) => `<li><a href="${href}"${nav === key ? ' class="active"' : ""}>${text}</a></li>`;
   return `<!doctype html>
 <html lang="en">
@@ -31,14 +31,14 @@ ${image ? `<meta property="og:image" content="${ORIGIN}${esc(image)}"><meta name
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap">
 <link rel="stylesheet" href="/static/style.css?v=${V}">
 </head>
-<body>
+<body${bodyClass ? ` class="${bodyClass}"` : ""}>
 <header>
   <div class="header-content">
     <h1 class="site-title"><a href="/">Supernihil</a></h1>
     <nav>
       <ul class="nav-links">
         ${item("works", "works", "/")}
-        ${item("machine", "machine", "/machine")}
+        ${item("walk", "walk", "/walk")}
         ${item("info", "info", "/info")}
       </ul>
     </nav>
@@ -158,42 +158,34 @@ export function renderInfo(c) {
   });
 }
 
-export function renderMachine() {
+export function renderWalk(c) {
+  const data = c.works.map((w) => ({ slug: w.slug, title: w.title, date: w.date, type: w.type, thumb: w.thumbnail, ar: w.ar }));
   return layout({
-    title: "The Machine",
-    desc: "A shared noise sequencer. Everyone on the page plays the same pattern, peer to peer over CORVAX.",
-    path: "/machine",
-    nav: "machine",
-    body: `<div class="machine">
-  <div class="m-head">
-    <h1 class="work-name"><span>The Machine</span></h1>
-    <p class="m-intro">One pattern, shared by everyone on this page. Flip squares, shout, listen.
-      No server keeps it: it lives in the browsers that are here, connected peer to peer over <a href="/works/corvax">CORVAX</a>.</p>
+    title: "Walk",
+    desc: "Walk through the Supernihil archive together with the other visitors, peer to peer.",
+    path: "/walk",
+    nav: "walk",
+    bodyClass: "walk-page",
+    body: `<div class="walk" id="walk">
+  <div class="w-far" aria-hidden="true"><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span><span>SUPERNIHIL</span></div>
+  <div class="w-world"><div class="w-ground"></div></div>
+  <div class="w-hud">
+    <span class="chip w-count">1 here</span>
+    <span class="w-state">…</span>
   </div>
-  <div class="m-stage">
-    <div class="m-board">
-      <div class="m-grid" id="grid" style="--steps:16"></div>
-      <div class="m-transport">
-        <button class="prominent-link" id="play" type="button">▶ play</button>
-        <button class="m-clear" id="clear" type="button">clear</button>
-        <span class="m-budget"><span class="m-k">signals</span><span class="m-meter" id="meter"></span></span>
-      </div>
-    </div>
-    <aside class="m-side">
-      <div class="m-here"><b id="here">?</b><span>here now</span></div>
-      <button class="prominent-link m-enter" id="enter" type="button">enter the room →</button>
-      <p class="m-note">Joining connects you directly to the others in the room, so they can see your IP address. You get 10 signals a minute: each batch of edits or each shout costs one.</p>
-      <p class="m-status" id="status" role="status"></p>
-      <ul class="m-people" id="people"></ul>
-      <form class="m-shout" id="shout" autocomplete="off">
-        <input name="t" maxlength="120" placeholder="shout into the machine…" aria-label="Shout">
-        <button type="submit">send</button>
-      </form>
-      <ol class="m-log" id="log" aria-live="polite"></ol>
-    </aside>
+  <button class="w-prompt" type="button" hidden><span class="w-key">↑</span> open <b></b></button>
+  <form class="w-talk" autocomplete="off">
+    <input name="input" maxlength="140" placeholder="press enter to talk" aria-label="Say something">
+  </form>
+  <div class="w-pad" aria-hidden="true">
+    <button type="button" class="w-left" tabindex="-1">◀</button>
+    <button type="button" class="w-right" tabindex="-1">▶</button>
+    <button type="button" class="w-jump" tabindex="-1">▲</button>
   </div>
+  <p class="w-note"><span class="w-keys">← → walk · space jump · ↑ open · enter talk. </span>Visitors connect peer to peer over <a href="/works/corvax">CORVAX</a> and can see each other's IP.</p>
 </div>
-<script type="module" src="/static/machine.js?v=${V}"></script>`,
+<script type="application/json" id="walk-data">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>
+<script type="module" src="/static/walk.js?v=${V}"></script>`,
   });
 }
 
@@ -207,6 +199,6 @@ export function renderFeed(c) {
 }
 
 export function renderSitemap(c) {
-  const urls = ["/", "/info", "/machine", ...c.works.map((w) => `/works/${enc(w.slug)}`)];
+  const urls = ["/", "/info", "/walk", ...c.works.map((w) => `/works/${enc(w.slug)}`)];
   return `<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>${ORIGIN}${u}</loc></url>`).join("")}</urlset>`;
 }

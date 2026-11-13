@@ -1,28 +1,17 @@
 ---
-aspect_ratio: 1.15
-thumbnail: /assets/thumbnails/lamictales.thumb.done.jpg
-layout: post
 title: lamictales
-title_en: lamictales
 date: 2021-06-22
 category: tegneserie
-category_en: comic
 type: static
+summary: Selvbiografisk tegneserie om psykisk sygdom og medicin.
+summary_en: Autobiographical comic about mental illness and medication.
 cover: /assets/screenshots/lamictales.done.jpg
-image: /assets/screenshots/lamictales.done.jpg
+thumbnail: /assets/thumbnails/lamictales.thumb.done.jpg
+aspect_ratio: 1.15
 links:
-- label: repo
-  url: https://github.com/sloev/comics
-body_en: |
-  Minimalist drawing style. Everyday episodes.
+  - label: repo
+    url: https://github.com/sloev/comics
+body_en: Minimalist drawing style. Everyday episodes.
 ---
-<div class="lang-da">
-Selvbiografisk tegneserie om psykisk sygdom og medicin.
-</div>
-<div class="lang-en">
-Autobiographical comic about mental illness and medication.
-</div>
-
-<!--more-->
 
 Minimalistisk tegnestil. Hverdagsepisoder.

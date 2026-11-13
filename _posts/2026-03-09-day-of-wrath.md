@@ -1,35 +1,20 @@
 ---
-layout: post
 title: day of wrath
-title_en: day of wrath
 date: 2011-11-10
 category: performance
-category_en: performance
 type: live
+summary: VJ-sæt til Day of Wrath, Loppen, november 2011.
+summary_en: VJ set for Day of Wrath, Loppen, November 2011.
 cover: /assets/screenshots/day-of-wrath.done.jpg
-video_url: https://youtu.be/PndVoAgQFzw
 thumbnail: /assets/thumbnails/day-of-wrath.thumb.done.jpg
-image: /assets/screenshots/day-of-wrath.done.jpg
-links:
-- label: event
-  url: https://loppen.dk/kalender/spaening-3-day-wrath-maruosa-jap-morder-dj-ellisiv-lisbent
-- label: video
-  url: https://youtu.be/PndVoAgQFzw
-body_en: |
-  Organiser: Spaending. Programme: Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv, Lisbent. Visuals mainly strobe.
-
-  ![billede mangler / image missing](/assets/placeholders/billede-mangler.jpg)
 aspect_ratio: 0.708
+video_url: https://youtu.be/PndVoAgQFzw
+links:
+  - label: event
+    url: https://loppen.dk/kalender/spaening-3-day-wrath-maruosa-jap-morder-dj-ellisiv-lisbent
+  - label: video
+    url: https://youtu.be/PndVoAgQFzw
+body_en: "Organiser: Spaending. Programme: Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv, Lisbent. Visuals mainly strobe."
 ---
-<div class="lang-da">
-VJ-sæt til Day of Wrath, Loppen, november 2011.
-</div>
-<div class="lang-en">
-VJ set for Day of Wrath, Loppen, November 2011.
-</div>
-
-<!--more-->
 
 Arrangør: Spaending. Program: Day of Wrath, Maruosa (JP), Mørder, DJ Ellisiv, Lisbent. Visuals primært stroboskop.
-
-![billede mangler / image missing](/assets/placeholders/billede-mangler.jpg)

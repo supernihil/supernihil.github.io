@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "supernihil-github-io",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+  "account_id": "6f735bca2bf7389292c32d983acbbe59",
+  "workers_dev": true,
+  "routes": [{ "pattern": "supernihil.party", "custom_domain": true }],
+  "assets": { "directory": "public", "binding": "ASSETS" },
+  "durable_objects": { "bindings": [{ "name": "STATS", "class_name": "Stats" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Stats"] }],
+  "observability": { "enabled": true }
+}

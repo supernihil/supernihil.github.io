@@ -1,9 +1,4 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-vendor/bundle/
-.bundle/
-*.gem
-*.gemspec
-.jekyll-cache
+node_modules/
+src/content.json
+.wrangler/
+.dev.vars

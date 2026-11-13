@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Resize new covers (900px + 300px thumbnail) and fill in thumbnail/aspect_ratio.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Process assets
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gifsicle
+          pip install -q Pillow
+          python scripts/process_assets.py
+      - name: Commit processed assets
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add assets/ _posts/
+          git diff --staged --quiet || (git commit -m "Auto-process assets" && git push)
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy worker
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy

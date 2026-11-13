@@ -1,0 +1,101 @@
+// supernihil.party — one worker: public pages, media proxy, stats, admin CMS.
+import content from "./content.json";
+import { renderIndex, renderWork, renderInfo, renderNotFound, renderFeed, renderSitemap } from "./render.js";
+import { handleAdmin } from "./admin.js";
+export { Stats } from "./stats.js";
+
+const REPO = "supernihil/supernihil.github.io";
+const BRANCH = "master";
+const ORIGIN = "https://supernihil.party";
+const BOT = /bot|crawl|spider|slurp|preview|facebookexternalhit|embedly|curl|wget|python|httpclient|headless|lighthouse|monitor/i;
+const TYPES = { gif: "image/gif", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", svg: "image/svg+xml", mp4: "video/mp4" };
+
+const html = (body, status = 200) => new Response(body, {
+  status,
+  headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=60" },
+});
+const redirect = (to, status = 301) => new Response(null, { status, headers: { location: to } });
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    let path = decodeURIComponent(url.pathname);
+
+    if (url.hostname.startsWith("www.")) return redirect(`${ORIGIN}${url.pathname}${url.search}`);
+    if (path === "/admin" || path.startsWith("/admin/")) return handleAdmin(request, env, url, path);
+    if (path.startsWith("/assets/")) return proxyMedia(request, url, ctx);
+
+    // old Jekyll URLs
+    const old = path.match(/^\/(?:[^/]+\/)*\d{4}\/\d{2}\/\d{2}\/([^/]+)\.html$/);
+    if (old) return redirect(`/works/${encodeURIComponent(old[1])}`);
+    if (path === "/statiske-vaerker/" || path === "/statiske-vaerker") return redirect("/?type=static");
+    if (path === "/levende-vaerker/" || path === "/levende-vaerker") return redirect("/?type=live");
+    if (path === "/timeline/" || path === "/timeline") return redirect("/");
+    if (path === "/info/") return redirect("/info");
+    if (path === "/feed.xml") return new Response(renderFeed(content, ORIGIN), { headers: { "content-type": "application/rss+xml; charset=utf-8" } });
+    if (path === "/sitemap.xml") return new Response(renderSitemap(content, ORIGIN), { headers: { "content-type": "application/xml; charset=utf-8" } });
+    if (path === "/robots.txt") return new Response(`User-agent: *\nDisallow: /admin\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+
+    let lang = "da";
+    if (path === "/en" || path.startsWith("/en/")) { lang = "en"; path = path.slice(3) || "/"; }
+    if (path.length > 1 && path.endsWith("/")) return redirect(url.pathname.slice(0, -1) + url.search);
+
+    let res;
+    if (path === "/") res = html(renderIndex(content, lang, url.searchParams));
+    else if (path === "/info") res = html(renderInfo(content, lang));
+    else if (path.startsWith("/works/")) {
+      const slug = path.slice(7);
+      const i = content.works.findIndex((w) => w.slug === slug);
+      res = i < 0 ? html(renderNotFound(content, lang), 404) : html(renderWork(content, lang, i));
+    } else res = html(renderNotFound(content, lang), 404);
+
+    if (request.method === "GET" && res.status === 200) ctx.waitUntil(track(request, env, url, lang));
+    return res;
+  },
+};
+
+// Media lives in the GitHub repo; Cloudflare caches it at the edge.
+async function proxyMedia(request, url, ctx) {
+  const cache = caches.default;
+  const key = new Request(url.origin + url.pathname);
+  let res = await cache.match(key);
+  if (res) return res;
+  const upstream = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}${url.pathname}`, {
+    cf: { cacheEverything: true, cacheTtl: 86400 },
+  });
+  if (!upstream.ok) return new Response("not found", { status: 404 });
+  const ext = url.pathname.split(".").pop().toLowerCase();
+  res = new Response(upstream.body, {
+    headers: {
+      "content-type": TYPES[ext] || "application/octet-stream",
+      "cache-control": "public, max-age=604800",
+      "access-control-allow-origin": "*",
+    },
+  });
+  ctx.waitUntil(cache.put(key, res.clone()));
+  return res;
+}
+
+async function track(request, env, url, lang) {
+  const ua = request.headers.get("user-agent") || "";
+  if (!ua || BOT.test(ua) || request.headers.get("purpose") === "prefetch") return;
+  let ref = "";
+  try {
+    const r = new URL(request.headers.get("referer") || "");
+    if (r.hostname !== url.hostname) ref = r.hostname.replace(/^www\./, "");
+  } catch {}
+  const day = new Date().toISOString().slice(0, 10);
+  const ip = request.headers.get("cf-connecting-ip") || "";
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${day}|${ip}|${ua}|${env.STATS_SALT || "sn"}`));
+  const visitor = [...new Uint8Array(digest).slice(0, 8)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const stub = env.STATS.get(env.STATS.idFromName("global"));
+  await stub.hit({
+    day,
+    path: decodeURIComponent(url.pathname),
+    ref,
+    country: request.cf?.country || "",
+    device: /mobile|android|iphone|ipad/i.test(ua) ? "mobile" : "desktop",
+    lang,
+    visitor,
+  });
+}

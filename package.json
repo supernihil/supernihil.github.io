@@ -1,0 +1,18 @@
+{
+  "name": "supernihil",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-content.mjs",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "media": "node scripts/media.mjs"
+  },
+  "dependencies": {
+    "marked": "18.2.0",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "wrangler": "4.162.0"
+  }
+}

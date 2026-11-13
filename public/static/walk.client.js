@@ -20,7 +20,7 @@ const GROUND = parseInt(getComputedStyle(stage).getPropertyValue("--ground")) ||
 const ROOM = stage.clientHeight - GROUND;                         // wall height above the ground
 const ROW_H = Math.round(Math.max(80, Math.min(210, (ROOM - 240) * 0.38, stage.clientWidth * 0.34)));
 const ROWS = [GROUND + 34, GROUND + 34 + ROW_H + 62];             // bottom of each row
-const GAP = Math.round(ROW_H * 0.18), START = 420;
+const GAP = Math.round(ROW_H * 0.18), START = Math.round(Math.min(420, stage.clientWidth * 0.75));
 const YEAR_Y = Math.min(ROWS[1] + Math.round(ROW_H * 1.12) + 44, stage.clientHeight - 150);   // above the top row
 const lane = [START, START + Math.round(ROW_H * 0.5)];
 const posters = [], years = [];
@@ -56,7 +56,7 @@ const WORLD_W = Math.max(...lane) + 300;
 world.style.width = `${WORLD_W}px`;
 const sign = document.createElement("div");
 sign.className = "w-sign"; sign.innerHTML = `<b>the archive</b><span>${works.at(-1)?.date.slice(0, 4)} → ${works[0]?.date.slice(0, 4)}</span>`;
-sign.style.left = "90px";
+sign.style.left = `${Math.round(Math.min(90, stage.clientWidth * 0.06))}px`;
 world.append(sign);
 const yearAt = (x) => (years.filter((y) => y.x <= x + 40).at(-1) || years[0])?.year || "";
 
@@ -88,7 +88,7 @@ function speak(av, text) {
   av.bubbleTimer = setTimeout(() => { b.hidden = true; }, 4000 + text.length * 60);
 }
 
-const me = { x: START - 200 + Math.random() * 120, y: 0, vy: 0, f: 1, walking: false, el: makeAvatar("you", true) };
+const me = { x: START * 0.45 + Math.random() * START * 0.2, y: 0, vy: 0, f: 1, walking: false, el: makeAvatar("you", true) };
 const others = new Map();   // address -> { el, x, y, tx, ty, f, walking, ch, seen }
 
 // ---- input -------------------------------------------------------------------

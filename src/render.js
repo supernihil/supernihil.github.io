@@ -65,10 +65,8 @@ function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "",
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
 <header>
   <div class="header-content">
-    <div class="brand">
-      ${subtitle ? `<h1 class="site-title"><a href="/">Supernihil</a></h1>
-      <p class="site-sub" data-ghost-goals="${esc(JSON.stringify(SUBTITLES))}">${esc(SUBTITLES[0])}</p>` : `<p class="site-title"><a href="/">Supernihil</a></p>`}
-    </div>
+    ${subtitle ? `<h1 class="site-title"><a href="/">Supernihil</a></h1>` : `<p class="site-title"><a href="/">Supernihil</a></p>`}
+    <p class="site-sub" data-ghost-goals="${esc(JSON.stringify(SUBTITLES))}">${esc(SUBTITLES[0])}</p>
     <nav>
       <ul class="nav-links">
         ${item("works", "works", "/")}
@@ -81,7 +79,7 @@ function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "",
 <main>
 ${body}
 </main>
-${subtitle || ghost ? `<script type="module" src="/static/ghost.js?v=${V}"></script>` : ""}
+<script type="module" src="/static/ghost.js?v=${V}"></script>
 </body>
 </html>`;
 }

@@ -188,16 +188,22 @@ main {
   color: #333;
 }
 
-/* Brand + ghost-edited subtitle */
-.brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
-  min-width: 0;
+/* Header: logo + menu on one row, ghost-edited subtitle on its own row.
+   The subtitle can change length without moving anything else. */
+.header-content {
+  display: grid !important;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "logo nav" "sub sub";
+  align-items: center;
+  row-gap: 0.7rem !important;
 }
 
+.header-content .site-title { grid-area: logo; justify-self: start; }
+.header-content > nav { grid-area: nav; justify-self: end; margin-left: 0; }
+
 .site-sub {
+  grid-area: sub;
+  overflow: hidden;
   margin: 0;
   font-size: 0.8rem;
   font-weight: 700;
@@ -222,6 +228,10 @@ main {
 
 .ghost-caret.typing {
   animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-caret { animation: none; }
 }
 
 @keyframes ghost-blink {
@@ -725,17 +735,27 @@ a.punch:hover {
 }
 
 /* Walk: side-scrolling street through the archive */
+.walk-page {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .walk-page main {
   padding: 0;
   min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .walk {
   --ground: 96px;
   position: relative;
-  height: calc(100vh - 104px);
-  height: calc(100dvh - 104px);
-  min-height: 460px;
+  flex: 1;
+  min-height: 420px;
   overflow: hidden;
   background: #fff;
   user-select: none;
@@ -1298,11 +1318,6 @@ a.punch:hover {
 }
 
 @media (max-width: 768px) {
-  .walk {
-    height: calc(100vh - 72px);
-    height: calc(100dvh - 72px);
-  }
-
   .w-hud {
     left: 1rem;
   }
@@ -1323,6 +1338,18 @@ a.punch:hover {
 
   .w-edge-t {
     display: none;
+  }
+
+  .w-sign {
+    padding: 0.5rem 0.7rem;
+  }
+
+  .w-sign b {
+    font-size: 1.25rem;
+  }
+
+  .w-sign span {
+    font-size: 0.65rem;
   }
 }
 

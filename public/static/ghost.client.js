@@ -241,10 +241,9 @@ class Ghost {
   }
 }
 
-if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  for (const el of document.querySelectorAll("[data-ghost], [data-ghost-goals]")) {
-    let goals = null;
-    try { goals = el.dataset.ghostGoals ? JSON.parse(el.dataset.ghostGoals) : null; } catch {}
-    new Ghost(el, { goals, pace: goals ? 1.3 : 1 });
-  }
+// Runs for everyone (it is slow and small); with reduced motion the caret just doesn't blink.
+for (const el of document.querySelectorAll("[data-ghost], [data-ghost-goals]")) {
+  let goals = null;
+  try { goals = el.dataset.ghostGoals ? JSON.parse(el.dataset.ghostGoals) : null; } catch {}
+  new Ghost(el, { goals, pace: goals ? 1.3 : 1 });
 }

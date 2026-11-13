@@ -1,9 +1,8 @@
 // /admin — password login, signed session cookie, GitHub-backed post editing, stats.
 // Secrets (wrangler secret put): ADMIN_USER, ADMIN_PASS, SESSION_SECRET, GITHUB_TOKEN
-import content from "./content.json";
-const V = content.built;
-const REPO = "supernihil/supernihil.github.io";
-const BRANCH = "master";
+import { V } from "./statics.js";
+import { OWNER, NAME, BRANCH, getContent, forgetContent } from "./content.js";
+const REPO = `${OWNER}/${NAME}`;
 const COOKIE = "sn_admin";
 const DAY = 86400;
 
@@ -59,7 +58,7 @@ export async function handleAdmin(request, env, url, path) {
       && (await safeEqual(form.get("user"), env.ADMIN_USER)) & (await safeEqual(form.get("pass"), env.ADMIN_PASS));
     if (!ok) {
       await new Promise((r) => setTimeout(r, 800));
-      return page(loginPage("Forkert brugernavn eller kodeord."), 401);
+      return page(loginPage("Wrong username or password."), 401);
     }
     const exp = String(Math.floor(Date.now() / 1000) + 30 * DAY);
     return new Response(null, { status: 303, headers: {
@@ -80,43 +79,34 @@ export async function handleAdmin(request, env, url, path) {
   try {
     const route = path.slice("/admin/api/".length);
     if (route === "posts" && method === "GET") {
-      const list = await gh(env, `/contents/_posts?ref=${BRANCH}`);
-      return json(list.filter((f) => f.name.endsWith(".md")).map((f) => ({ name: f.name, sha: f.sha })).reverse());
+      const c = await getContent(env);
+      return json({ sha: c.sha, loaded: c.loaded, posts: c.all.map((w) => ({ file: w.file, title: w.title, date: w.date, category: w.category, type: w.type, draft: w.draft, thumbnail: w.thumbnail })) });
     }
     if (route === "post" && method === "GET") {
       const name = url.searchParams.get("name");
       if (!validPost(name)) return json({ error: "bad name" }, 400);
       const f = await gh(env, `/contents/_posts/${encodeURIComponent(name)}?ref=${BRANCH}`);
-      return json({ name, sha: f.sha, text: b64ToUtf8(f.content) });
+      return json({ name, text: b64ToUtf8(f.content) });
     }
+    // Save a post (and any new media) as one commit. files: [{ path, data(base64) }]
     if (route === "post" && method === "PUT") {
-      const { name, text, sha } = await request.json();
+      const { name, text, files = [] } = await request.json();
       if (!validPost(name)) return json({ error: "bad name" }, 400);
-      const r = await gh(env, `/contents/_posts/${encodeURIComponent(name)}`, {
-        method: "PUT",
-        body: JSON.stringify({ message: `${sha ? "Update" : "Create"} ${name} (admin)`, content: utf8ToB64(text), branch: BRANCH, ...(sha && { sha }) }),
-      });
-      return json({ sha: r.content.sha });
+      for (const f of files) if (!validMedia(f.path)) return json({ error: `bad media path ${f.path}` }, 400);
+      const sha = await commit(env, `${files.length ? "Update" : "Save"} ${name} (admin)`, [
+        { path: `_posts/${name}`, content: text },
+        ...files.map((f) => ({ path: f.path, base64: f.data })),
+      ]);
+      return json({ sha, live: await refreshStore(env, sha) });
     }
     if (route === "post" && method === "DELETE") {
-      const { name, sha } = await request.json();
+      const { name } = await request.json();
       if (!validPost(name)) return json({ error: "bad name" }, 400);
-      await gh(env, `/contents/_posts/${encodeURIComponent(name)}`, {
-        method: "DELETE", body: JSON.stringify({ message: `Delete ${name} (admin)`, sha, branch: BRANCH }),
-      });
-      return json({ ok: true });
+      const sha = await commit(env, `Delete ${name} (admin)`, [{ path: `_posts/${name}`, remove: true }]);
+      return json({ sha, live: await refreshStore(env, sha) });
     }
-    if (route === "upload" && method === "POST") {
-      const { name, data } = await request.json();
-      const clean = String(name).toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
-      if (!/\.(gif|jpe?g|png|webp)$/.test(clean)) return json({ error: "only gif/jpg/png/webp" }, 400);
-      const file = `assets/screenshots/${Date.now().toString(36)}-${clean}`;
-      await gh(env, `/contents/${file}`, { method: "PUT", body: JSON.stringify({ message: `Upload ${clean} (admin)`, content: data, branch: BRANCH }) });
-      return json({ path: `/${file}` });
-    }
-    if (route === "status" && method === "GET") {
-      const r = await gh(env, `/actions/runs?branch=${BRANCH}&per_page=3`);
-      return json(r.workflow_runs.map((x) => ({ name: x.name, status: x.status, conclusion: x.conclusion, title: x.display_title, at: x.created_at, url: x.html_url })));
+    if (route === "refresh" && method === "POST") {
+      return json({ live: await refreshStore(env) });
     }
     if (route === "stats" && method === "GET") {
       const days = Math.min(365, Math.max(1, Number(url.searchParams.get("days")) || 30));
@@ -128,19 +118,49 @@ export async function handleAdmin(request, env, url, path) {
   }
 }
 
-const head = `<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" href="/static/favicon.svg"><link rel="stylesheet" href="/static/style.css?v=${V}"><link rel="stylesheet" href="/static/admin.css?v=${V}"><title>admin — supernihil</title></head>`;
+const validMedia = (p) => /^assets\/(screenshots|thumbnails)\/[a-z0-9][a-z0-9._-]*\.(gif|jpe?g|png|webp)$/.test(p);
+
+async function refreshStore(env, expect) {
+  const c = await env.STORE.get(env.STORE.idFromName("content")).refresh(expect);
+  forgetContent(c);
+  return c.sha === expect || !expect;
+}
+
+// One commit on master via the Git Data API. changes: [{ path, content | base64 | remove }]
+async function commit(env, message, changes) {
+  for (let attempt = 0; ; attempt++) {
+    const ref = await gh(env, `/git/ref/heads/${BRANCH}`);
+    const parent = await gh(env, `/git/commits/${ref.object.sha}`);
+    const tree = [];
+    for (const ch of changes) {
+      if (ch.remove) { tree.push({ path: ch.path, mode: "100644", type: "blob", sha: null }); continue; }
+      const blob = await gh(env, "/git/blobs", { method: "POST", body: JSON.stringify(ch.base64 != null ? { content: ch.base64, encoding: "base64" } : { content: ch.content, encoding: "utf-8" }) });
+      tree.push({ path: ch.path, mode: "100644", type: "blob", sha: blob.sha });
+    }
+    const t = await gh(env, "/git/trees", { method: "POST", body: JSON.stringify({ base_tree: parent.tree.sha, tree }) });
+    const c = await gh(env, "/git/commits", { method: "POST", body: JSON.stringify({ message, tree: t.sha, parents: [parent.sha] }) });
+    try {
+      await gh(env, `/git/refs/heads/${BRANCH}`, { method: "PATCH", body: JSON.stringify({ sha: c.sha }) });
+      return c.sha;
+    } catch (e) {
+      if (attempt >= 2) throw e; // master moved underneath us; rebuild on the new head
+    }
+  }
+}
+
+const head = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" href="/static/favicon.svg"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"><link rel="stylesheet" href="/static/style.css?v=${V}"><link rel="stylesheet" href="/static/admin.css?v=${V}"><title>admin — supernihil</title></head>`;
 
 function loginPage(err = "") {
   return `${head}<body class="adm"><form class="login" method="post" action="/admin/login">
-<h1>supernihil / admin</h1>
+<h1 class="site-title">Supernihil</h1>
 ${err ? `<p class="err">${err}</p>` : ""}
-<label>bruger<input name="user" autocomplete="username" required autofocus></label>
-<label>kodeord<input name="pass" type="password" autocomplete="current-password" required></label>
-<button>log ind</button></form></body></html>`;
+<label>user<input name="user" autocomplete="username" required autofocus></label>
+<label>password<input name="pass" type="password" autocomplete="current-password" required></label>
+<button>log in</button></form></body></html>`;
 }
 
 function appShell() {
-  return `${head}<body class="adm"><header class="top"><a class="brand" href="/admin">supernihil / admin</a><nav><a href="#/">værker</a><a href="#/new">+ ny</a><a href="#/stats">statistik</a><a href="/" target="_blank">site ↗</a><form method="post" action="/admin/logout"><button class="linkbtn">log ud</button></form></nav></header>
+  return `${head}<body class="adm"><header><div class="header-content"><h1 class="site-title"><a href="/admin">Supernihil</a></h1><nav class="adm-nav"><a href="#/">works</a><a href="#/new">+ new</a><a href="#/stats">stats</a><a href="/" target="_blank">site ↗</a><form method="post" action="/admin/logout"><button class="linkbtn">log out</button></form></nav></div></header>
 <div id="status" class="deploy"></div><main id="app"></main>
 <script type="module" src="/static/admin.js?v=${V}"></script></body></html>`;
 }

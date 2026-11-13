@@ -1,8 +1,10 @@
 // supernihil.party — one worker: public pages, media proxy, stats, admin CMS.
-import content from "./content.json";
+import { getContent } from "./content.js";
+import { serveStatic } from "./statics.js";
 import { renderIndex, renderWork, renderInfo, renderNotFound, renderFeed, renderSitemap } from "./render.js";
 import { handleAdmin } from "./admin.js";
 export { Stats } from "./stats.js";
+export { Store } from "./content.js";
 
 const REPO = "supernihil/supernihil.github.io";
 const BRANCH = "master";
@@ -26,44 +28,34 @@ export default {
     if (path.startsWith("/assets/")) return proxyMedia(request, url, ctx);
     if (path.startsWith("/static/")) return serveStatic(path.slice(8));
 
-    // old Jekyll URLs
+    // old URLs: Jekyll posts, the separate works pages, the timeline, /en/
     const old = path.match(/^\/(?:[^/]+\/)*\d{4}\/\d{2}\/\d{2}\/([^/]+)\.html$/);
     if (old) return redirect(`/works/${encodeURIComponent(old[1])}`);
-    if (path === "/statiske-vaerker/" || path === "/statiske-vaerker") return redirect("/?type=static");
-    if (path === "/levende-vaerker/" || path === "/levende-vaerker") return redirect("/?type=live");
-    if (path === "/timeline/" || path === "/timeline") return redirect("/");
-    if (path === "/info/") return redirect("/info");
-    if (path === "/feed.xml") return new Response(renderFeed(content, ORIGIN), { headers: { "content-type": "application/rss+xml; charset=utf-8" } });
-    if (path === "/sitemap.xml") return new Response(renderSitemap(content, ORIGIN), { headers: { "content-type": "application/xml; charset=utf-8" } });
+    if (/^\/(statiske-vaerker|levende-vaerker|timeline)\/?$/.test(path)) return redirect("/");
+    if (path === "/en" || path.startsWith("/en/")) return redirect(url.pathname.slice(3) || "/");
+    if (path.length > 1 && path.endsWith("/")) return redirect(url.pathname.slice(0, -1));
+    if (url.search && path === "/") return redirect("/");
+
+    let content;
+    try { content = await getContent(env); }
+    catch (e) { return new Response(`content unavailable: ${e.message}`, { status: 503, headers: { "retry-after": "30" } }); }
+
+    if (path === "/feed.xml") return new Response(renderFeed(content), { headers: { "content-type": "application/rss+xml; charset=utf-8" } });
+    if (path === "/sitemap.xml") return new Response(renderSitemap(content), { headers: { "content-type": "application/xml; charset=utf-8" } });
     if (path === "/robots.txt") return new Response(`User-agent: *\nDisallow: /admin\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 
-    let lang = "da";
-    if (path === "/en" || path.startsWith("/en/")) { lang = "en"; path = path.slice(3) || "/"; }
-    if (path.length > 1 && path.endsWith("/")) return redirect(url.pathname.slice(0, -1) + url.search);
-
     let res;
-    if (path === "/") res = html(renderIndex(content, lang, url.searchParams));
-    else if (path === "/info") res = html(renderInfo(content, lang));
+    if (path === "/") res = html(renderIndex(content));
+    else if (path === "/info") res = html(renderInfo(content));
     else if (path.startsWith("/works/")) {
-      const slug = path.slice(7);
-      const i = content.works.findIndex((w) => w.slug === slug);
-      res = i < 0 ? html(renderNotFound(content, lang), 404) : html(renderWork(content, lang, i));
-    } else res = html(renderNotFound(content, lang), 404);
+      const i = content.works.findIndex((w) => w.slug === path.slice(7));
+      res = i < 0 ? html(renderNotFound(), 404) : html(renderWork(content, i));
+    } else res = html(renderNotFound(), 404);
 
-    if (request.method === "GET" && res.status === 200) ctx.waitUntil(track(request, env, url, lang));
+    if (request.method === "GET" && res.status === 200) ctx.waitUntil(track(request, env, url));
     return res;
   },
 };
-
-const STATIC_TYPES = { css: "text/css; charset=utf-8", js: "text/javascript; charset=utf-8", svg: "image/svg+xml" };
-function serveStatic(name) {
-  const body = content.statics[name];
-  if (body == null) return new Response("not found", { status: 404 });
-  return new Response(body, { headers: {
-    "content-type": STATIC_TYPES[name.split(".").pop()] || "text/plain",
-    "cache-control": "public, max-age=31536000, immutable",
-  } });
-}
 
 // Media lives in the GitHub repo; Cloudflare caches it at the edge.
 async function proxyMedia(request, url, ctx) {
@@ -87,7 +79,7 @@ async function proxyMedia(request, url, ctx) {
   return res;
 }
 
-async function track(request, env, url, lang) {
+async function track(request, env, url) {
   const ua = request.headers.get("user-agent") || "";
   if (!ua || BOT.test(ua) || request.headers.get("purpose") === "prefetch") return;
   let ref = "";
@@ -106,7 +98,7 @@ async function track(request, env, url, lang) {
     ref,
     country: request.cf?.country || "",
     device: /mobile|android|iphone|ipad/i.test(ua) ? "mobile" : "desktop",
-    lang,
+    lang: "en",
     visitor,
   });
 }

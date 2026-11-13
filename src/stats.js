@@ -25,7 +25,6 @@ export class Stats extends DurableObject {
       refs: q("SELECT ref k, COUNT(*) n FROM hits WHERE day >= ? AND ref != '' GROUP BY ref ORDER BY n DESC LIMIT 15"),
       countries: q("SELECT country k, COUNT(*) n FROM hits WHERE day >= ? GROUP BY country ORDER BY n DESC LIMIT 15"),
       devices: q("SELECT device k, COUNT(*) n FROM hits WHERE day >= ? GROUP BY device ORDER BY n DESC"),
-      langs: q("SELECT lang k, COUNT(*) n FROM hits WHERE day >= ? GROUP BY lang ORDER BY n DESC"),
     };
   }
 }

@@ -6,7 +6,8 @@
   "account_id": "6f735bca2bf7389292c32d983acbbe59",
   "workers_dev": true,
   "routes": [{ "pattern": "supernihil.party", "custom_domain": true }],
-  "durable_objects": { "bindings": [{ "name": "STATS", "class_name": "Stats" }] },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Stats"] }],
+  "rules": [{ "type": "Text", "globs": ["**/*.css", "**/*.svg", "**/*.client.js"], "fallthrough": false }],
+  "durable_objects": { "bindings": [{ "name": "STATS", "class_name": "Stats" }, { "name": "STORE", "class_name": "Store" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Stats"] }, { "tag": "v2", "new_sqlite_classes": ["Store"] }],
   "observability": { "enabled": true }
 }

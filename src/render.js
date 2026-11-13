@@ -25,6 +25,15 @@ const SUBTITLES = [
 
 // Every work gets a still JPG for link previews (GIFs are too big or not shown by most platforms).
 export const ogImage = (w) => (w?.cover ? `/assets/og/${w.slug}.jpg` : DEFAULT_OG);
+// Small still (≈480px JPG) shown first everywhere; the animated GIF only plays while on screen.
+const poster = (w) => w?.poster || w?.thumbnail;
+const isGif = (u) => /\.gif$/i.test(u || "");
+function stillImg(w, { cls = "", alt = "", eager = false, ar = true } = {}) {
+  const src = poster(w);
+  if (!src) return "";
+  const anim = w.anim ? ` data-anim="${esc(w.anim)}"` : "";
+  return `<img src="${esc(src)}"${anim} alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"${ar ? ` width="480" height="${Math.round(480 / (w.ar || 1))}" style="aspect-ratio:${w.ar}"` : ""}${cls ? ` class="${cls}"` : ""}>`;
+}
 
 function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "", type = "website", jsonld = null, subtitle = false, ghost = false }) {
   const item = (key, text, href) => `<li><a href="${href}"${nav === key ? ' class="active"' : ""}>${text}</a></li>`;
@@ -59,7 +68,9 @@ function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "",
 <script type="application/ld+json">${JSON.stringify(ld.length === 1 ? ld[0] : ld).replace(/</g, "\\u003c")}</script>
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"></noscript>
 <link rel="stylesheet" href="/static/style.css?v=${V}">
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
@@ -79,6 +90,7 @@ function layout({ title, desc, image, imageAlt, path, body, nav, bodyClass = "",
 <main>
 ${body}
 </main>
+<script type="module" src="/static/site.js?v=${V}"></script>
 <script type="module" src="/static/ghost.js?v=${V}"></script>
 </body>
 </html>`;
@@ -95,7 +107,7 @@ export function renderIndex(c) {
   const cards = c.works.map((w, i) => `
   <div class="work-item" style="--tilt:${tilt(w.slug)}deg">${w.type === "live" ? '<span class="sticker">LIVE</span>' : ""}
     <a href="/works/${enc(w.slug)}">
-      ${w.thumbnail ? `<img src="${esc(w.thumbnail)}" alt="${esc(w.title)}" ${i < 6 ? "" : 'loading="lazy" '}decoding="async" style="aspect-ratio:${w.ar}" class="grid-thumb">` : ""}
+      ${stillImg(w, { cls: "grid-thumb", alt: w.title, eager: i < 4 })}
       <div class="work-info">
         <span class="work-title">${esc(w.title)}</span>
         <span class="work-date">${year(w)}</span>
@@ -126,9 +138,11 @@ export function renderWork(c, i) {
 
   const media = embed
     ? `<div class="work-video${shorts ? " portrait" : ""}"><iframe src="${esc(embed)}" title="${esc(w.title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`
-    : w.cover ? `<img src="${esc(w.cover)}" alt="${esc(w.title)}" style="aspect-ratio:${w.ar}">` : "";
+    : w.cover ? (isGif(w.cover)
+      ? `<img src="${esc(ogImage(w))}" data-full="${esc(w.full || w.cover)}" alt="${esc(w.title)}" fetchpriority="high" style="aspect-ratio:${w.ar}">`
+      : `<img src="${esc(w.cover)}" alt="${esc(w.title)}" fetchpriority="high" style="aspect-ratio:${w.ar}">`) : "";
   const step = (x, dir) => x ? `<a class="work-step ${dir}" href="/works/${enc(x.slug)}">
-      ${x.thumbnail ? `<img src="${esc(x.thumbnail)}" alt="" loading="lazy">` : "<span class=\"noimg\"></span>"}
+      ${poster(x) ? stillImg(x, { ar: false }) : "<span class=\"noimg\"></span>"}
       <span class="work-step-label">${dir === "newer" ? "← newer" : "older →"}</span>
       <span class="work-step-title">${esc(x.title)}</span>
     </a>` : "<span></span>";
@@ -209,7 +223,7 @@ export function renderInfo(c) {
 }
 
 export function renderWalk(c) {
-  const data = c.works.map((w) => ({ slug: w.slug, title: w.title, date: w.date, type: w.type, thumb: w.thumbnail, ar: w.ar }));
+  const data = c.works.map((w) => ({ slug: w.slug, title: w.title, date: w.date, type: w.type, thumb: poster(w), anim: w.anim, ar: w.ar }));
   return layout({
     title: "Walk",
     desc: "Walk through the Supernihil archive together with the other visitors, peer to peer.",

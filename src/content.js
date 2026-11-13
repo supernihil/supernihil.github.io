@@ -13,14 +13,16 @@ const MAX_BACKUP_MEDIA_BYTES = 25e6;  // bigger files stay in R2 only
 
 const md = (s) => (s ? marked.parse(String(s)) : "");
 const isText = (p) => /^(_posts\/[^/]+\.md|_pages\/[^/]+\.md|_data\/translations\.yml)$/.test(p);
-export const validMedia = (p) => /^assets\/(screenshots|thumbnails|og)\/[^/\\]+\.(gif|jpe?g|png|webp)$/i.test(p);
+export const validMedia = (p) => /^assets\/(screenshots|thumbnails|og|poster|anim|full)\/[^/\\]+\.(gif|jpe?g|png|webp)$/i.test(p);
 
 async function sha1(s) {
   const d = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(s));
   return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-export function buildContent(files, version) {
+// media: Set of stored media paths; picks the lightest variant that exists for each work.
+export function buildContent(files, version, media = new Set()) {
+  const has = (p) => media.has(p);
   const all = [];
   let info = "", translations = "";
   for (const { path, text } of files) {
@@ -43,6 +45,7 @@ export function buildContent(files, version) {
       summary: fm.summary || "",
       cover: fm.cover || null,
       thumbnail: fm.thumbnail || fm.cover || null,
+      ...variants(name.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.md$/, ""), fm, has),
       ar: Number(fm.aspect_ratio) || 1,
       video_url: fm.video_url || null,
       links: (fm.links || []).filter((l) => l && l.url),
@@ -54,6 +57,17 @@ export function buildContent(files, version) {
   let t = {};
   try { t = parse(translations) || {}; } catch {}
   return { version, all, works: all.filter((w) => !w.draft), pages: { info: md(info) }, t };
+}
+
+const isGif = (u) => /\.gif$/i.test(u || "");
+function variants(slug, fm, has) {
+  const cover = fm.cover || null, thumb = fm.thumbnail || cover;
+  const p = (dir, ext) => `assets/${dir}/${slug}.${ext}`;
+  return {
+    poster: has(p("poster", "webp")) ? `/${p("poster", "webp")}` : has(p("poster", "jpg")) ? `/${p("poster", "jpg")}` : cover ? `/${p("poster", "jpg")}` : thumb,
+    anim: has(p("anim", "webp")) ? `/${p("anim", "webp")}` : isGif(thumb) ? thumb : null,
+    full: has(p("full", "webp")) ? `/${p("full", "webp")}` : cover,
+  };
 }
 
 export class Store extends DurableObject {
@@ -77,7 +91,8 @@ export class Store extends DurableObject {
   content() {
     if (!this.c) {
       const files = this.sql.exec("SELECT path, text FROM files WHERE text IS NOT NULL").toArray();
-      this.c = buildContent(files, Number(this.meta("version") || 0));
+      const media = new Set(this.sql.exec("SELECT path FROM media").toArray().map((r) => r.path));
+      this.c = buildContent(files, Number(this.meta("version") || 0), media);
     }
     return this.c;
   }
@@ -98,6 +113,11 @@ export class Store extends DurableObject {
   }
   addMedia(path, size, backed = 0) {
     this.sql.exec("INSERT OR REPLACE INTO media VALUES (?, ?, ?, ?)", path, size, Date.now(), backed);
+    this.bump();
+  }
+  forgetMedia(paths) {
+    for (const p of paths) this.sql.exec("DELETE FROM media WHERE path = ?", p);
+    this.bump();
   }
   // Bulk load (first import / restore). Files given are considered already backed up.
   async importFiles(files, media = [], replace = false) {

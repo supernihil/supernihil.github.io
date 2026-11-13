@@ -54,7 +54,7 @@ async function dims(blob) {
   return d;
 }
 
-async function resizeStill(blob, maxW, quality) {
+async function resizeStill(blob, maxW, quality, type = "image/jpeg") {
   const bmp = await createImageBitmap(blob);
   const w = Math.min(maxW, bmp.width), h = Math.round(bmp.height * (w / bmp.width));
   const cv = new OffscreenCanvas(w, h);
@@ -62,7 +62,8 @@ async function resizeStill(blob, maxW, quality) {
   cx.fillStyle = "#fff"; cx.fillRect(0, 0, w, h);
   cx.drawImage(bmp, 0, 0, w, h);
   bmp.close();
-  return cv.convertToBlob({ type: "image/jpeg", quality });
+  const out = await cv.convertToBlob({ type, quality });
+  return out.type === type ? out : cv.convertToBlob({ type: "image/jpeg", quality });   // Safari can't encode WebP
 }
 
 let gifsicle;
@@ -93,6 +94,7 @@ async function processUpload(file, base, onStep) {
     coverSize: cover.size, thumbSize: thumb.size,
     files: [{ path: coverPath, blob: cover }, { path: thumbPath, blob: thumb }],
     og: await resizeStill(file, 1200, 0.85),          // still JPG for link previews (first frame of a GIF)
+    poster: await resizeStill(file, 480, 0.75, "image/webp"),   // small still shown first on the site
     preview: URL.createObjectURL(cover),
   };
 }
@@ -189,7 +191,11 @@ async function editView(name) {
     msg(media ? "saving work and images…" : "saving…");
     document.getElementById("save").disabled = true;
     try {
-      const ogFiles = media ? [{ path: `assets/og/${file.slice(11, -3)}.jpg`, blob: media.og }] : [];
+      const slug = file.slice(11, -3);
+      const ogFiles = media ? [
+        { path: `assets/og/${slug}.jpg`, blob: media.og },
+        { path: `assets/poster/${slug}.${media.poster.type === "image/webp" ? "webp" : "jpg"}`, blob: media.poster },
+      ] : [];
       for (const f of [...(media?.files || []), ...ogFiles]) {
         const r = await fetch(`/admin/api/media?path=${encodeURIComponent(f.path)}`, { method: "PUT", body: f.blob, headers: { "content-type": f.blob.type || "application/octet-stream" } });
         if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `upload failed (${r.status})`);

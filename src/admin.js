@@ -100,6 +100,9 @@ export async function handleAdmin(request, env, url, path) {
       if (!validMedia(key)) return json({ error: "bad media path" }, 400);
       const obj = await env.MEDIA.put(key, request.body, { httpMetadata: { contentType: request.headers.get("content-type") || undefined } });
       await st.addMedia(key, obj.size);
+      // a new still means a new cover: older generated variants for this work no longer apply
+      const m = key.match(/^assets\/poster\/(.+)\.(webp|jpg)$/);
+      if (m) await st.forgetMedia([`assets/anim/${m[1]}.webp`, `assets/full/${m[1]}.webp`, `assets/poster/${m[1]}.${m[2] === "webp" ? "jpg" : "webp"}`]);
       await caches.default.delete(new Request(`${url.origin}/${encodeURI(key)}`)).catch(() => {});
       return json({ path: `/${key}`, size: obj.size });
     }

@@ -1,6 +1,6 @@
 // supernihil.party — one worker: public pages, media from R2, stats, admin, GitHub backup.
 import { getContent, store } from "./content.js";
-import { serveStatic } from "./statics.js";
+import { serveStatic, V } from "./statics.js";
 import { renderIndex, renderWork, renderInfo, renderWalk, renderNotFound, renderFeed, renderSitemap } from "./render.js";
 import { handleAdmin } from "./admin.js";
 export { Stats } from "./stats.js";
@@ -10,10 +10,26 @@ const ORIGIN = "https://supernihil.party";
 const BOT = /bot|crawl|spider|slurp|preview|facebookexternalhit|embedly|curl|wget|python|httpclient|headless|lighthouse|monitor/i;
 const TYPES = { gif: "image/gif", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", svg: "image/svg+xml", mp4: "video/mp4" };
 
-const html = (body, status = 200) => new Response(body, {
-  status,
-  headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=60" },
+// Rendered pages are memoised per isolate until the content (or the code) changes; browsers
+// revalidate with an ETag, which costs a 304 and no re-render.
+const pages = new Map();
+const htmlHeaders = (etag) => ({
+  "content-type": "text/html; charset=utf-8",
+  "cache-control": "public, max-age=30, stale-while-revalidate=86400",
+  etag,
 });
+const html = (body, status = 200, etag) => new Response(body, { status, headers: htmlHeaders(etag) });
+function page(request, content, key, render) {
+  const etag = `"${content.version}-${V}"`;
+  if ((request.headers.get("if-none-match") || "").includes(etag)) return new Response(null, { status: 304, headers: htmlHeaders(etag) });
+  let hit = pages.get(key);
+  if (!hit || hit.etag !== etag) {
+    hit = { etag, body: render() };
+    pages.set(key, hit);
+    if (pages.size > 300) pages.delete(pages.keys().next().value);
+  }
+  return html(hit.body, 200, etag);
+}
 const redirect = (to, status = 301) => new Response(null, { status, headers: { location: to } });
 
 export default {
@@ -44,15 +60,15 @@ export default {
     if (path === "/robots.txt") return new Response(`User-agent: *\nDisallow: /admin\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 
     let res;
-    if (path === "/") res = html(renderIndex(content));
-    else if (path === "/info") res = html(renderInfo(content));
-    else if (path === "/walk") res = html(renderWalk(content));
+    if (path === "/") res = page(request, content, path, () => renderIndex(content));
+    else if (path === "/info") res = page(request, content, path, () => renderInfo(content));
+    else if (path === "/walk") res = page(request, content, path, () => renderWalk(content));
     else if (path.startsWith("/works/")) {
       const i = content.works.findIndex((w) => w.slug === path.slice(7));
-      res = i < 0 ? html(renderNotFound(), 404) : html(renderWork(content, i));
+      res = i < 0 ? html(renderNotFound(), 404) : page(request, content, path, () => renderWork(content, i));
     } else res = html(renderNotFound(), 404);
 
-    if (request.method === "GET" && res.status === 200) ctx.waitUntil(track(request, env, url));
+    if (request.method === "GET" && (res.status === 200 || res.status === 304)) ctx.waitUntil(track(request, env, url));
     return res;
   },
 
@@ -71,6 +87,17 @@ async function serveMedia(request, env, key, ctx) {
     const hit = await cache.match(cacheKey);
     if (hit) return hit;
   }
+  if (request.method === "HEAD") {
+    const h = await env.MEDIA.head(key);
+    if (!h) return new Response(null, { status: 404 });
+    const headers = new Headers();
+    h.writeHttpMetadata(headers);
+    headers.set("content-length", String(h.size));
+    headers.set("x-size", String(h.size));
+    headers.set("etag", h.httpEtag);
+    headers.set("cache-control", "no-cache");
+    return new Response(null, { headers });
+  }
   const obj = await env.MEDIA.get(key, { range: request.headers, onlyIf: request.headers });
   if (!obj) return new Response("not found", { status: 404 });
   const headers = new Headers();
@@ -78,7 +105,7 @@ async function serveMedia(request, env, key, ctx) {
   const ext = key.split(".").pop().toLowerCase();
   if (!headers.get("content-type")) headers.set("content-type", TYPES[ext] || "application/octet-stream");
   headers.set("etag", obj.httpEtag);
-  headers.set("cache-control", "public, max-age=604800");
+  headers.set("cache-control", "public, max-age=604800, stale-while-revalidate=2592000");
   headers.set("accept-ranges", "bytes");
   if (!("body" in obj)) return new Response(null, { status: 304, headers });
   if (obj.range && request.headers.has("range")) {

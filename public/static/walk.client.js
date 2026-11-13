@@ -48,7 +48,7 @@ for (const [i, w] of [...works].reverse().entries()) {
   a.innerHTML = `<span class="w-img" style="width:${wpx}px;height:${h}px"></span><span class="w-cap"><b></b><i>${year}</i></span>${w.type === "live" ? '<span class="sticker">LIVE</span>' : ""}`;
   a.querySelector("b").textContent = w.title;
   world.append(a);
-  posters.push({ el: a, x, w: wpx + 8, thumb: w.thumb, loaded: false, title: w.title });
+  posters.push({ el: a, x, w: wpx + 8, thumb: w.thumb, anim: w.anim, loaded: false, animOn: false, title: w.title });
   lane[r] = x + wpx + GAP;
   if (lane[r] - lane[1 - r] > ROW_H) lane[1 - r] = Math.max(lane[1 - r], lane[r] - ROW_H * 1.2);
 }
@@ -161,8 +161,19 @@ function frame(now) {
   for (const p of posters) {
     if (!p.loaded && p.x > cam - 600 && p.x < cam + vw + 900) {
       p.loaded = true;
-      const img = new Image(); img.alt = ""; img.decoding = "async"; img.src = p.thumb;
-      p.el.querySelector(".w-img").append(img);
+      p.img = new Image(); p.img.alt = ""; p.img.decoding = "async"; p.img.src = p.thumb;
+      p.el.querySelector(".w-img").append(p.img);
+    }
+    // the GIF only plays while the card is on screen; otherwise the still
+    if (p.anim && p.img && now - (p.animCheck || 0) > 300) {
+      p.animCheck = now;
+      const visible = p.x + p.w > cam && p.x < cam + vw;
+      if (visible && !p.animOn) {
+        p.animOn = true;
+        const g = new Image(); g.decoding = "async";
+        g.onload = () => { if (p.animOn) p.img.src = g.src; };
+        g.src = p.anim;
+      } else if (!visible && p.animOn) { p.animOn = false; p.img.src = p.thumb; }
     }
     const d = Math.abs(me.x - (p.x + p.w / 2));
     if (d < p.w / 2 + 16 && (!near || d < near.d)) near = Object.assign(p, { d });

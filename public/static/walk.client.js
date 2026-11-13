@@ -76,7 +76,7 @@ const handle = (a) => `crow-${String(a).slice(0, 4)}`;
 function makeAvatar(name, self) {
   const el = document.createElement("div");
   el.className = `w-av${self ? " me" : ""}`;
-  el.innerHTML = `<span class="w-bubble" hidden></span><span class="w-name"></span><span class="w-body"><i class="w-head"></i><i class="w-beak"></i><i class="w-leg l"></i><i class="w-leg r"></i></span>`;
+  el.innerHTML = `<span class="w-bubble" hidden></span><span class="w-name"></span><span class="w-blob"><span class="w-goo"><i class="w-drip a"></i><i class="w-drip b"></i></span><span class="w-eyes"><i class="w-eye"></i><i class="w-eye"></i></span></span>`;
   el.querySelector(".w-name").textContent = name;
   world.append(el);
   return el;
@@ -135,6 +135,7 @@ talk.onsubmit = (e) => {
 let last = performance.now(), cam = 0, lastSent = 0, sentState = "";
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  blobDt = dt;
   const dir = (keys.has("right") || keys.has("d") ? 1 : 0) - (keys.has("left") || keys.has("a") ? 1 : 0);
   me.walking = dir !== 0;
   if (dir) me.f = dir;
@@ -225,11 +226,48 @@ for (const el of Object.values(edges)) {
   });
 }
 
+// The blob: light and wobbly while walking, slowly melting into a puddle while standing still.
+// Eyes look around on their own, follow the walking direction, and blink now and then.
+let blobDt = 0.016;
 function place(a) {
-  a.el.style.transform = `translate3d(${a.x}px,${-a.y}px,0)`;
-  a.el.classList.toggle("walking", !!a.walking && a.y === 0);
-  a.el.classList.toggle("air", a.y > 0);
-  a.el.classList.toggle("left", a.f < 0);
+  const dt = blobDt, now = performance.now();
+  const walking = !!a.walking && a.y <= 0.5, air = a.y > 0.5;
+  if (!a.goo) {
+    a.goo = a.el.querySelector(".w-goo"); a.eyes = a.el.querySelector(".w-eyes"); a.blob = a.el.querySelector(".w-blob");
+    a.melt = 0; a.phase = Math.random() * 6; a.lx = 0; a.ly = 0; a.tlx = 0; a.tly = 0; a.nextLook = 0; a.nextBlink = now + 1500;
+  }
+  a.melt = walking || air ? Math.max(0, a.melt - dt * 3) : Math.min(1, a.melt + dt * 0.25);
+  const m = a.melt * a.melt * (3 - 2 * a.melt);                      // smoothstep: sag starts slow
+  a.phase += dt * (walking ? 13 : 1.6);
+
+  let sx, sy, rot = 0, hop = 0;
+  if (air) { sx = 0.86; sy = 1.18; rot = 8 * a.f; }
+  else if (walking) {
+    const s2 = Math.sin(a.phase * 2);
+    sx = 1 - 0.09 * s2; sy = 1 + 0.12 * s2;
+    rot = 7 * Math.sin(a.phase) * a.f;
+    hop = Math.abs(Math.sin(a.phase)) * 6;
+  } else {
+    const breathe = 0.025 * Math.sin(a.phase);
+    sx = 1 + 0.6 * m - breathe; sy = 1 - 0.55 * m + breathe;
+  }
+  a.el.style.transform = `translate3d(${a.x}px,${-(a.y + hop)}px,0)`;
+  a.goo.style.transform = `rotate(${rot.toFixed(1)}deg) scale(${sx.toFixed(3)},${sy.toFixed(3)})`;
+  a.blob.style.setProperty("--melt", m.toFixed(3));
+
+  // eyes: wander when idle, look ahead when walking
+  if (now > a.nextLook) {
+    a.tlx = (Math.random() * 2 - 1) * 4; a.tly = Math.random() * 3 - 1;
+    a.nextLook = now + 900 + Math.random() * 2400;
+  }
+  const tx = walking || air ? 4 * a.f : a.tlx, ty = walking ? -1 : a.tly;
+  a.lx += (tx - a.lx) * Math.min(1, dt * 8); a.ly += (ty - a.ly) * Math.min(1, dt * 8);
+  let blink = 1;
+  if (now > a.nextBlink) { blink = 0.1; if (now > a.nextBlink + 130) a.nextBlink = now + 1800 + Math.random() * 3500; }
+  const sag = 40 * (1 - sy);
+  const eyeY = Math.max(0, sag * 0.55);                              // eyes ride the top as it sags
+  (a.name ||= a.el.querySelector(".w-name")).style.transform = `translateY(${Math.max(0, sag - 2).toFixed(1)}px)`;
+  a.eyes.style.transform = `translate(calc(-50% + ${(a.lx + rot * 0.3).toFixed(1)}px), ${(eyeY + a.ly).toFixed(1)}px) scaleY(${blink})`;
 }
 requestAnimationFrame(frame);
 
